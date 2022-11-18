@@ -22,7 +22,7 @@ namespace Xiangqi.ChessPiece
         // Update is called once per frame
         void Update()
         {
-            transform.position = CoordinateManager.GetCoordinateFromChessboardCell(cell);
+            // transform.position = CoordinateManager.GetCoordinateFromChessboardCell(cell);
         }
 
         private void OnMouseDown()

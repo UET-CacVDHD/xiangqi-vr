@@ -1,15 +1,64 @@
-using Xiangqi.Util;
 using UnityEngine;
+using Xiangqi.Util;
 
 public class CoordinateManager : MonoBehaviour
 {
-    public static readonly Vector3 P1 = new Vector3(0, 0, 0);
-    public static readonly Vector3 P2 = new Vector3(1, 0, 0);
-    public static readonly Vector3 P3 = new Vector3(0, 0, 1);
+    public GameObject HBase;
+    public GameObject Hx;
+    public GameObject Hy;
+    public GameObject HintIndicator;
 
-    public static Vector3 GetCoordinateFromChessboardCell(Cell cell)
+    private readonly GameObject[] _hintIndicators = new GameObject[90];
+
+    private Vector3 _offsetColPerUnit;
+    private Vector3 _offsetRowPerUnit;
+
+    private void Start()
     {
-        // TODO
-        return new Vector3();
+        var HBaseVec = HBase.transform.position;
+        var HxVec = Hx.transform.position;
+        var HyVec = Hy.transform.position;
+
+        _offsetColPerUnit = (HBaseVec - HxVec).magnitude * (HxVec - HBaseVec).normalized;
+        _offsetRowPerUnit = (HBaseVec - HyVec).magnitude * (HyVec - HBaseVec).normalized;
+
+
+        for (var i = 0; i < 10; i++)
+        for (var j = 0; j < 9; j++)
+        {
+            var hintIndicator = Instantiate(HintIndicator);
+            _hintIndicators[i * 9 + j] = hintIndicator;
+            var position = new Cell(j + 1, i + 1);
+            hintIndicator.transform.position = GetCoordinateFromChessboardCell(position);
+            hintIndicator.GetComponent<HintBehavior>().SetPosition(position);
+            // disable collider
+            // _hintIndicators[i * 9 + j].GetComponent<HintBehavior>().ToggleHint(false);
+        }
     }
+
+    private void FixedUpdate()
+    {
+        // var HBaseVec = HBase.transform.position;
+        // var HxVec = Hx.transform.position;
+        // var HyVec = Hy.transform.position;
+        //
+        // _offsetColPerUnit = (HBaseVec - HxVec).magnitude * (HxVec - HBaseVec).normalized;
+        // _offsetRowPerUnit = (HBaseVec - HyVec).magnitude * (HyVec - HBaseVec).normalized;
+        //
+        // for (var i = 0; i < 10; i++)
+        // for (var j = 0; j < 9; j++)
+        //     testArr[i * 9 + j].transform.position = GetCoordinateFromChessboardCell(new Cell(j + 1, i + 1));
+    }
+
+    public Vector3 GetCoordinateFromChessboardCell(Cell cell)
+    {
+        var HBaseVec = HBase.transform.position;
+        return HBaseVec + _offsetColPerUnit * (cell.Col - 1) + _offsetRowPerUnit * (cell.Row - 1);
+    }
+
+    // public void ToggleHintIndicator(Cell cell, bool isEnabled)
+    // {
+    //     _hintIndicators[(cell.Row - 1) * 9 + cell.Col - 1].GetComponent<MeshRenderer>().enabled = isEnabled;
+    //     _hintIndicators[(cell.Row - 1) * 9 + cell.Col - 1].GetComponent<Collider>().enabled = isEnabled;
+    // }
 }

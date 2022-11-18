@@ -14,6 +14,11 @@ namespace Xiangqi.Util
             _colLowerBound = colLowerBound;
             _colUpperBound = colUpperBound;
         }
+        
+        public bool IsWithinBoundary(int row, int col)
+        {
+            return row >= _rowLowerBound && row <= _rowUpperBound && col >= _colLowerBound && col <= _colUpperBound;
+        }
 
         public int RowLowerBound => _rowLowerBound;
 
