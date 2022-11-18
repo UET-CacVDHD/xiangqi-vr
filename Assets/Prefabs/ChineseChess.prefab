@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2269720339929057240}
   - component: {fileID: 3916932384312324227}
   m_Layer: 0
-  m_Name: R-che001
+  m_Name: R-rook2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 22
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2269720339929057240
 MeshFilter:
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1348336855276624440}
   - component: {fileID: 4869177834535438985}
   m_Layer: 0
-  m_Name: R-ma001
+  m_Name: R-horse1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,7 +114,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 25
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1348336855276624440
 MeshFilter:
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 4721938725730868040}
   - component: {fileID: 4999530421773310424}
   m_Layer: 0
-  m_Name: R-bing004
+  m_Name: R-soldier3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -197,7 +197,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 20
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4721938725730868040
 MeshFilter:
@@ -278,9 +278,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2789389712853211871}
-  - {fileID: 4227692506430686063}
   - {fileID: 6467807370965890596}
   - {fileID: 5636429669865460423}
+  - {fileID: 4227692506430686063}
   - {fileID: 5697119410143810270}
   - {fileID: 1850733894312190229}
   - {fileID: 5678800494147539198}
@@ -294,22 +294,23 @@ Transform:
   - {fileID: 271729251102818543}
   - {fileID: 3158220844978508301}
   - {fileID: 1609114180908627371}
-  - {fileID: 3187823693290483028}
-  - {fileID: 448108943990031355}
+  - {fileID: 3947402772056066087}
   - {fileID: 1173367243143658900}
   - {fileID: 6820585629824899383}
-  - {fileID: 3947402772056066087}
-  - {fileID: 6073577050466724146}
-  - {fileID: 3938474174514665388}
-  - {fileID: 2825377446206892463}
-  - {fileID: 4006111168795539127}
-  - {fileID: 2710066957778370714}
+  - {fileID: 448108943990031355}
+  - {fileID: 3187823693290483028}
   - {fileID: 8425031532368168035}
   - {fileID: 8524687565904418561}
-  - {fileID: 7691868816473515595}
-  - {fileID: 7059395512908186095}
+  - {fileID: 3938474174514665388}
+  - {fileID: 6073577050466724146}
+  - {fileID: 4006111168795539127}
+  - {fileID: 2710066957778370714}
   - {fileID: 6205799430174697705}
   - {fileID: 25004049475630167}
+  - {fileID: 7059395512908186095}
+  - {fileID: 7691868816473515595}
+  - {fileID: 2825377446206892463}
+  - {fileID: 3830910829311964991}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -325,7 +326,7 @@ GameObject:
   - component: {fileID: 3368451104076500399}
   - component: {fileID: 4018107406684520180}
   m_Layer: 0
-  m_Name: R-shi002
+  m_Name: R-advisor1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -408,7 +409,7 @@ GameObject:
   - component: {fileID: 5774949905696950747}
   - component: {fileID: 2714957706100567364}
   m_Layer: 0
-  m_Name: R-ma002
+  m_Name: R-horse2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -427,7 +428,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 26
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5774949905696950747
 MeshFilter:
@@ -491,7 +492,7 @@ GameObject:
   - component: {fileID: 5751429374893991758}
   - component: {fileID: 3742152912050086637}
   m_Layer: 0
-  m_Name: B-che001
+  m_Name: B-rook1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -658,7 +659,7 @@ GameObject:
   - component: {fileID: 7768085524214339809}
   - component: {fileID: 1402435968164927723}
   m_Layer: 0
-  m_Name: B-bing003
+  m_Name: B-soldier4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -677,7 +678,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7768085524214339809
 MeshFilter:
@@ -741,7 +742,7 @@ GameObject:
   - component: {fileID: 3384025313687198795}
   - component: {fileID: 3820214592435909143}
   m_Layer: 0
-  m_Name: B-bing006
+  m_Name: B-soldier5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -824,7 +825,7 @@ GameObject:
   - component: {fileID: 6361346582225429024}
   - component: {fileID: 8630594781513497562}
   m_Layer: 0
-  m_Name: R-bing001
+  m_Name: R-soldier5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -843,7 +844,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 17
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6361346582225429024
 MeshFilter:
@@ -907,7 +908,7 @@ GameObject:
   - component: {fileID: 7192920079209205898}
   - component: {fileID: 8313716782247171866}
   m_Layer: 0
-  m_Name: R-pao002
+  m_Name: R-cannon2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -926,7 +927,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 28
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7192920079209205898
 MeshFilter:
@@ -990,7 +991,7 @@ GameObject:
   - component: {fileID: 1683322460016510604}
   - component: {fileID: 3129880584581903368}
   m_Layer: 0
-  m_Name: R-jiang001
+  m_Name: R-general1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1009,7 +1010,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 24
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1683322460016510604
 MeshFilter:
@@ -1156,7 +1157,7 @@ GameObject:
   - component: {fileID: 6802112997368329609}
   - component: {fileID: 8349587609190162834}
   m_Layer: 0
-  m_Name: R-bing002
+  m_Name: R-soldier4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1175,7 +1176,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 18
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6802112997368329609
 MeshFilter:
@@ -1239,7 +1240,7 @@ GameObject:
   - component: {fileID: 8129300660988065005}
   - component: {fileID: 7098988238717538451}
   m_Layer: 0
-  m_Name: B-ma002
+  m_Name: B-horse2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1393,6 +1394,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5733791212435447459
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3830910829311964991}
+  m_Layer: 0
+  m_Name: CoordinateManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3830910829311964991
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5733791212435447459}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 316875371647937531}
+  m_RootOrder: 33
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5938543558175999423
 GameObject:
   m_ObjectHideFlags: 0
@@ -1405,7 +1437,7 @@ GameObject:
   - component: {fileID: 930183125047443569}
   - component: {fileID: 6572603544390970370}
   m_Layer: 0
-  m_Name: R-pao001
+  m_Name: R-cannon1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1419,12 +1451,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5938543558175999423}
   m_LocalRotation: {x: -0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: -0.26074806, y: 0.20877661, z: 0.3243808}
+  m_LocalPosition: {x: -0.26074803, y: 0.2087766, z: 0.3243808}
   m_LocalScale: {x: 0.24510343, y: 0.24510343, z: 0.24510343}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 27
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &930183125047443569
 MeshFilter:
@@ -1571,7 +1603,7 @@ GameObject:
   - component: {fileID: 8375148442966649302}
   - component: {fileID: 9001841803592361508}
   m_Layer: 0
-  m_Name: B-ma001
+  m_Name: B-horse1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1654,7 +1686,7 @@ GameObject:
   - component: {fileID: 1378105186527934382}
   - component: {fileID: 654292563174979980}
   m_Layer: 0
-  m_Name: R-shi001
+  m_Name: R-advisor2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1673,7 +1705,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 29
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1378105186527934382
 MeshFilter:
@@ -1737,7 +1769,7 @@ GameObject:
   - component: {fileID: 7007349891207985386}
   - component: {fileID: 1533608257780153965}
   m_Layer: 0
-  m_Name: R-bing003
+  m_Name: R-soldier2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1756,7 +1788,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7007349891207985386
 MeshFilter:
@@ -1903,7 +1935,7 @@ GameObject:
   - component: {fileID: 458149299059056210}
   - component: {fileID: 5090400927441220563}
   m_Layer: 0
-  m_Name: B-che002
+  m_Name: B-rook2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1986,7 +2018,7 @@ GameObject:
   - component: {fileID: 2322019941504247925}
   - component: {fileID: 1270617562498853246}
   m_Layer: 0
-  m_Name: R-xiang002
+  m_Name: R-elephant2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2005,7 +2037,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 32
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2322019941504247925
 MeshFilter:
@@ -2069,7 +2101,7 @@ GameObject:
   - component: {fileID: 395337040275196252}
   - component: {fileID: 6229842032524854483}
   m_Layer: 0
-  m_Name: R-che002
+  m_Name: R-rook1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2088,7 +2120,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &395337040275196252
 MeshFilter:
@@ -2152,7 +2184,7 @@ GameObject:
   - component: {fileID: 2582444662383885702}
   - component: {fileID: 6192183893886675276}
   m_Layer: 0
-  m_Name: B-bing004
+  m_Name: B-soldier2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2171,7 +2203,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2582444662383885702
 MeshFilter:
@@ -2318,7 +2350,7 @@ GameObject:
   - component: {fileID: 321783201833019512}
   - component: {fileID: 2149655826500214476}
   m_Layer: 0
-  m_Name: B-bing005
+  m_Name: B-soldier3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2337,7 +2369,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &321783201833019512
 MeshFilter:
@@ -2567,7 +2599,7 @@ GameObject:
   - component: {fileID: 4056912158990822111}
   - component: {fileID: 3406344743149041309}
   m_Layer: 0
-  m_Name: R-xiang001
+  m_Name: R-elephant1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2586,7 +2618,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 31
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4056912158990822111
 MeshFilter:
@@ -2650,7 +2682,7 @@ GameObject:
   - component: {fileID: 4607925331909305302}
   - component: {fileID: 5078423866054207507}
   m_Layer: 0
-  m_Name: B-bing002
+  m_Name: B-soldier1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2733,7 +2765,7 @@ GameObject:
   - component: {fileID: 3138587085378292590}
   - component: {fileID: 9193895178726741428}
   m_Layer: 0
-  m_Name: R-bing005
+  m_Name: R-soldier1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2752,7 +2784,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 316875371647937531}
-  m_RootOrder: 21
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3138587085378292590
 MeshFilter:

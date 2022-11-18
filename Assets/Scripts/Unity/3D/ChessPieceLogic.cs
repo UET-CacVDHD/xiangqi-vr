@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ChessPieceLogic : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class ChessPieceLogic : MonoBehaviour
     void OnMouseDown()
     {
         Debug.Log("Clicked on " + gameObject.name + DateTime.Now.ToFileTime());
+        Debug.Log(transform.position);
+        Debug.Log(new Vector3(0, 1, 1 ) + new Vector3(1, 1, 0));
     }
-    
-    
 }
