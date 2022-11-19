@@ -1,8 +1,9 @@
 using UnityEngine;
-using Xiangqi.Util;
+using Xiangqi.Movement;
 
 public class CoordinateManager : MonoBehaviour
 {
+    public static CoordinateManager Instance;
     public GameObject HBase;
     public GameObject Hx;
     public GameObject Hy;
@@ -15,6 +16,14 @@ public class CoordinateManager : MonoBehaviour
 
     private void Start()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+
         var HBaseVec = HBase.transform.position;
         var HxVec = Hx.transform.position;
         var HyVec = Hy.transform.position;

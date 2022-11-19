@@ -1,5 +1,5 @@
 using UnityEngine;
-using Xiangqi.Util;
+using Xiangqi.Movement;
 
 public class HintBehavior : MonoBehaviour
 {
@@ -12,7 +12,6 @@ public class HintBehavior : MonoBehaviour
         if (!_isEnabled) return;
 
         // send to CoordinateManager its position
-
     }
 
     private void OnMouseOver()

@@ -3,5 +3,5 @@ using Xiangqi.ChessPiece;
 
 public class GameSnapshot : MonoBehaviour
 {
-    private ChessPiece[,] board = new ChessPiece[10, 9];
+    private readonly ChessPiece[,] board = new ChessPiece[10, 9];
 }

@@ -1,6 +1,7 @@
 using System;
+using Xiangqi.Util;
 
-namespace Xiangqi.Util
+namespace Xiangqi.Movement
 {
     // Cell index starts from 1
     // 
@@ -23,7 +24,7 @@ namespace Xiangqi.Util
 
         public Tuple<int, int> RedAsBlack()
         {
-            return new Tuple<int, int>(10 - Row, 9 - Col);
+            return new Tuple<int, int>(Constant.BoardHeight - Row, Constant.BoardWidth - Col);
         }
     }
 }
