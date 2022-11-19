@@ -1,5 +1,6 @@
 using UnityEngine;
 using Xiangqi.Movement;
+using Xiangqi.Util;
 
 public class CoordinateManager : MonoBehaviour
 {
@@ -32,12 +33,12 @@ public class CoordinateManager : MonoBehaviour
         _offsetRowPerUnit = (HBaseVec - HyVec).magnitude * (HyVec - HBaseVec).normalized;
 
 
-        for (var i = 0; i < 10; i++)
-        for (var j = 0; j < 9; j++)
+        for (var i = 0; i < Constant.BoardRows; i++)
+        for (var j = 0; j < Constant.BoardCols; j++)
         {
             var hintIndicator = Instantiate(HintIndicator);
-            _hintIndicators[i * 9 + j] = hintIndicator;
-            var position = new Cell(j + 1, i + 1);
+            _hintIndicators[i * Constant.BoardCols + j] = hintIndicator;
+            var position = new Cell(i + 1, j + 1);
             hintIndicator.transform.position = GetCoordinateFromChessboardCell(position);
             hintIndicator.GetComponent<HintBehavior>().SetPosition(position);
             // disable collider
@@ -45,29 +46,15 @@ public class CoordinateManager : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-        // var HBaseVec = HBase.transform.position;
-        // var HxVec = Hx.transform.position;
-        // var HyVec = Hy.transform.position;
-        //
-        // _offsetColPerUnit = (HBaseVec - HxVec).magnitude * (HxVec - HBaseVec).normalized;
-        // _offsetRowPerUnit = (HBaseVec - HyVec).magnitude * (HyVec - HBaseVec).normalized;
-        //
-        // for (var i = 0; i < 10; i++)
-        // for (var j = 0; j < 9; j++)
-        //     testArr[i * 9 + j].transform.position = GetCoordinateFromChessboardCell(new Cell(j + 1, i + 1));
-    }
-
     public Vector3 GetCoordinateFromChessboardCell(Cell cell)
     {
         var HBaseVec = HBase.transform.position;
-        return HBaseVec + _offsetColPerUnit * (cell.Col - 1) + _offsetRowPerUnit * (cell.Row - 1);
+        return HBaseVec + _offsetRowPerUnit * (cell.Row - 1) + _offsetColPerUnit * (cell.Col - 1);
     }
 
     // public void ToggleHintIndicator(Cell cell, bool isEnabled)
     // {
-    //     _hintIndicators[(cell.Row - 1) * 9 + cell.Col - 1].GetComponent<MeshRenderer>().enabled = isEnabled;
-    //     _hintIndicators[(cell.Row - 1) * 9 + cell.Col - 1].GetComponent<Collider>().enabled = isEnabled;
+    //     _hintIndicators[(cell.Row - 1) * Constant.BoardCols + cell.Col - 1].GetComponent<MeshRenderer>().enabled = isEnabled;
+    //     _hintIndicators[(cell.Row - 1) * Constant.BoardCols + cell.Col - 1].GetComponent<Collider>().enabled = isEnabled;
     // }
 }

@@ -14,6 +14,7 @@ namespace Xiangqi.ChessPiece
         protected Cell cell;
         protected bool isDeath;
         protected ArrayList paths;
+        protected SideRelativeCell relativeCell;
         protected string side;
 
         public Boundary Boundary
@@ -50,15 +51,15 @@ namespace Xiangqi.ChessPiece
         {
             paths = new ArrayList
             {
-                new Path(new ArrayList { Direction.Up }, Constant.BoardHeight),
-                new Path(new ArrayList { Direction.Right }, Constant.BoardWidth),
-                new Path(new ArrayList { Direction.Down }, Constant.BoardHeight),
-                new Path(new ArrayList { Direction.Left }, Constant.BoardWidth)
+                new Path(new ArrayList { Direction.Up }, Constant.BoardRows),
+                new Path(new ArrayList { Direction.Right }, Constant.BoardCols),
+                new Path(new ArrayList { Direction.Down }, Constant.BoardRows),
+                new Path(new ArrayList { Direction.Left }, Constant.BoardCols)
             };
             ShowMovableCells();
         }
 
-        // Update is called once per frame
+        // Update coordinate based on Cell per frame
         private void Update()
         {
             transform.position = CoordinateManager.Instance.GetCoordinateFromChessboardCell(cell);
@@ -71,6 +72,7 @@ namespace Xiangqi.ChessPiece
 
         protected void ShowMovableCells()
         {
+            var sideRelativeCell = cell.GetSideRelativeCell(side);
             foreach (Path path in paths)
             {
                 var crossBoundary = false;
@@ -79,11 +81,12 @@ namespace Xiangqi.ChessPiece
                 {
                     if (crossBoundary) break;
                     foreach (Direction dir in path.Directions)
-                        if (!boundary.IsWithinBoundary(cell.Row + dir.DeltaRow * i, cell.Col + dir.DeltaCol * i))
+                        if (!boundary.IsWithinBoundary(sideRelativeCell.Row + dir.DeltaRow * i,
+                                sideRelativeCell.Col + dir.DeltaCol * i))
                             crossBoundary = true;
                         else
-                            Debug.Log(
-                                string.Format("{0} {1}", cell.Row + dir.DeltaRow * i, cell.Col + dir.DeltaCol * i));
+                            Debug.Log(new SideRelativeCell(sideRelativeCell.Row + dir.DeltaRow * i,
+                                sideRelativeCell.Col + dir.DeltaCol * i).GetCell(side));
                 }
             }
         }

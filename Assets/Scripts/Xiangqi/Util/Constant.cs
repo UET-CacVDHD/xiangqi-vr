@@ -2,7 +2,8 @@
 {
     public class Constant
     {
-        public const int BoardWidth = 9;
-        public const int BoardHeight = 10;
+        public const int BoardCols = 9;
+        public const int BoardRows = 10;
+        public const int BoardRiver = 5;
     }
 }

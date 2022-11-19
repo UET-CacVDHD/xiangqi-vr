@@ -1,10 +1,12 @@
+using Xiangqi.Util;
+
 namespace Xiangqi.Movement
 {
     public class Boundary
     {
-        public static Boundary Full = new(1, 9, 1, 9);
-        public static Boundary River = new(1, 9, 1, 5);
-        public static Boundary Palace = new(4, 6, 1, 3);
+        public static Boundary Full = new(1, Constant.BoardRows, 1, Constant.BoardCols);
+        public static Boundary River = new(1, Constant.BoardRiver, 1, Constant.BoardCols);
+        public static Boundary Palace = new(1, 3, 4, 6);
 
         public Boundary(int rowLowerBound, int rowUpperBound, int colLowerBound, int colUpperBound)
         {

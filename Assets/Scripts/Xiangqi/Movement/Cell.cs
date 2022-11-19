@@ -1,13 +1,13 @@
-using System;
+using Xiangqi.Enum;
 using Xiangqi.Util;
 
 namespace Xiangqi.Movement
 {
-    // Cell index starts from 1
-    // 
+    // Cell row index range: 1 (the lower left conner of the chessboard) -> 9.
+    // Cell col index range: 1 (the lower left conner of the chessboard) -> 10.
     public class Cell
     {
-        public Cell(int col, int row)
+        public Cell(int row, int col)
         {
             Row = row;
             Col = col;
@@ -17,14 +17,16 @@ namespace Xiangqi.Movement
 
         public int Col { get; set; }
 
-        public Tuple<int, int> RedAsRed()
+        public override string ToString()
         {
-            return new Tuple<int, int>(Row, Col);
+            return $"Cell: ({Row}, {Col})";
         }
 
-        public Tuple<int, int> RedAsBlack()
+        public SideRelativeCell GetSideRelativeCell(string side)
         {
-            return new Tuple<int, int>(Constant.BoardHeight - Row, Constant.BoardWidth - Col);
+            if (side == Side.Red)
+                return new SideRelativeCell(Row, Col);
+            return new SideRelativeCell(Constant.BoardRows - Row + 1, Constant.BoardCols - Col + 1);
         }
     }
 }
