@@ -2,7 +2,7 @@ namespace Xiangqi.Enum
 {
     public class Side
     {
-        public const string Red = "R";
-        public const string Black = "B";
+        public const string Red = "Red";
+        public const string Black = "Black";
     }
 }

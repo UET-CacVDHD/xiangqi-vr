@@ -3,6 +3,7 @@ using Xiangqi.Util;
 
 namespace Xiangqi.Movement
 {
+    // Cell is calculated base on chess piece side
     public class SideRelativeCell
     {
         public SideRelativeCell(int row, int col)
@@ -19,11 +20,22 @@ namespace Xiangqi.Movement
             return $"Relative cell: ({Row}, {Col})";
         }
 
+        public void MoveAlongDirection(Direction dir, int step)
+        {
+            Row += dir.DeltaRow * step;
+            Col += dir.DeltaCol * step;
+        }
+
+        public void MoveAlongPath(Path path, int step)
+        {
+            foreach (var dir in path.directions) MoveAlongDirection(dir, step);
+        }
+
         public Cell GetCell(string side)
         {
-            if (side == Side.Red)
-                return new Cell(Row, Col);
-            return new Cell(Constant.BoardRows - Row + 1, Constant.BoardCols - Col + 1);
+            return side == Side.Red
+                ? new Cell(Row, Col)
+                : new Cell(Constant.BoardRows - Row + 1, Constant.BoardCols - Col + 1);
         }
     }
 }

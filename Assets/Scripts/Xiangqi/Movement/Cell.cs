@@ -1,3 +1,5 @@
+using System;
+using UnityEngine;
 using Xiangqi.Enum;
 using Xiangqi.Util;
 
@@ -5,17 +7,35 @@ namespace Xiangqi.Movement
 {
     // Cell row index range: 1 (the lower left conner of the chessboard) -> 9.
     // Cell col index range: 1 (the lower left conner of the chessboard) -> 10.
+    [Serializable]
     public class Cell
     {
+        [SerializeField] private int col;
+        [SerializeField] private int row;
+
         public Cell(int row, int col)
         {
-            Row = row;
-            Col = col;
+            this.col = col;
+            this.row = row;
         }
 
-        public int Row { get; set; }
+        public Cell(Cell c)
+        {
+            col = c.col;
+            row = c.row;
+        }
 
-        public int Col { get; set; }
+        public int Col
+        {
+            get => col;
+            set => col = value;
+        }
+
+        public int Row
+        {
+            get => row;
+            set => row = value;
+        }
 
         public override string ToString()
         {
@@ -24,9 +44,9 @@ namespace Xiangqi.Movement
 
         public SideRelativeCell GetSideRelativeCell(string side)
         {
-            if (side == Side.Red)
-                return new SideRelativeCell(Row, Col);
-            return new SideRelativeCell(Constant.BoardRows - Row + 1, Constant.BoardCols - Col + 1);
+            return side == Side.Red
+                ? new SideRelativeCell(Row, Col)
+                : new SideRelativeCell(Constant.BoardRows - Row + 1, Constant.BoardCols - Col + 1);
         }
     }
 }

@@ -1,17 +1,17 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
+using Xiangqi.Enum;
 
 namespace Xiangqi.Movement
 {
     public class Path
     {
-        public Path(ArrayList directions, int maxSteps)
+        public List<Direction> directions;
+        public int maxSteps;
+
+        public Path(List<Direction> directions, int maxSteps)
         {
-            Directions = directions;
-            MaxSteps = maxSteps;
+            this.directions = directions;
+            this.maxSteps = maxSteps;
         }
-
-        public ArrayList Directions { get; }
-
-        public int MaxSteps { get; }
     }
 }

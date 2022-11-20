@@ -1,62 +1,26 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Xiangqi.Enum;
 using Xiangqi.Movement;
-using Xiangqi.Util;
 
 namespace Xiangqi.ChessPiece
 {
     [Serializable]
     public class ChessPiece : MonoBehaviour
     {
+        public static ChessPiece[,] chessboard;
+        [SerializeField] public Cell cell;
+        [SerializeField] public bool isDeath;
+        [SerializeField] public string side;
+        [SerializeField] public string type;
         protected Boundary boundary;
-        protected Cell cell;
-        protected bool isDeath;
-        protected ArrayList paths;
-        protected SideRelativeCell relativeCell;
-        protected string side;
+        protected List<Path> paths;
 
         public Boundary Boundary
         {
             get => boundary;
             set => boundary = value;
-        }
-
-        public Cell Cell
-        {
-            get => cell;
-            set => cell = value;
-        }
-
-        public bool IsDeath
-        {
-            get => isDeath;
-            set => isDeath = value;
-        }
-
-        public ArrayList Paths
-        {
-            get => paths;
-            set => paths = value;
-        }
-
-        public string Side
-        {
-            get => side;
-            set => side = value;
-        }
-
-        private void Start()
-        {
-            paths = new ArrayList
-            {
-                new Path(new ArrayList { Direction.Up }, Constant.BoardRows),
-                new Path(new ArrayList { Direction.Right }, Constant.BoardCols),
-                new Path(new ArrayList { Direction.Down }, Constant.BoardRows),
-                new Path(new ArrayList { Direction.Left }, Constant.BoardCols)
-            };
-            ShowMovableCells();
         }
 
         // Update coordinate based on Cell per frame
@@ -68,25 +32,53 @@ namespace Xiangqi.ChessPiece
         public void OnMouseDown()
         {
             Debug.Log(gameObject + "is clicked");
+            ShowMovableCells();
         }
 
         protected void ShowMovableCells()
         {
-            var sideRelativeCell = cell.GetSideRelativeCell(side);
-            foreach (Path path in paths)
+            foreach (var path in paths)
             {
                 var crossBoundary = false;
+                var pathIsBlocked = false;
+                var obstacle = 0;
 
-                for (var i = 1; i <= path.MaxSteps; ++i)
+                for (var i = 1; i <= path.maxSteps; ++i)
                 {
-                    if (crossBoundary) break;
-                    foreach (Direction dir in path.Directions)
-                        if (!boundary.IsWithinBoundary(sideRelativeCell.Row + dir.DeltaRow * i,
-                                sideRelativeCell.Col + dir.DeltaCol * i))
+                    var relativeCell = cell.GetSideRelativeCell(side);
+                    relativeCell.MoveAlongPath(path, i - 1);
+
+                    for (var j = 0; j < path.directions.Count; ++j)
+                    {
+                        var dir = path.directions[j];
+                        if (!boundary.IsWithinBoundary(relativeCell.Row + dir.DeltaRow,
+                                relativeCell.Col + dir.DeltaCol))
+                        {
                             crossBoundary = true;
-                        else
-                            Debug.Log(new SideRelativeCell(sideRelativeCell.Row + dir.DeltaRow * i,
-                                sideRelativeCell.Col + dir.DeltaCol * i).GetCell(side));
+                            break;
+                        }
+
+                        relativeCell.MoveAlongDirection(dir, 1);
+
+                        var currentCell = relativeCell.GetCell(side);
+                        if (chessboard[currentCell.Row, currentCell.Col] == null) continue;
+
+                        if (j <= path.directions.Count - 2)
+                        {
+                            pathIsBlocked = true;
+                            break;
+                        }
+
+                        obstacle++;
+                    }
+
+                    if (crossBoundary || pathIsBlocked) break;
+                    Debug.Log(relativeCell.GetCell(side));
+
+                    if (obstacle < 1) continue;
+                    if (type == ChessType.Cannon && obstacle == 1)
+                        continue;
+                    break;
                 }
             }
         }
@@ -94,6 +86,11 @@ namespace Xiangqi.ChessPiece
         public void MoveTo(Cell cell)
         {
             this.cell = cell;
+        }
+
+        public ChessPieceStoredData GetChessPieceStoredData()
+        {
+            return new ChessPieceStoredData(cell, isDeath, side, type);
         }
     }
 }

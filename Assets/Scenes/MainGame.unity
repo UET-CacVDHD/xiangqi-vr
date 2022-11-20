@@ -509,13 +509,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: a9c66a844e09b52479cb5ea504bccc08, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1415201063}
+        m_TargetAssemblyTypeName: Unity3DGameManager, Assembly-CSharp
+        m_MethodName: LoadGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1173,7 +1173,7 @@ MonoBehaviour:
   - {fileID: 6118262865936506157, guid: 2de46c1ba66e94479a4d5fb9561851f7, type: 3}
   - {fileID: 7415371336711193296, guid: 208eadaf5b6524ad28be6591836cba34, type: 3}
   saveButton: {fileID: 2125953852}
-  loadButton: {fileID: 0}
+  loadButton: {fileID: 363021560}
 --- !u!1 &1444581316
 GameObject:
   m_ObjectHideFlags: 0
@@ -1981,7 +1981,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2125953853}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1415201063}
+        m_TargetAssemblyTypeName: Unity3DGameManager, Assembly-CSharp
+        m_MethodName: SaveGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2125953853
 MonoBehaviour:
   m_ObjectHideFlags: 0

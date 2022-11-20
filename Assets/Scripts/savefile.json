@@ -1,0 +1,31 @@
+{
+  "chessPieceStoredDataList": [
+    {
+      "cell": {
+        "col": 1,
+        "row": 1
+      },
+      "isDeath": false,
+      "side": "Red",
+      "type": "X"
+    },
+    {
+      "cell": {
+        "col": 2,
+        "row": 1
+      },
+      "isDeath": false,
+      "side": "Red",
+      "type": "M"
+    },
+    {
+      "cell": {
+        "col": 9,
+        "row": 10
+      },
+      "isDeath": false,
+      "side": "Black",
+      "type": "X"
+    }
+  ]
+}

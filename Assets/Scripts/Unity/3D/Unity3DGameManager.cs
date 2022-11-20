@@ -1,25 +1,18 @@
+using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
-using UnityEngine.UI;
 using Xiangqi.ChessPiece;
-using Xiangqi.Enum;
+using Xiangqi.Game;
 using Xiangqi.Movement;
+using Xiangqi.Util;
 
 public class Unity3DGameManager : MonoBehaviour
 {
     public GameObject selected;
     public GameObject[] chessPiecePrefabs;
-    public Button saveButton;
-    public Button loadButton;
 
-    private void Start()
-    {
-        LoadGame();
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-    }
+    private GameSnapshot _gameSnapshot;
+    private Dictionary<string, GameObject> _sideTypePrefabMap;
 
     public void Select(GameObject obj)
     {
@@ -28,33 +21,42 @@ public class Unity3DGameManager : MonoBehaviour
 
     public void SaveGame()
     {
-        
+        Debug.Log("Saving game");
+        _gameSnapshot.SaveToFile();
     }
 
     public void LoadGame()
     {
-        // TODO: remove mock func by loading data from file
-        MockGameState();
+        Debug.Log("Loading game");
+
+        var json = File.ReadAllText(Constant.SaveFilePath);
+        _gameSnapshot = JsonUtility.FromJson<GameSnapshot>(json);
+
+        InitTypeSidePrefabMap();
+        InstantiateChessPiece();
     }
 
-    private void MockGameState()
+    private void InitTypeSidePrefabMap()
     {
-        var rRook = Instantiate(chessPiecePrefabs[0], GameObject.Find("ChineseChess").transform);
-        var comp = rRook.GetComponent<ChessPiece>();
-        comp.Cell = new Cell(1, 1);
-        comp.Boundary = Boundary.Full;
-        comp.Side = Side.Red;
+        _sideTypePrefabMap = new Dictionary<string, GameObject>();
+        foreach (var prefab in chessPiecePrefabs) _sideTypePrefabMap.Add(prefab.name, prefab);
+    }
 
-        // var bRook = Instantiate(chessPiecePrefabs[1], GameObject.Find("ChineseChess").transform);
-        // var comp = bRook.GetComponent<ChessPiece>();
-        // comp.Cell = new Cell(10, 9);
-        // comp.Boundary = Boundary.Full;
-        // comp.Side = Side.Black;
+    private void InstantiateChessPiece()
+    {
+        foreach (var data in _gameSnapshot.chessPieceStoredDataList)
+        {
+            Debug.Log(data);
 
-        // var rHorse = Instantiate(chessPiecePrefabs[2], GameObject.Find("ChineseChess").transform);
-        // comp = rHorse.GetComponent<ChessPiece>();
-        // comp.Cell = new Cell(1, 2);
-        // comp.Boundary = Boundary.Full;
-        // comp.Side = Side.Red;
+            var chessPiece = Instantiate(_sideTypePrefabMap[data.side + data.type],
+                GameObject.Find("ChineseChess").transform);
+            var behavior = chessPiece.GetComponent<ChessPiece>();
+            behavior.cell = new Cell(data.cell);
+            behavior.side = data.side;
+            behavior.type = data.type;
+            _gameSnapshot.chessboard[data.cell.Row, data.cell.Col] = behavior;
+        }
+
+        ChessPiece.chessboard = _gameSnapshot.chessboard;
     }
 }

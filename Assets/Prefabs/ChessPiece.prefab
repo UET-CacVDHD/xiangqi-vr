@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5660823209847031517}
   - component: {fileID: 2127691426302085970}
   - component: {fileID: 4917652103866898751}
-  - component: {fileID: 2790241607298078663}
+  - component: {fileID: 1658084218574423132}
   m_Layer: 0
   m_Name: ChessPiece
   m_TagString: Untagged
@@ -99,7 +99,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4854516008723000418, guid: 66c05a638c974884f943a22ce11a5e7c, type: 3}
---- !u!114 &2790241607298078663
+--- !u!114 &1658084218574423132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,6 +108,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2315899592702655839}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 483ecf9bedda64ad29894cf4efa0ba95, type: 3}
+  m_Script: {fileID: 11500000, guid: fc8031b9be0646068db68c4b385b828e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cell:
+    col: 0
+    row: 0
+  isDeath: 0
+  side: 
+  type: 
