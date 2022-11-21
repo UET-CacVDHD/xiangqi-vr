@@ -19,6 +19,11 @@ public class Unity3DGameManager : MonoBehaviour
         selected = obj;
     }
 
+    public void ChangePlayerTurn(string side)
+    {
+        _gameSnapshot.turn = side;
+    }
+
     public void SaveGame()
     {
         Debug.Log("Saving game");

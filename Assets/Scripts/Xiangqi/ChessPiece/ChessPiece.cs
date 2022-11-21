@@ -32,11 +32,15 @@ namespace Xiangqi.ChessPiece
         public void OnMouseDown()
         {
             Debug.Log(gameObject + "is clicked");
-            ShowMovableCells();
+            CoordinateManager.Instance.chosenChessPiece = this;
+            var movableCells = GetMovableCells();
+            CoordinateManager.Instance.ShowHintIndicatorForAChessPiece(movableCells);
         }
 
-        protected void ShowMovableCells()
+        // TODO: split into smaller functions
+        protected List<Cell> GetMovableCells()
         {
+            var res = new List<Cell>();
             foreach (var path in paths)
             {
                 var crossBoundary = false;
@@ -73,7 +77,7 @@ namespace Xiangqi.ChessPiece
                     }
 
                     if (crossBoundary || pathIsBlocked) break;
-                    Debug.Log(relativeCell.GetCell(side));
+                    res.Add(relativeCell.GetCell(side));
 
                     if (obstacle < 1) continue;
                     if (type == ChessType.Cannon && obstacle == 1)
@@ -81,10 +85,13 @@ namespace Xiangqi.ChessPiece
                     break;
                 }
             }
+
+            return res;
         }
 
         public void MoveTo(Cell cell)
         {
+            Debug.Log("moveto" + cell);
             this.cell = cell;
         }
 

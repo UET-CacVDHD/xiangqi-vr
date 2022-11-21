@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using Xiangqi.ChessPiece;
 using Xiangqi.Movement;
 using Xiangqi.Util;
 
@@ -10,6 +12,7 @@ public class CoordinateManager : MonoBehaviour
     public GameObject Hy;
     public GameObject HintIndicator;
 
+    public ChessPiece chosenChessPiece;
     private readonly GameObject[] _hintIndicators = new GameObject[90];
 
     private Vector3 _offsetColPerUnit;
@@ -24,15 +27,22 @@ public class CoordinateManager : MonoBehaviour
         }
 
         Instance = this;
+        CalculateUnitVectors();
+        InstantiateHintIndicators();
+    }
 
+    private void CalculateUnitVectors()
+    {
         var HBaseVec = HBase.transform.position;
         var HxVec = Hx.transform.position;
         var HyVec = Hy.transform.position;
 
         _offsetColPerUnit = (HBaseVec - HxVec).magnitude * (HxVec - HBaseVec).normalized;
         _offsetRowPerUnit = (HBaseVec - HyVec).magnitude * (HyVec - HBaseVec).normalized;
+    }
 
-
+    private void InstantiateHintIndicators()
+    {
         for (var i = 0; i < Constant.BoardRows; i++)
         for (var j = 0; j < Constant.BoardCols; j++)
         {
@@ -41,20 +51,36 @@ public class CoordinateManager : MonoBehaviour
             var position = new Cell(i + 1, j + 1);
             hintIndicator.transform.position = GetCoordinateFromChessboardCell(position);
             hintIndicator.GetComponent<HintBehavior>().SetPosition(position);
-            // disable collider
-            // _hintIndicators[i * 9 + j].GetComponent<HintBehavior>().ToggleHint(false);
         }
+
+        DisableAllHintIndicators();
     }
 
     public Vector3 GetCoordinateFromChessboardCell(Cell cell)
     {
-        var HBaseVec = HBase.transform.position;
-        return HBaseVec + _offsetRowPerUnit * (cell.Row - 1) + _offsetColPerUnit * (cell.Col - 1);
+        var hBaseVec = HBase.transform.position;
+        return hBaseVec + _offsetRowPerUnit * (cell.Row - 1) + _offsetColPerUnit * (cell.Col - 1);
     }
 
-    // public void ToggleHintIndicator(Cell cell, bool isEnabled)
-    // {
-    //     _hintIndicators[(cell.Row - 1) * Constant.BoardCols + cell.Col - 1].GetComponent<MeshRenderer>().enabled = isEnabled;
-    //     _hintIndicators[(cell.Row - 1) * Constant.BoardCols + cell.Col - 1].GetComponent<Collider>().enabled = isEnabled;
-    // }
+    public void ShowHintIndicatorForAChessPiece(List<Cell> cells)
+    {
+        DisableAllHintIndicators();
+        foreach (var cell in cells) ToggleHintIndicator(cell, true);
+    }
+
+    private void DisableAllHintIndicators()
+    {
+        for (var i = 0; i < Constant.BoardRows; i++)
+        for (var j = 0; j < Constant.BoardCols; j++)
+            _hintIndicators[i * 9 + j].GetComponent<HintBehavior>().ToggleHint(false);
+    }
+
+    private void ToggleHintIndicator(Cell cell, bool isEnabled)
+    {
+        Debug.Log(cell);
+        _hintIndicators[(cell.Row - 1) * Constant.BoardCols + cell.Col - 1].GetComponent<MeshRenderer>().enabled =
+            isEnabled;
+        _hintIndicators[(cell.Row - 1) * Constant.BoardCols + cell.Col - 1].GetComponent<Collider>().enabled =
+            isEnabled;
+    }
 }

@@ -1,4 +1,5 @@
 {
+  "turn": "Red",
   "chessPieceStoredDataList": [
     {
       "cell": {
@@ -17,6 +18,15 @@
       "isDeath": false,
       "side": "Red",
       "type": "M"
+    },
+    {
+      "cell": {
+        "col": 3,
+        "row": 1
+      },
+      "isDeath": false,
+      "side": "Red",
+      "type": "T"
     },
     {
       "cell": {

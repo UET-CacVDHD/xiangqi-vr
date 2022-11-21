@@ -10,7 +10,8 @@ public class HintBehavior : MonoBehaviour
     private void OnMouseDown()
     {
         if (!_isEnabled) return;
-
+        Debug.Log(_position);
+        CoordinateManager.Instance.chosenChessPiece.MoveTo(_position);
         // send to CoordinateManager its position
     }
 

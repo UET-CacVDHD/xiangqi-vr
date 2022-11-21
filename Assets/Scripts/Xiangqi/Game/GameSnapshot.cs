@@ -10,6 +10,8 @@ namespace Xiangqi.Game
     [Serializable]
     public class GameSnapshot
     {
+        public string turn;
+
         public List<ChessPieceStoredData> chessPieceStoredDataList = new();
 
         public ChessPiece.ChessPiece[,] chessboard =
