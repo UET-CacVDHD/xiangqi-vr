@@ -8,22 +8,22 @@ namespace Xiangqi.Movement
     {
         public SideRelativeCell(int row, int col)
         {
-            Row = row;
-            Col = col;
+            this.row = row;
+            this.col = col;
         }
 
-        public int Row { get; set; }
-        public int Col { get; set; }
+        public int row;
+        public int col;
 
         public override string ToString()
         {
-            return $"Relative cell: ({Row}, {Col})";
+            return $"Relative cell: ({row}, {col})";
         }
 
         public void MoveAlongDirection(Direction dir, int step)
         {
-            Row += dir.DeltaRow * step;
-            Col += dir.DeltaCol * step;
+            row += dir.DeltaRow * step;
+            col += dir.DeltaCol * step;
         }
 
         public void MoveAlongPath(Path path, int step)
@@ -34,8 +34,8 @@ namespace Xiangqi.Movement
         public Cell GetCell(string side)
         {
             return side == Side.Red
-                ? new Cell(Row, Col)
-                : new Cell(Constant.BoardRows - Row + 1, Constant.BoardCols - Col + 1);
+                ? new Cell(row, col)
+                : new Cell(Constant.BoardRows - row + 1, Constant.BoardCols - col + 1);
         }
     }
 }

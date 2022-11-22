@@ -56,7 +56,7 @@ public class Unity3DGameManager : MonoBehaviour
             behavior.cell = new Cell(data.cell);
             behavior.side = data.side;
             behavior.type = data.type;
-            _gameSnapshot.chessboard[data.cell.Row, data.cell.Col] = behavior;
+            _gameSnapshot.chessboard[data.cell.row, data.cell.col] = behavior;
         }
 
         ChessPiece.chessboard = _gameSnapshot.chessboard;

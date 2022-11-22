@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 using Xiangqi.Enum;
 using Xiangqi.Util;
 
@@ -10,8 +9,8 @@ namespace Xiangqi.Movement
     [Serializable]
     public class Cell
     {
-        [SerializeField] private int col;
-        [SerializeField] private int row;
+        public int col;
+        public int row;
 
         public Cell(int row, int col)
         {
@@ -25,28 +24,16 @@ namespace Xiangqi.Movement
             row = c.row;
         }
 
-        public int Col
-        {
-            get => col;
-            set => col = value;
-        }
-
-        public int Row
-        {
-            get => row;
-            set => row = value;
-        }
-
         public override string ToString()
         {
-            return $"Cell: ({Row}, {Col})";
+            return $"Cell: ({row}, {col})";
         }
 
         public SideRelativeCell GetSideRelativeCell(string side)
         {
             return side == Side.Red
-                ? new SideRelativeCell(Row, Col)
-                : new SideRelativeCell(Constant.BoardRows - Row + 1, Constant.BoardCols - Col + 1);
+                ? new SideRelativeCell(row, col)
+                : new SideRelativeCell(Constant.BoardRows - row + 1, Constant.BoardCols - col + 1);
         }
     }
 }

@@ -59,7 +59,7 @@ public class CoordinateManager : MonoBehaviour
     public Vector3 GetCoordinateFromChessboardCell(Cell cell)
     {
         var hBaseVec = HBase.transform.position;
-        return hBaseVec + _offsetRowPerUnit * (cell.Row - 1) + _offsetColPerUnit * (cell.Col - 1);
+        return hBaseVec + _offsetRowPerUnit * (cell.row - 1) + _offsetColPerUnit * (cell.col - 1);
     }
 
     public void ShowHintIndicatorForAChessPiece(List<Cell> cells)
@@ -78,9 +78,9 @@ public class CoordinateManager : MonoBehaviour
     private void ToggleHintIndicator(Cell cell, bool isEnabled)
     {
         Debug.Log(cell);
-        _hintIndicators[(cell.Row - 1) * Constant.BoardCols + cell.Col - 1].GetComponent<MeshRenderer>().enabled =
+        _hintIndicators[(cell.row - 1) * Constant.BoardCols + cell.col - 1].GetComponent<MeshRenderer>().enabled =
             isEnabled;
-        _hintIndicators[(cell.Row - 1) * Constant.BoardCols + cell.Col - 1].GetComponent<Collider>().enabled =
+        _hintIndicators[(cell.row - 1) * Constant.BoardCols + cell.col - 1].GetComponent<Collider>().enabled =
             isEnabled;
     }
 }

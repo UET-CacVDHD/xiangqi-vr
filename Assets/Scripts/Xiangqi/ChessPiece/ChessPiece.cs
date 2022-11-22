@@ -55,8 +55,8 @@ namespace Xiangqi.ChessPiece
                     for (var j = 0; j < path.directions.Count; ++j)
                     {
                         var dir = path.directions[j];
-                        if (!boundary.IsWithinBoundary(relativeCell.Row + dir.DeltaRow,
-                                relativeCell.Col + dir.DeltaCol))
+                        if (!boundary.IsWithinBoundary(relativeCell.row + dir.DeltaRow,
+                                relativeCell.col + dir.DeltaCol))
                         {
                             crossBoundary = true;
                             break;
@@ -65,7 +65,7 @@ namespace Xiangqi.ChessPiece
                         relativeCell.MoveAlongDirection(dir, 1);
 
                         var currentCell = relativeCell.GetCell(side);
-                        if (chessboard[currentCell.Row, currentCell.Col] == null) continue;
+                        if (chessboard[currentCell.row, currentCell.col] == null) continue;
 
                         if (j <= path.directions.Count - 2)
                         {
