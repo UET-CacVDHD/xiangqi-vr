@@ -4,7 +4,7 @@ using System.IO;
 using UnityEngine;
 using Xiangqi.ChessPiece;
 using Xiangqi.Game;
-using Xiangqi.Movement;
+using Xiangqi.Movement.Cell;
 using Xiangqi.Util;
 
 public class Unity3DGameManager : MonoBehaviour
@@ -53,10 +53,10 @@ public class Unity3DGameManager : MonoBehaviour
             var chessPiece = Instantiate(_sideTypePrefabMap[data.side + data.type],
                 GameObject.Find("ChineseChess").transform);
             var behavior = chessPiece.GetComponent<ChessPiece>();
-            behavior.cell = new Cell(data.cell);
+            behavior.aCell = new AbsoluteCell(data.absoluteCell);
             behavior.side = data.side;
             behavior.type = data.type;
-            _gameSnapshot.chessboard[data.cell.row, data.cell.col] = behavior;
+            _gameSnapshot.chessboard[data.absoluteCell.row, data.absoluteCell.col] = behavior;
         }
 
         ChessPiece.chessboard = _gameSnapshot.chessboard;

@@ -1,5 +1,6 @@
 using System;
-using Xiangqi.Movement;
+using UnityEngine.Serialization;
+using Xiangqi.Movement.Cell;
 
 namespace Xiangqi.ChessPiece
 {
@@ -10,14 +11,14 @@ namespace Xiangqi.ChessPiece
     [Serializable]
     public class ChessPieceStoredData
     {
-        public Cell cell;
+        [FormerlySerializedAs("cell")] public AbsoluteCell absoluteCell;
         public bool isDeath;
         public string side;
         public string type;
 
-        public ChessPieceStoredData(Cell cell, bool isDeath, string side, string type)
+        public ChessPieceStoredData(AbsoluteCell absoluteCell, bool isDeath, string side, string type)
         {
-            this.cell = cell;
+            this.absoluteCell = absoluteCell;
             this.isDeath = isDeath;
             this.side = side;
             this.type = type;
@@ -25,7 +26,7 @@ namespace Xiangqi.ChessPiece
 
         public override string ToString()
         {
-            return "Cell: " + cell + " isDeath: " + isDeath + " side: " + side + " type: " + type;
+            return "Cell: " + absoluteCell + " isDeath: " + isDeath + " side: " + side + " type: " + type;
         }
     }
 }

@@ -1,6 +1,6 @@
 using Xiangqi.Util;
 
-namespace Xiangqi.Movement
+namespace Xiangqi.Movement.Cell
 {
     public class Boundary
     {
@@ -24,10 +24,11 @@ namespace Xiangqi.Movement
 
         public int ColUpperBound { get; }
 
-        public bool IsWithinBoundary(Cell cell)
+        public bool IsWithinBoundary(AbsoluteCell absoluteCell)
         {
-            return cell.row >= RowLowerBound && cell.row <= RowUpperBound && cell.col >= ColLowerBound &&
-                   cell.col <= ColUpperBound;
+            return absoluteCell.row >= RowLowerBound && absoluteCell.row <= RowUpperBound &&
+                   absoluteCell.col >= ColLowerBound &&
+                   absoluteCell.col <= ColUpperBound;
         }
     }
 }

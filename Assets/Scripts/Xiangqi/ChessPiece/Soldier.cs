@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Xiangqi.Enum;
-using Xiangqi.Movement;
+using Xiangqi.Movement.Cell;
 using Xiangqi.Util;
 
 namespace Xiangqi.ChessPiece
@@ -18,7 +18,7 @@ namespace Xiangqi.ChessPiece
 
         private void LateUpdate()
         {
-            var sideRelativeCell = cell.GetSideRelativeCell(side);
+            var sideRelativeCell = aCell.GetSideRelativeCell(side);
             if (sideRelativeCell.row > Constant.BoardRiver)
             {
                 paths.Add(new Path(new List<Direction> { Direction.Left }, 1));

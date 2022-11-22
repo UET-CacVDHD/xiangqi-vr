@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Xiangqi.ChessPiece;
-using Xiangqi.Movement;
+using Xiangqi.Movement.Cell;
 using Xiangqi.Util;
 
 public class CoordinateManager : MonoBehaviour
@@ -48,7 +48,7 @@ public class CoordinateManager : MonoBehaviour
         {
             var hintIndicator = Instantiate(HintIndicator);
             _hintIndicators[i * Constant.BoardCols + j] = hintIndicator;
-            var position = new Cell(i + 1, j + 1);
+            var position = new AbsoluteCell(i + 1, j + 1);
             hintIndicator.transform.position = GetCoordinateFromChessboardCell(position);
             hintIndicator.GetComponent<HintBehavior>().SetPosition(position);
         }
@@ -56,13 +56,13 @@ public class CoordinateManager : MonoBehaviour
         DisableAllHintIndicators();
     }
 
-    public Vector3 GetCoordinateFromChessboardCell(Cell cell)
+    public Vector3 GetCoordinateFromChessboardCell(AbsoluteCell absoluteCell)
     {
         var hBaseVec = HBase.transform.position;
-        return hBaseVec + _offsetRowPerUnit * (cell.row - 1) + _offsetColPerUnit * (cell.col - 1);
+        return hBaseVec + _offsetRowPerUnit * (absoluteCell.row - 1) + _offsetColPerUnit * (absoluteCell.col - 1);
     }
 
-    public void ShowHintIndicatorForAChessPiece(List<Cell> cells)
+    public void ShowHintIndicatorForAChessPiece(List<AbsoluteCell> cells)
     {
         DisableAllHintIndicators();
         foreach (var cell in cells) ToggleHintIndicator(cell, true);
@@ -75,12 +75,14 @@ public class CoordinateManager : MonoBehaviour
             _hintIndicators[i * 9 + j].GetComponent<HintBehavior>().ToggleHint(false);
     }
 
-    private void ToggleHintIndicator(Cell cell, bool isEnabled)
+    private void ToggleHintIndicator(AbsoluteCell absoluteCell, bool isEnabled)
     {
-        Debug.Log(cell);
-        _hintIndicators[(cell.row - 1) * Constant.BoardCols + cell.col - 1].GetComponent<MeshRenderer>().enabled =
+        Debug.Log(absoluteCell);
+        _hintIndicators[(absoluteCell.row - 1) * Constant.BoardCols + absoluteCell.col - 1].GetComponent<MeshRenderer>()
+                .enabled =
             isEnabled;
-        _hintIndicators[(cell.row - 1) * Constant.BoardCols + cell.col - 1].GetComponent<Collider>().enabled =
+        _hintIndicators[(absoluteCell.row - 1) * Constant.BoardCols + absoluteCell.col - 1].GetComponent<Collider>()
+                .enabled =
             isEnabled;
     }
 }

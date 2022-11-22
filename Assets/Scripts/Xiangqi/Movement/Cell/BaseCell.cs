@@ -1,24 +1,19 @@
-using System;
-using Xiangqi.Enum;
-using Xiangqi.Util;
+﻿using Xiangqi.Enum;
 
-namespace Xiangqi.Movement
+namespace Xiangqi.Movement.Cell
 {
-    // Cell row index range: 1 (the lower left conner of the chessboard) -> 9.
-    // Cell col index range: 1 (the lower left conner of the chessboard) -> 10.
-    [Serializable]
-    public class Cell
+    public class BaseCell
     {
         public int col;
         public int row;
 
-        public Cell(int row, int col)
+        public BaseCell(int row, int col)
         {
             this.col = col;
             this.row = row;
         }
 
-        public Cell(Cell c)
+        public BaseCell(BaseCell c)
         {
             col = c.col;
             row = c.row;
@@ -38,13 +33,6 @@ namespace Xiangqi.Movement
         public void MoveAlongPath(Path path, int step)
         {
             foreach (var dir in path.directions) MoveAlongDirection(dir, step);
-        }
-
-        public SideRelativeCell GetSideRelativeCell(string side)
-        {
-            return side == Side.Red
-                ? new SideRelativeCell(row, col)
-                : new SideRelativeCell(Constant.BoardRows - row + 1, Constant.BoardCols - col + 1);
         }
     }
 }

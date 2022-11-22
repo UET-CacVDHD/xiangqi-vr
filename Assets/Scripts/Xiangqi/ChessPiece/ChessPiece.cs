@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Xiangqi.Enum;
-using Xiangqi.Movement;
+using Xiangqi.Movement.Cell;
 
 namespace Xiangqi.ChessPiece
 {
@@ -10,10 +10,10 @@ namespace Xiangqi.ChessPiece
     public class ChessPiece : MonoBehaviour
     {
         public static ChessPiece[,] chessboard;
-        [SerializeField] public Cell cell;
-        [SerializeField] public bool isDeath;
-        [SerializeField] public string side;
-        [SerializeField] public string type;
+        public AbsoluteCell aCell;
+        public bool isDeath;
+        public string side;
+        public string type;
         protected Boundary boundary;
         protected List<Path> paths;
 
@@ -26,7 +26,7 @@ namespace Xiangqi.ChessPiece
         // Update coordinate based on Cell per frame
         private void Update()
         {
-            transform.position = CoordinateManager.Instance.GetCoordinateFromChessboardCell(cell);
+            transform.position = CoordinateManager.Instance.GetCoordinateFromChessboardCell(aCell);
         }
 
         public void OnMouseDown()
@@ -39,9 +39,9 @@ namespace Xiangqi.ChessPiece
 
         // TODO: split into smaller functions
         // TODO: handle cannon, general case
-        protected List<Cell> GetMovableCells()
+        protected List<AbsoluteCell> GetMovableCells()
         {
-            var res = new List<Cell>();
+            var res = new List<AbsoluteCell>();
             foreach (var path in paths)
             {
                 var pathIsBlocked = false;
@@ -51,17 +51,17 @@ namespace Xiangqi.ChessPiece
                 {
                     if (IsDestinationOutOfBoundary(path, i)) break;
 
-                    var relativeCell = cell.GetSideRelativeCell(side);
-                    relativeCell.MoveAlongPath(path, i - 1);
+                    var rCell = aCell.GetSideRelativeCell(side);
+                    rCell.MoveAlongPath(path, i - 1);
 
                     for (var j = 0; j < path.directions.Count; ++j)
                     {
                         var dir = path.directions[j];
 
-                        relativeCell.MoveAlongDirection(dir, 1);
+                        rCell.MoveAlongDirection(dir, 1);
 
-                        var currentCell = relativeCell.GetCell(side);
-                        if (chessboard[currentCell.row, currentCell.col] == null) continue;
+                        var currentACell = rCell.GetCell(side);
+                        if (chessboard[currentACell.row, currentACell.col] == null) continue;
 
                         if (j <= path.directions.Count - 2)
                         {
@@ -73,7 +73,7 @@ namespace Xiangqi.ChessPiece
                     }
 
                     if (pathIsBlocked) break;
-                    res.Add(relativeCell.GetCell(side));
+                    res.Add(rCell.GetCell(side));
 
                     if (obstacle < 1) continue;
                     if (type == ChessType.Cannon && obstacle == 1)
@@ -87,31 +87,28 @@ namespace Xiangqi.ChessPiece
 
         private bool IsDestinationOutOfBoundary(Path path, int step)
         {
-            var desCell = new Cell(cell);
+            var desCell = new AbsoluteCell(aCell);
             desCell.MoveAlongPath(path, step);
 
             return !boundary.IsWithinBoundary(desCell);
         }
 
-        public void MoveTo(Cell destination)
+        public void MoveTo(AbsoluteCell destination)
         {
             Debug.Log("moveto" + destination);
 
             var destinationObj = chessboard[destination.row, destination.col];
-            if (destinationObj != null)
-            {
-                destinationObj.isDeath = true;
-            }
+            if (destinationObj != null) destinationObj.isDeath = true;
 
             chessboard[destination.row, destination.col] = this;
-            chessboard[cell.row, cell.col] = null;
-            
-            cell = destination;
+            chessboard[aCell.row, aCell.col] = null;
+
+            aCell = destination;
         }
 
         public ChessPieceStoredData GetChessPieceStoredData()
         {
-            return new ChessPieceStoredData(cell, isDeath, side, type);
+            return new ChessPieceStoredData(aCell, isDeath, side, type);
         }
     }
 }

@@ -1,11 +1,11 @@
 using UnityEngine;
-using Xiangqi.Movement;
+using Xiangqi.Movement.Cell;
 
 public class HintBehavior : MonoBehaviour
 {
     public CoordinateManager manager;
     private bool _isEnabled;
-    private Cell _position;
+    private AbsoluteCell _position;
 
     // TODO: debug hint indicator doesn't receive event.
     private void OnMouseDown()
@@ -22,7 +22,7 @@ public class HintBehavior : MonoBehaviour
     }
 
 
-    public void SetPosition(Cell position)
+    public void SetPosition(AbsoluteCell position)
     {
         _position = position;
     }
