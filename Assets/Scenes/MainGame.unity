@@ -1168,11 +1168,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selected: {fileID: 0}
-  chessPiecePrefabs:
-  - {fileID: 5344453917081821410, guid: 6bccecc2d15b94996977314238d42ca0, type: 3}
-  - {fileID: 6118262865936506157, guid: 2de46c1ba66e94479a4d5fb9561851f7, type: 3}
-  - {fileID: 7415371336711193296, guid: 208eadaf5b6524ad28be6591836cba34, type: 3}
-  - {fileID: 2705387626922619633, guid: 183043726b9684215863847d3beb73f2, type: 3}
+  chessPieceSideTypePrefabs:
+  - prefab: {fileID: 5344453917081821410, guid: 6bccecc2d15b94996977314238d42ca0,
+      type: 3}
+    sideType: RedX
+  - prefab: {fileID: 7415371336711193296, guid: 208eadaf5b6524ad28be6591836cba34,
+      type: 3}
+    sideType: RedM
+  - prefab: {fileID: 2705387626922619633, guid: 183043726b9684215863847d3beb73f2,
+      type: 3}
+    sideType: RedT
+  - prefab: {fileID: 315495753979635228, guid: 1b5f432e0827a4973a24a7550a813e16, type: 3}
+    sideType: RedS
+  - prefab: {fileID: 9098840080776709347, guid: cc6ca79e7f1864eb1b982a0edbefa196,
+      type: 3}
+    sideType: RedG
+  - prefab: {fileID: 486966884977677660, guid: 0aa97aa511860486b8951de2422c79b7, type: 3}
+    sideType: RedP
+  - prefab: {fileID: 6639909133896195834, guid: 45f5ce82f53374e94a83333c6518135c,
+      type: 3}
+    sideType: RedC
+  - prefab: {fileID: 6118262865936506157, guid: 2de46c1ba66e94479a4d5fb9561851f7,
+      type: 3}
+    sideType: BlackX
 --- !u!1 &1444581316
 GameObject:
   m_ObjectHideFlags: 0
@@ -1671,7 +1689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selected: {fileID: 0}
-  chessPiecePrefabs: []
+  chessPieceSideTypePrefabs: []
 --- !u!1 &1782638528
 GameObject:
   m_ObjectHideFlags: 0

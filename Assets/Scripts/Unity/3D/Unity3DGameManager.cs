@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -9,7 +10,7 @@ using Xiangqi.Util;
 public class Unity3DGameManager : MonoBehaviour
 {
     public GameObject selected;
-    public GameObject[] chessPiecePrefabs;
+    public ChessPieceSideTypePrefab[] chessPieceSideTypePrefabs;
 
     private GameSnapshot _gameSnapshot;
     private Dictionary<string, GameObject> _sideTypePrefabMap;
@@ -17,11 +18,6 @@ public class Unity3DGameManager : MonoBehaviour
     public void Select(GameObject obj)
     {
         selected = obj;
-    }
-
-    public void ChangePlayerTurn(string side)
-    {
-        _gameSnapshot.turn = side;
     }
 
     public void SaveGame()
@@ -44,7 +40,8 @@ public class Unity3DGameManager : MonoBehaviour
     private void InitTypeSidePrefabMap()
     {
         _sideTypePrefabMap = new Dictionary<string, GameObject>();
-        foreach (var prefab in chessPiecePrefabs) _sideTypePrefabMap.Add(prefab.name, prefab);
+        foreach (var item in chessPieceSideTypePrefabs)
+            _sideTypePrefabMap.Add(item.sideType, item.prefab);
     }
 
     private void InstantiateChessPiece()
@@ -63,5 +60,12 @@ public class Unity3DGameManager : MonoBehaviour
         }
 
         ChessPiece.chessboard = _gameSnapshot.chessboard;
+    }
+
+    [Serializable]
+    public class ChessPieceSideTypePrefab
+    {
+        public GameObject prefab;
+        public string sideType;
     }
 }

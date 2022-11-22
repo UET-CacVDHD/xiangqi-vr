@@ -10,10 +10,7 @@ namespace Xiangqi.ChessPiece
         {
             paths = new List<Path>
             {
-                new(new List<Direction> { Direction.Up }, 1),
-                new(new List<Direction> { Direction.Right }, 1),
-                new(new List<Direction> { Direction.Down }, 1),
-                new(new List<Direction> { Direction.Left }, 1)
+                new(new List<Direction> { Direction.Up }, 1)
             };
             boundary = Boundary.Full;
         }

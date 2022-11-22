@@ -1,8 +1,18 @@
 ﻿{
+  "turn": "Red",
   "chessPieceStoredDataList": [
     {
       "cell": {
         "col": 1,
+        "row": 1
+      },
+      "isDeath": false,
+      "side": "Red",
+      "type": "X"
+    },
+    {
+      "cell": {
+        "col": 9,
         "row": 1
       },
       "isDeath": false,
@@ -17,6 +27,123 @@
       "isDeath": false,
       "side": "Red",
       "type": "M"
+    },
+    {
+      "cell": {
+        "col": 8,
+        "row": 1
+      },
+      "isDeath": false,
+      "side": "Red",
+      "type": "M"
+    },
+    {
+      "cell": {
+        "col": 3,
+        "row": 1
+      },
+      "isDeath": false,
+      "side": "Red",
+      "type": "T"
+    },
+    {
+      "cell": {
+        "col": 7,
+        "row": 1
+      },
+      "isDeath": false,
+      "side": "Red",
+      "type": "T"
+    },
+    {
+      "cell": {
+        "col": 4,
+        "row": 1
+      },
+      "isDeath": false,
+      "side": "Red",
+      "type": "S"
+    },
+    {
+      "cell": {
+        "col": 6,
+        "row": 1
+      },
+      "isDeath": false,
+      "side": "Red",
+      "type": "S"
+    },
+    {
+      "cell": {
+        "col": 5,
+        "row": 1
+      },
+      "isDeath": false,
+      "side": "Red",
+      "type": "G"
+    },
+    {
+      "cell": {
+        "col": 2,
+        "row": 3
+      },
+      "isDeath": false,
+      "side": "Red",
+      "type": "P"
+    },
+    {
+      "cell": {
+        "col": 8,
+        "row": 3
+      },
+      "isDeath": false,
+      "side": "Red",
+      "type": "P"
+    },
+    {
+      "cell": {
+        "col": 1,
+        "row": 4
+      },
+      "isDeath": false,
+      "side": "Red",
+      "type": "C"
+    },
+    {
+      "cell": {
+        "col": 3,
+        "row": 4
+      },
+      "isDeath": false,
+      "side": "Red",
+      "type": "C"
+    },
+    {
+      "cell": {
+        "col": 5,
+        "row": 4
+      },
+      "isDeath": false,
+      "side": "Red",
+      "type": "C"
+    },
+    {
+      "cell": {
+        "col": 7,
+        "row": 4
+      },
+      "isDeath": false,
+      "side": "Red",
+      "type": "C"
+    },
+    {
+      "cell": {
+        "col": 9,
+        "row": 4
+      },
+      "isDeath": false,
+      "side": "Red",
+      "type": "C"
     },
     {
       "cell": {

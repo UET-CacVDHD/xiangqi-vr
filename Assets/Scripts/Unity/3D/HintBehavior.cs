@@ -7,6 +7,7 @@ public class HintBehavior : MonoBehaviour
     private bool _isEnabled;
     private Cell _position;
 
+    // TODO: debug hint indicator doesn't receive event.
     private void OnMouseDown()
     {
         if (!_isEnabled) return;
