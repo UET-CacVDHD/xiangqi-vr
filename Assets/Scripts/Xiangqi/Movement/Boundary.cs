@@ -24,9 +24,10 @@ namespace Xiangqi.Movement
 
         public int ColUpperBound { get; }
 
-        public bool IsWithinBoundary(int row, int col)
+        public bool IsWithinBoundary(Cell cell)
         {
-            return row >= RowLowerBound && row <= RowUpperBound && col >= ColLowerBound && col <= ColUpperBound;
+            return cell.row >= RowLowerBound && cell.row <= RowUpperBound && cell.col >= ColLowerBound &&
+                   cell.col <= ColUpperBound;
         }
     }
 }

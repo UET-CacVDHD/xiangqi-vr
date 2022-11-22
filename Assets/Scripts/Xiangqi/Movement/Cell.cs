@@ -29,6 +29,17 @@ namespace Xiangqi.Movement
             return $"Cell: ({row}, {col})";
         }
 
+        public void MoveAlongDirection(Direction dir, int step)
+        {
+            row += dir.DeltaRow * step;
+            col += dir.DeltaCol * step;
+        }
+
+        public void MoveAlongPath(Path path, int step)
+        {
+            foreach (var dir in path.directions) MoveAlongDirection(dir, step);
+        }
+
         public SideRelativeCell GetSideRelativeCell(string side)
         {
             return side == Side.Red

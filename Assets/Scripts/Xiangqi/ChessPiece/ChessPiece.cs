@@ -38,29 +38,25 @@ namespace Xiangqi.ChessPiece
         }
 
         // TODO: split into smaller functions
+        // TODO: handle cannon, general case
         protected List<Cell> GetMovableCells()
         {
             var res = new List<Cell>();
             foreach (var path in paths)
             {
-                var crossBoundary = false;
                 var pathIsBlocked = false;
                 var obstacle = 0;
 
                 for (var i = 1; i <= path.maxSteps; ++i)
                 {
+                    if (IsDestinationOutOfBoundary(path, i)) break;
+
                     var relativeCell = cell.GetSideRelativeCell(side);
                     relativeCell.MoveAlongPath(path, i - 1);
 
                     for (var j = 0; j < path.directions.Count; ++j)
                     {
                         var dir = path.directions[j];
-                        if (!boundary.IsWithinBoundary(relativeCell.row + dir.DeltaRow,
-                                relativeCell.col + dir.DeltaCol))
-                        {
-                            crossBoundary = true;
-                            break;
-                        }
 
                         relativeCell.MoveAlongDirection(dir, 1);
 
@@ -76,7 +72,7 @@ namespace Xiangqi.ChessPiece
                         obstacle++;
                     }
 
-                    if (crossBoundary || pathIsBlocked) break;
+                    if (pathIsBlocked) break;
                     res.Add(relativeCell.GetCell(side));
 
                     if (obstacle < 1) continue;
@@ -89,10 +85,28 @@ namespace Xiangqi.ChessPiece
             return res;
         }
 
-        public void MoveTo(Cell cell)
+        private bool IsDestinationOutOfBoundary(Path path, int step)
         {
-            Debug.Log("moveto" + cell);
-            this.cell = cell;
+            var desCell = new Cell(cell);
+            desCell.MoveAlongPath(path, step);
+
+            return !boundary.IsWithinBoundary(desCell);
+        }
+
+        public void MoveTo(Cell destination)
+        {
+            Debug.Log("moveto" + destination);
+
+            var destinationObj = chessboard[destination.row, destination.col];
+            if (destinationObj != null)
+            {
+                destinationObj.isDeath = true;
+            }
+
+            chessboard[destination.row, destination.col] = this;
+            chessboard[cell.row, cell.col] = null;
+            
+            cell = destination;
         }
 
         public ChessPieceStoredData GetChessPieceStoredData()
