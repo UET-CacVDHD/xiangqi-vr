@@ -1,16 +1,15 @@
 using UnityEngine;
-using Xiangqi.Movement;
 using Xiangqi.Movement.Cell;
 
 public class HintBehavior : MonoBehaviour
 {
-    private CoordinateManager _coordManager;
+    private CoordinateManager _coordinateManager;
     private bool _isEnabled;
     private AbsoluteCell _position;
 
     private void Start()
     {
-        _coordManager = GameObject.Find("CoordinateManager").GetComponent<CoordinateManager>();
+        _coordinateManager = GameObject.Find("CoordinateManager").GetComponent<CoordinateManager>();
     }
 
     private void OnMouseOver()
@@ -22,7 +21,7 @@ public class HintBehavior : MonoBehaviour
     {
         if (!_isEnabled) return;
 
-        _coordManager.MoveTo(_position);
+        _coordinateManager.MoveTo(_position);
     }
 
 

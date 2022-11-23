@@ -1,55 +1,47 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Xiangqi.ChessPiece;
-using Xiangqi.Movement;
 using Xiangqi.Movement.Cell;
 using Xiangqi.Util;
 
 public class CoordinateManager : MonoBehaviour
 {
-    public static CoordinateManager Instance;
-    public GameObject HBase;
-    public GameObject Hx;
-    public GameObject Hy;
-    public GameObject HintIndicator;
+    public GameObject anchorBase;
+    public GameObject anchorX;
+    public GameObject anchorY;
+    public GameObject hintIndicatorPrefab;
 
     private readonly GameObject[] _hintIndicators = new GameObject[90];
+
+    private ChessPiece _chosenChessPiece;
 
     private Vector3 _offsetColPerUnit;
     private Vector3 _offsetRowPerUnit;
 
-    [NonSerialized] public ChessPiece chosenChessPiece;
-
     private void Start()
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
         CalculateUnitVectors();
         InstantiateHintIndicators();
     }
 
     private void CalculateUnitVectors()
     {
-        var HBaseVec = HBase.transform.position;
-        var HxVec = Hx.transform.position;
-        var HyVec = Hy.transform.position;
+        var baseVec = anchorBase.transform.position;
+        var xVec = anchorX.transform.position;
+        var yVec = anchorY.transform.position;
 
-        _offsetColPerUnit = (HBaseVec - HxVec).magnitude * (HxVec - HBaseVec).normalized;
-        _offsetRowPerUnit = (HBaseVec - HyVec).magnitude * (HyVec - HBaseVec).normalized;
+        _offsetColPerUnit = (baseVec - xVec).magnitude * (xVec - baseVec).normalized;
+        _offsetRowPerUnit = (baseVec - yVec).magnitude * (yVec - baseVec).normalized;
     }
 
     private void InstantiateHintIndicators()
     {
+        var hintIndicatorContainer = GameObject.Find("HintIndicators").transform;
+
         for (var i = 0; i < Constants.BoardRows; i++)
         for (var j = 0; j < Constants.BoardCols; j++)
         {
-            var hintIndicator = Instantiate(HintIndicator);
+            var hintIndicator = Instantiate(hintIndicatorPrefab, hintIndicatorContainer);
             _hintIndicators[i * Constants.BoardCols + j] = hintIndicator;
             var position = new AbsoluteCell(i + 1, j + 1);
             hintIndicator.transform.position = GetCoordinateFromChessboardCell(position);
@@ -61,11 +53,11 @@ public class CoordinateManager : MonoBehaviour
 
     public Vector3 GetCoordinateFromChessboardCell(AbsoluteCell absoluteCell)
     {
-        var hBaseVec = HBase.transform.position;
+        var hBaseVec = anchorBase.transform.position;
         return hBaseVec + _offsetRowPerUnit * (absoluteCell.row - 1) + _offsetColPerUnit * (absoluteCell.col - 1);
     }
 
-    public void ShowHintIndicatorForAChessPiece(List<AbsoluteCell> cells)
+    public void ShowHintIndicatorsAtCells(List<AbsoluteCell> cells)
     {
         DisableAllHintIndicators();
         foreach (var cell in cells) ToggleHintIndicator(cell, true);
@@ -87,10 +79,15 @@ public class CoordinateManager : MonoBehaviour
 
     public void MoveTo(AbsoluteCell absoluteCell)
     {
-        if (chosenChessPiece == null) return;
+        if (_chosenChessPiece == null) return;
 
-        chosenChessPiece.MoveTo(absoluteCell);
-        chosenChessPiece = null;
+        _chosenChessPiece.MoveTo(absoluteCell);
+        _chosenChessPiece = null;
         DisableAllHintIndicators();
+    }
+
+    public void SetChosenChessPiece(ChessPiece chessPiece)
+    {
+        _chosenChessPiece = chessPiece;
     }
 }

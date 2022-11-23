@@ -4,22 +4,15 @@ using System.IO;
 using UnityEngine;
 using Xiangqi.ChessPiece;
 using Xiangqi.Game;
-using Xiangqi.Movement;
 using Xiangqi.Movement.Cell;
 using Xiangqi.Util;
 
 public class Unity3DGameManager : MonoBehaviour
 {
-    public GameObject selected;
     public ChessPieceSideTypePrefab[] chessPieceSideTypePrefabs;
 
     private GameSnapshot _gameSnapshot;
     private Dictionary<string, GameObject> _sideTypePrefabMap;
-
-    public void Select(GameObject obj)
-    {
-        selected = obj;
-    }
 
     public void SaveGame()
     {
@@ -47,17 +40,15 @@ public class Unity3DGameManager : MonoBehaviour
 
     private void InstantiateChessPiece()
     {
+        var chessPieceContainer = GameObject.Find("ChessPieces").transform;
         foreach (var data in _gameSnapshot.chessPieceStoredDataList)
         {
-            Debug.Log(data);
-
-            var chessPiece = Instantiate(_sideTypePrefabMap[data.side + data.type],
-                GameObject.Find("ChineseChess").transform);
-            var behavior = chessPiece.GetComponent<ChessPiece>();
-            behavior.aCell = new AbsoluteCell(data.absoluteCell);
-            behavior.side = data.side;
-            behavior.type = data.type;
-            _gameSnapshot.chessboard[data.absoluteCell.row, data.absoluteCell.col] = behavior;
+            var chessPiece = Instantiate(_sideTypePrefabMap[data.side + data.type], chessPieceContainer);
+            var chessPieceBehavior = chessPiece.GetComponent<ChessPiece>();
+            chessPieceBehavior.aCell = new AbsoluteCell(data.absoluteCell);
+            chessPieceBehavior.side = data.side;
+            chessPieceBehavior.type = data.type;
+            _gameSnapshot.chessboard[data.absoluteCell.row, data.absoluteCell.col] = chessPieceBehavior;
         }
 
         ChessPiece.chessboard = _gameSnapshot.chessboard;

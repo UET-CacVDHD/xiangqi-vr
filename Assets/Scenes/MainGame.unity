@@ -151,7 +151,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 478764388}
   - {fileID: 7851018711399639285}
   - {fileID: 1760629679}
   m_Father: {fileID: 0}
@@ -673,37 +672,6 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
---- !u!1 &478764387
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 478764388}
-  m_Layer: 0
-  m_Name: ChessHintPool
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &478764388
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478764387}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.13299999, y: -0.391, z: -0.095999986}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 189129818}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &532739155
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,10 +716,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 229c62cd243384786aaf9d8019f77a56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HBase: {fileID: 2063552067}
-  Hx: {fileID: 262963876}
-  Hy: {fileID: 1526645795}
-  HintIndicator: {fileID: 7710641391398524679, guid: a174ed399c2ec2542a34ff965a389ce9,
+  anchorBase: {fileID: 2063552067}
+  anchorX: {fileID: 262963876}
+  anchorY: {fileID: 1526645795}
+  hintIndicatorPrefab: {fileID: 7710641391398524679, guid: a174ed399c2ec2542a34ff965a389ce9,
     type: 3}
 --- !u!1 &623030193
 GameObject:
@@ -1074,6 +1042,37 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &1107836631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1107836632}
+  m_Layer: 0
+  m_Name: HintIndicators
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1107836632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1107836631}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7851018711399639285}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1415201061
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,7 +1117,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c66a844e09b52479cb5ea504bccc08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selected: {fileID: 0}
   chessPieceSideTypePrefabs:
   - prefab: {fileID: 5344453917081821410, guid: 6bccecc2d15b94996977314238d42ca0,
       type: 3}
@@ -1540,7 +1538,7 @@ Transform:
   - {fileID: 1415201062}
   - {fileID: 532739156}
   m_Father: {fileID: 189129818}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1769322931
 GameObject:
@@ -1657,7 +1655,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c66a844e09b52479cb5ea504bccc08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selected: {fileID: 0}
   chessPieceSideTypePrefabs: []
 --- !u!1 &1807186669
 GameObject:
@@ -1755,6 +1752,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9134732987682043557}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2111706310
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2111706311}
+  m_Layer: 0
+  m_Name: ChessPieces
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2111706311
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111706310}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7851018711399639285}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2125953850
 GameObject:
@@ -1969,7 +1997,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7851018711399639285}
   m_Layer: 0
-  m_Name: ChineseChess
+  m_Name: Xiangqi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1988,8 +2016,10 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 9134732987682043557}
+  - {fileID: 2111706311}
+  - {fileID: 1107836632}
   m_Father: {fileID: 189129818}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &9134732987682043557
 Transform:

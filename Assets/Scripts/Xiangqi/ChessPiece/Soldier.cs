@@ -8,8 +8,9 @@ namespace Xiangqi.ChessPiece
 {
     public class Soldier : ChessPiece
     {
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             paths = new List<Path>
             {
                 new(new List<Direction> { Direction.Up }, 1),

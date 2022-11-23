@@ -7,8 +7,9 @@ namespace Xiangqi.ChessPiece
 {
     public class Cannon : ChessPiece
     {
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             paths = new List<Path>
             {
                 new(new List<Direction> { Direction.Up }, Constants.BoardRows),

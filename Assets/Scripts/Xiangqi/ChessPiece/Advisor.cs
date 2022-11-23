@@ -6,8 +6,9 @@ namespace Xiangqi.ChessPiece
 {
     public class Advisor : ChessPiece
     {
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
             paths = new List<Path>
             {
                 new(new List<Direction> { Direction.UpRight }, 1),

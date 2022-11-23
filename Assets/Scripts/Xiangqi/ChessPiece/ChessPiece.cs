@@ -15,6 +15,8 @@ namespace Xiangqi.ChessPiece
         public bool isDead;
         public string side;
         public string type;
+
+        private CoordinateManager _coordinateManager;
         protected Boundary boundary;
         protected List<Path> paths;
 
@@ -24,17 +26,22 @@ namespace Xiangqi.ChessPiece
             set => boundary = value;
         }
 
+        protected virtual void Start()
+        {
+            _coordinateManager = GameObject.Find("CoordinateManager").GetComponent<CoordinateManager>();
+        }
+
         // Update coordinate based on Cell per frame
         private void Update()
         {
-            transform.position = CoordinateManager.Instance.GetCoordinateFromChessboardCell(aCell);
+            transform.position = _coordinateManager.GetCoordinateFromChessboardCell(aCell);
         }
 
         public void OnMouseUpAsButton()
         {
-            CoordinateManager.Instance.chosenChessPiece = this;
+            _coordinateManager.SetChosenChessPiece(this);
             var movableCells = GetMovableCells();
-            CoordinateManager.Instance.ShowHintIndicatorForAChessPiece(movableCells);
+            _coordinateManager.ShowHintIndicatorsAtCells(movableCells);
         }
 
         protected virtual List<Path> GetAvailablePaths()
@@ -80,10 +87,7 @@ namespace Xiangqi.ChessPiece
                     if (obstacle == 0 ||
                         (obstacle == 1 && hasOpponentPieceAtEnd && type != ChessType.Cannon) ||
                         (obstacle == 2 && hasOpponentPieceAtEnd && type == ChessType.Cannon))
-                    {
-                        print("ADDED");
                         res.Add(rCell.GetAbsoluteCell(side));
-                    }
                 }
             }
 
