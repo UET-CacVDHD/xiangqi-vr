@@ -18,7 +18,7 @@ namespace Xiangqi.Movement.Cell
         {
             return side == Side.Red
                 ? new AbsoluteCell(row, col)
-                : new AbsoluteCell(Constant.BoardRows - row + 1, Constant.BoardCols - col + 1);
+                : new AbsoluteCell(Constants.BoardRows - row + 1, Constants.BoardCols - col + 1);
         }
     }
 }

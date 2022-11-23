@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Xiangqi.ChessPiece;
+using Xiangqi.Movement;
 using Xiangqi.Movement.Cell;
 using Xiangqi.Util;
 
@@ -45,11 +46,11 @@ public class CoordinateManager : MonoBehaviour
 
     private void InstantiateHintIndicators()
     {
-        for (var i = 0; i < Constant.BoardRows; i++)
-        for (var j = 0; j < Constant.BoardCols; j++)
+        for (var i = 0; i < Constants.BoardRows; i++)
+        for (var j = 0; j < Constants.BoardCols; j++)
         {
             var hintIndicator = Instantiate(HintIndicator);
-            _hintIndicators[i * Constant.BoardCols + j] = hintIndicator;
+            _hintIndicators[i * Constants.BoardCols + j] = hintIndicator;
             var position = new AbsoluteCell(i + 1, j + 1);
             hintIndicator.transform.position = GetCoordinateFromChessboardCell(position);
             hintIndicator.GetComponent<HintBehavior>().SetPosition(position);
@@ -72,14 +73,15 @@ public class CoordinateManager : MonoBehaviour
 
     private void DisableAllHintIndicators()
     {
-        for (var i = 0; i < Constant.BoardRows; i++)
-        for (var j = 0; j < Constant.BoardCols; j++)
+        for (var i = 0; i < Constants.BoardRows; i++)
+        for (var j = 0; j < Constants.BoardCols; j++)
             ToggleHintIndicator(new AbsoluteCell(i + 1, j + 1), false);
     }
 
     private void ToggleHintIndicator(AbsoluteCell absoluteCell, bool isEnabled)
     {
-        _hintIndicators[(absoluteCell.row - 1) * Constant.BoardCols + absoluteCell.col - 1].GetComponent<HintBehavior>()
+        _hintIndicators[(absoluteCell.row - 1) * Constants.BoardCols + absoluteCell.col - 1]
+            .GetComponent<HintBehavior>()
             .ToggleHint(isEnabled);
     }
 

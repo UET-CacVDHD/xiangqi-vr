@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Xiangqi.Enum;
-using Xiangqi.Movement.Cell;
+using Xiangqi.Movement;
 
 namespace Xiangqi.ChessPiece
 {

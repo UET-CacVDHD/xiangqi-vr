@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using Xiangqi.Enum;
 
-namespace Xiangqi.Movement.Cell
+namespace Xiangqi.Movement
 {
     public class Path
     {
-        public List<Direction> directions;
-        public int maxSteps;
+        public readonly List<Direction> directions;
+        public readonly int maxSteps;
 
         public Path(List<Direction> directions, int maxSteps)
         {

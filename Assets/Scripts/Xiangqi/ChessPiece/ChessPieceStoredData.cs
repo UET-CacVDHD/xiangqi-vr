@@ -1,5 +1,6 @@
 using System;
 using UnityEngine.Serialization;
+using Xiangqi.Movement;
 using Xiangqi.Movement.Cell;
 
 namespace Xiangqi.ChessPiece

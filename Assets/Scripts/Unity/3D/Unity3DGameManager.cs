@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using Xiangqi.ChessPiece;
 using Xiangqi.Game;
+using Xiangqi.Movement;
 using Xiangqi.Movement.Cell;
 using Xiangqi.Util;
 
@@ -30,7 +31,7 @@ public class Unity3DGameManager : MonoBehaviour
     {
         Debug.Log("Loading game");
 
-        var json = File.ReadAllText(Constant.SaveFilePath);
+        var json = File.ReadAllText(Constants.SaveFilePath);
         _gameSnapshot = JsonUtility.FromJson<GameSnapshot>(json);
 
         InitTypeSidePrefabMap();

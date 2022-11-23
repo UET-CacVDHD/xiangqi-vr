@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Xiangqi.Enum;
+using Xiangqi.Movement;
 using Xiangqi.Movement.Cell;
 
 namespace Xiangqi.ChessPiece
@@ -31,7 +32,6 @@ namespace Xiangqi.ChessPiece
 
         public void OnMouseUpAsButton()
         {
-            Debug.Log(gameObject + "is clicked");
             CoordinateManager.Instance.chosenChessPiece = this;
             var movableCells = GetMovableCells();
             CoordinateManager.Instance.ShowHintIndicatorForAChessPiece(movableCells);
@@ -55,10 +55,6 @@ namespace Xiangqi.ChessPiece
 
                 var rCell = aCell.GetRelativeCell(side);
 
-                
-                print($"absolute {rCell.GetAbsoluteCell(side)}");
-                print($"relative {rCell}");
-
                 for (var step = 1; step <= path.maxSteps; step++)
                 {
                     if (IsDestinationOutOfBoundary(originalCell, path, step)) break;
@@ -68,7 +64,7 @@ namespace Xiangqi.ChessPiece
                     for (var indexOfDirection = 0; indexOfDirection < path.directions.Count; indexOfDirection++)
                     {
                         var currentDirection = path.directions[indexOfDirection];
-                        
+
                         rCell.MoveAlongDirection(currentDirection, 1);
 
                         var currentACell = rCell.GetAbsoluteCell(side);
@@ -94,7 +90,7 @@ namespace Xiangqi.ChessPiece
             return res;
         }
 
-        private bool IsDestinationOutOfBoundary(BaseCell cell, Path path, int step)
+        private bool IsDestinationOutOfBoundary(RelativeCell cell, Path path, int step)
         {
             var clonedCell = new BaseCell(cell);
             clonedCell.MoveAlongPath(path, step);

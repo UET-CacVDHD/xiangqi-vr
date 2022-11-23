@@ -15,7 +15,7 @@ namespace Xiangqi.Game
         public List<ChessPieceStoredData> chessPieceStoredDataList = new();
 
         public ChessPiece.ChessPiece[,] chessboard =
-            new ChessPiece.ChessPiece[Constant.BoardRows + 1, Constant.BoardCols + 1];
+            new ChessPiece.ChessPiece[Constants.BoardRows + 1, Constants.BoardCols + 1];
 
 
         // TODO: The serialize process is quite couple to Unity, it should be refactored later by using C# feature.
@@ -23,15 +23,15 @@ namespace Xiangqi.Game
         {
             AddChessPieceIn2DArrayToList();
             var json = JsonUtility.ToJson(this);
-            File.WriteAllText(Constant.SaveFilePath, json);
+            File.WriteAllText(Constants.SaveFilePath, json);
         }
 
         // The 2D array is not serializable so we must use an List<T> instead.
         private void AddChessPieceIn2DArrayToList()
         {
             chessPieceStoredDataList.Clear();
-            for (var i = 1; i <= Constant.BoardRows; i++)
-            for (var j = 1; j <= Constant.BoardCols; j++)
+            for (var i = 1; i <= Constants.BoardRows; i++)
+            for (var j = 1; j <= Constants.BoardCols; j++)
                 if (chessboard[i, j] != null)
                 {
                     var chessPiece = chessboard[i, j].GetChessPieceStoredData();

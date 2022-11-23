@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Xiangqi.Enum;
-using Xiangqi.Movement.Cell;
+using Xiangqi.Movement;
 using Xiangqi.Util;
 
 namespace Xiangqi.ChessPiece
@@ -11,10 +11,10 @@ namespace Xiangqi.ChessPiece
         {
             paths = new List<Path>
             {
-                new(new List<Direction> { Direction.Up }, Constant.BoardRows),
-                new(new List<Direction> { Direction.Right }, Constant.BoardCols),
-                new(new List<Direction> { Direction.Down }, Constant.BoardRows),
-                new(new List<Direction> { Direction.Left }, Constant.BoardCols)
+                new(new List<Direction> { Direction.Up }, Constants.BoardRows),
+                new(new List<Direction> { Direction.Right }, Constants.BoardCols),
+                new(new List<Direction> { Direction.Down }, Constants.BoardRows),
+                new(new List<Direction> { Direction.Left }, Constants.BoardCols)
             };
             boundary = Boundary.Full;
         }

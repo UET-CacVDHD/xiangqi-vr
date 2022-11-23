@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Xiangqi.Enum;
-using Xiangqi.Movement.Cell;
+using Xiangqi.Movement;
 using Xiangqi.Util;
 
 namespace Xiangqi.ChessPiece
@@ -23,7 +23,7 @@ namespace Xiangqi.ChessPiece
         private bool IsOverRiver()
         {
             var sideRelativeCell = aCell.GetRelativeCell(side);
-            return sideRelativeCell.row > Constant.BoardRiver;
+            return sideRelativeCell.row > Constants.BoardRiverRows;
         }
 
         protected override List<Path> GetAvailablePaths()
