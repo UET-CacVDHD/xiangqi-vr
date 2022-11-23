@@ -24,11 +24,12 @@ namespace Xiangqi.Movement.Cell
 
         public int ColUpperBound { get; }
 
-        public bool IsWithinBoundary(AbsoluteCell absoluteCell)
+        public bool IsWithinBoundary(BaseCell cell)
         {
-            return absoluteCell.row >= RowLowerBound && absoluteCell.row <= RowUpperBound &&
-                   absoluteCell.col >= ColLowerBound &&
-                   absoluteCell.col <= ColUpperBound;
+            return cell.row >= RowLowerBound &&
+                   cell.row <= RowUpperBound &&
+                   cell.col >= ColLowerBound &&
+                   cell.col <= ColUpperBound;
         }
     }
 }

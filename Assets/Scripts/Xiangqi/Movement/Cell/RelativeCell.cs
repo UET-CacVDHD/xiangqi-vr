@@ -14,7 +14,7 @@ namespace Xiangqi.Movement.Cell
         {
         }
 
-        public AbsoluteCell GetCell(string side)
+        public AbsoluteCell GetAbsoluteCell(string side)
         {
             return side == Side.Red
                 ? new AbsoluteCell(row, col)

@@ -11,7 +11,7 @@ namespace Xiangqi.ChessPiece
     {
         public static ChessPiece[,] chessboard;
         public AbsoluteCell aCell;
-        public bool isDeath;
+        public bool isDead;
         public string side;
         public string type;
         protected Boundary boundary;
@@ -29,7 +29,7 @@ namespace Xiangqi.ChessPiece
             transform.position = CoordinateManager.Instance.GetCoordinateFromChessboardCell(aCell);
         }
 
-        public void OnMouseDown()
+        public void OnMouseUpAsButton()
         {
             Debug.Log(gameObject + "is clicked");
             CoordinateManager.Instance.chosenChessPiece = this;
@@ -37,60 +37,69 @@ namespace Xiangqi.ChessPiece
             CoordinateManager.Instance.ShowHintIndicatorForAChessPiece(movableCells);
         }
 
+        protected virtual List<Path> GetAvailablePaths()
+        {
+            return paths;
+        }
+
+
         // TODO: split into smaller functions
         // TODO: handle cannon, general case
         protected List<AbsoluteCell> GetMovableCells()
         {
             var res = new List<AbsoluteCell>();
-            foreach (var path in paths)
+            var originalCell = aCell.GetRelativeCell(side);
+            foreach (var path in GetAvailablePaths())
             {
-                var pathIsBlocked = false;
                 var obstacle = 0;
 
-                for (var i = 1; i <= path.maxSteps; ++i)
+                var rCell = aCell.GetRelativeCell(side);
+
+                
+                print($"absolute {rCell.GetAbsoluteCell(side)}");
+                print($"relative {rCell}");
+
+                for (var step = 1; step <= path.maxSteps; step++)
                 {
-                    if (IsDestinationOutOfBoundary(path, i)) break;
+                    if (IsDestinationOutOfBoundary(originalCell, path, step)) break;
 
-                    var rCell = aCell.GetSideRelativeCell(side);
-                    rCell.MoveAlongPath(path, i - 1);
+                    var hasOpponentPieceAtEnd = false;
 
-                    for (var j = 0; j < path.directions.Count; ++j)
+                    for (var indexOfDirection = 0; indexOfDirection < path.directions.Count; indexOfDirection++)
                     {
-                        var dir = path.directions[j];
+                        var currentDirection = path.directions[indexOfDirection];
+                        
+                        rCell.MoveAlongDirection(currentDirection, 1);
 
-                        rCell.MoveAlongDirection(dir, 1);
-
-                        var currentACell = rCell.GetCell(side);
-                        if (chessboard[currentACell.row, currentACell.col] == null) continue;
-
-                        if (j <= path.directions.Count - 2)
+                        var currentACell = rCell.GetAbsoluteCell(side);
+                        var pieceAtCurrentCell = chessboard[currentACell.row, currentACell.col];
+                        if (pieceAtCurrentCell != null)
                         {
-                            pathIsBlocked = true;
-                            break;
+                            obstacle++;
+                            if (indexOfDirection == path.directions.Count - 1 && pieceAtCurrentCell.side != side)
+                                hasOpponentPieceAtEnd = true;
                         }
-
-                        obstacle++;
                     }
 
-                    if (pathIsBlocked) break;
-                    res.Add(rCell.GetCell(side));
-
-                    if (obstacle < 1) continue;
-                    if (type == ChessType.Cannon && obstacle == 1)
-                        continue;
-                    break;
+                    if (obstacle == 0 ||
+                        (obstacle == 1 && hasOpponentPieceAtEnd && type != ChessType.Cannon) ||
+                        (obstacle == 2 && hasOpponentPieceAtEnd && type == ChessType.Cannon))
+                    {
+                        print("ADDED");
+                        res.Add(rCell.GetAbsoluteCell(side));
+                    }
                 }
             }
 
             return res;
         }
 
-        private bool IsDestinationOutOfBoundary(Path path, int step)
+        private bool IsDestinationOutOfBoundary(BaseCell cell, Path path, int step)
         {
-            var desCell = new AbsoluteCell(aCell);
-            desCell.MoveAlongPath(path, step);
+            var clonedCell = new BaseCell(cell);
+            clonedCell.MoveAlongPath(path, step);
 
-            return !boundary.IsWithinBoundary(desCell);
+            return !boundary.IsWithinBoundary(clonedCell);
         }
 
         public void MoveTo(AbsoluteCell destination)
@@ -98,7 +107,7 @@ namespace Xiangqi.ChessPiece
             Debug.Log("moveto" + destination);
 
             var destinationObj = chessboard[destination.row, destination.col];
-            if (destinationObj != null) destinationObj.isDeath = true;
+            if (destinationObj != null) destinationObj.isDead = true;
 
             chessboard[destination.row, destination.col] = this;
             chessboard[aCell.row, aCell.col] = null;
@@ -108,7 +117,7 @@ namespace Xiangqi.ChessPiece
 
         public ChessPieceStoredData GetChessPieceStoredData()
         {
-            return new ChessPieceStoredData(aCell, isDeath, side, type);
+            return new ChessPieceStoredData(aCell, isDead, side, type);
         }
     }
 }

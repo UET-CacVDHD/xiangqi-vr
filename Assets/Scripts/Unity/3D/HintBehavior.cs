@@ -3,22 +3,25 @@ using Xiangqi.Movement.Cell;
 
 public class HintBehavior : MonoBehaviour
 {
-    public CoordinateManager manager;
+    private CoordinateManager _coordManager;
     private bool _isEnabled;
     private AbsoluteCell _position;
 
-    // TODO: debug hint indicator doesn't receive event.
-    private void OnMouseDown()
+    private void Start()
     {
-        if (!_isEnabled) return;
-        Debug.Log(_position);
-        CoordinateManager.Instance.chosenChessPiece.MoveTo(_position);
-        // send to CoordinateManager its position
+        _coordManager = GameObject.Find("CoordinateManager").GetComponent<CoordinateManager>();
     }
 
     private void OnMouseOver()
     {
         if (!_isEnabled) return;
+    }
+
+    private void OnMouseUpAsButton()
+    {
+        if (!_isEnabled) return;
+
+        _coordManager.MoveTo(_position);
     }
 
 
@@ -31,6 +34,6 @@ public class HintBehavior : MonoBehaviour
     {
         _isEnabled = isEnabled;
         GetComponent<MeshRenderer>().enabled = isEnabled;
-        GetComponent<Collider>().enabled = isEnabled;
+        GetComponent<BoxCollider>().enabled = isEnabled;
     }
 }

@@ -8,6 +8,6 @@ namespace Xiangqi.Enum
         public const string Advisor = "S";
         public const string General = "G";
         public const string Cannon = "P";
-        public const string Soldier = "C";
+        public const string Soldier = "B";
     }
 }

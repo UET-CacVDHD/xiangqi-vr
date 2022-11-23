@@ -6,7 +6,16 @@
         "col": 1,
         "row": 1
       },
-      "isDeath": false,
+      "isDead": false,
+      "side": "Red",
+      "type": "X"
+    },
+    {
+      "absoluteCell": {
+        "col": 9,
+        "row": 1
+      },
+      "isDead": false,
       "side": "Red",
       "type": "X"
     },
@@ -15,7 +24,16 @@
         "col": 2,
         "row": 1
       },
-      "isDeath": false,
+      "isDead": false,
+      "side": "Red",
+      "type": "M"
+    },
+    {
+      "absoluteCell": {
+        "col": 8,
+        "row": 1
+      },
+      "isDead": false,
       "side": "Red",
       "type": "M"
     },
@@ -24,7 +42,16 @@
         "col": 3,
         "row": 1
       },
-      "isDeath": false,
+      "isDead": false,
+      "side": "Red",
+      "type": "T"
+    },
+    {
+      "absoluteCell": {
+        "col": 7,
+        "row": 1
+      },
+      "isDead": false,
       "side": "Red",
       "type": "T"
     },
@@ -33,7 +60,16 @@
         "col": 4,
         "row": 1
       },
-      "isDeath": false,
+      "isDead": false,
+      "side": "Red",
+      "type": "S"
+    },
+    {
+      "absoluteCell": {
+        "col": 6,
+        "row": 1
+      },
+      "isDead": false,
       "side": "Red",
       "type": "S"
     },
@@ -42,52 +78,16 @@
         "col": 5,
         "row": 1
       },
-      "isDeath": false,
+      "isDead": false,
       "side": "Red",
       "type": "G"
-    },
-    {
-      "absoluteCell": {
-        "col": 6,
-        "row": 1
-      },
-      "isDeath": false,
-      "side": "Red",
-      "type": "S"
-    },
-    {
-      "absoluteCell": {
-        "col": 7,
-        "row": 1
-      },
-      "isDeath": false,
-      "side": "Red",
-      "type": "T"
-    },
-    {
-      "absoluteCell": {
-        "col": 8,
-        "row": 1
-      },
-      "isDeath": false,
-      "side": "Red",
-      "type": "M"
-    },
-    {
-      "absoluteCell": {
-        "col": 9,
-        "row": 1
-      },
-      "isDeath": false,
-      "side": "Red",
-      "type": "X"
     },
     {
       "absoluteCell": {
         "col": 2,
         "row": 3
       },
-      "isDeath": false,
+      "isDead": false,
       "side": "Red",
       "type": "P"
     },
@@ -96,7 +96,7 @@
         "col": 8,
         "row": 3
       },
-      "isDeath": false,
+      "isDead": false,
       "side": "Red",
       "type": "P"
     },
@@ -105,54 +105,189 @@
         "col": 1,
         "row": 4
       },
-      "isDeath": false,
+      "isDead": false,
       "side": "Red",
-      "type": "C"
+      "type": "B"
     },
     {
       "absoluteCell": {
         "col": 3,
         "row": 4
       },
-      "isDeath": false,
+      "isDead": false,
       "side": "Red",
-      "type": "C"
+      "type": "B"
+    },
+    {
+      "absoluteCell": {
+        "col": 5,
+        "row": 4
+      },
+      "isDead": false,
+      "side": "Red",
+      "type": "B"
     },
     {
       "absoluteCell": {
         "col": 7,
         "row": 4
       },
-      "isDeath": false,
+      "isDead": false,
       "side": "Red",
-      "type": "C"
+      "type": "B"
     },
     {
       "absoluteCell": {
         "col": 9,
         "row": 4
       },
-      "isDeath": false,
+      "isDead": false,
       "side": "Red",
-      "type": "C"
-    },
-    {
-      "absoluteCell": {
-        "col": 4,
-        "row": 6
-      },
-      "isDeath": false,
-      "side": "Red",
-      "type": "C"
+      "type": "B"
     },
     {
       "absoluteCell": {
         "col": 9,
         "row": 10
       },
-      "isDeath": false,
+      "isDead": false,
       "side": "Black",
       "type": "X"
+    },
+    {
+      "absoluteCell": {
+        "col": 1,
+        "row": 10
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "X"
+    },
+    {
+      "absoluteCell": {
+        "col": 8,
+        "row": 10
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "M"
+    },
+    {
+      "absoluteCell": {
+        "col": 2,
+        "row": 10
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "M"
+    },
+    {
+      "absoluteCell": {
+        "col": 7,
+        "row": 10
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "T"
+    },
+    {
+      "absoluteCell": {
+        "col": 3,
+        "row": 10
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "T"
+    },
+    {
+      "absoluteCell": {
+        "col": 6,
+        "row": 10
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "S"
+    },
+    {
+      "absoluteCell": {
+        "col": 4,
+        "row": 10
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "S"
+    },
+    {
+      "absoluteCell": {
+        "col": 5,
+        "row": 10
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "G"
+    },
+    {
+      "absoluteCell": {
+        "col": 8,
+        "row": 8
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "P"
+    },
+    {
+      "absoluteCell": {
+        "col": 2,
+        "row": 8
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "P"
+    },
+    {
+      "absoluteCell": {
+        "col": 9,
+        "row": 7
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "B"
+    },
+    {
+      "absoluteCell": {
+        "col": 7,
+        "row": 7
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "B"
+    },
+    {
+      "absoluteCell": {
+        "col": 5,
+        "row": 7
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "B"
+    },
+    {
+      "absoluteCell": {
+        "col": 3,
+        "row": 7
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "B"
+    },
+    {
+      "absoluteCell": {
+        "col": 1,
+        "row": 7
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "B"
     }
   ]
 }

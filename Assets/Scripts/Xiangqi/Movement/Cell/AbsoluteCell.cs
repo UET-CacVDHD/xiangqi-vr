@@ -13,11 +13,11 @@ namespace Xiangqi.Movement.Cell
         {
         }
 
-        public AbsoluteCell(BaseCell c) : base(c)
+        public AbsoluteCell(AbsoluteCell cell) : base(cell)
         {
         }
 
-        public RelativeCell GetSideRelativeCell(string side)
+        public RelativeCell GetRelativeCell(string side)
         {
             return side == Side.Red
                 ? new RelativeCell(row, col)

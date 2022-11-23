@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Xiangqi.Enum;
 using Xiangqi.Movement.Cell;
 using Xiangqi.Util;
@@ -11,19 +12,23 @@ namespace Xiangqi.ChessPiece
         {
             paths = new List<Path>
             {
-                new(new List<Direction> { Direction.Up }, 1)
+                new(new List<Direction> { Direction.Up }, 1),
+                new(new List<Direction> { Direction.Left }, 1),
+                new(new List<Direction> { Direction.Right }, 1)
             };
             boundary = Boundary.Full;
         }
 
-        private void LateUpdate()
+
+        private bool IsOverRiver()
         {
-            var sideRelativeCell = aCell.GetSideRelativeCell(side);
-            if (sideRelativeCell.row > Constant.BoardRiver)
-            {
-                paths.Add(new Path(new List<Direction> { Direction.Left }, 1));
-                paths.Add(new Path(new List<Direction> { Direction.Right }, 1));
-            }
+            var sideRelativeCell = aCell.GetRelativeCell(side);
+            return sideRelativeCell.row > Constant.BoardRiver;
+        }
+
+        protected override List<Path> GetAvailablePaths()
+        {
+            return base.GetAvailablePaths().Where(path => path.directions[0] == Direction.Up || IsOverRiver()).ToList();
         }
     }
 }

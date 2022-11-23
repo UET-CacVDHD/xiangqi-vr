@@ -12,21 +12,21 @@ namespace Xiangqi.ChessPiece
     public class ChessPieceStoredData
     {
         [FormerlySerializedAs("cell")] public AbsoluteCell absoluteCell;
-        public bool isDeath;
+        public bool isDead;
         public string side;
         public string type;
 
-        public ChessPieceStoredData(AbsoluteCell absoluteCell, bool isDeath, string side, string type)
+        public ChessPieceStoredData(AbsoluteCell absoluteCell, bool isDead, string side, string type)
         {
             this.absoluteCell = absoluteCell;
-            this.isDeath = isDeath;
+            this.isDead = isDead;
             this.side = side;
             this.type = type;
         }
 
         public override string ToString()
         {
-            return "Cell: " + absoluteCell + " isDeath: " + isDeath + " side: " + side + " type: " + type;
+            return $"Cell: {absoluteCell}, isDead: {isDead}, side: {side}, type: {type}";
         }
     }
 }

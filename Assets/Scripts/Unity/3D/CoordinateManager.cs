@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Xiangqi.ChessPiece;
@@ -12,11 +13,12 @@ public class CoordinateManager : MonoBehaviour
     public GameObject Hy;
     public GameObject HintIndicator;
 
-    public ChessPiece chosenChessPiece;
     private readonly GameObject[] _hintIndicators = new GameObject[90];
 
     private Vector3 _offsetColPerUnit;
     private Vector3 _offsetRowPerUnit;
+
+    [NonSerialized] public ChessPiece chosenChessPiece;
 
     private void Start()
     {
@@ -72,17 +74,21 @@ public class CoordinateManager : MonoBehaviour
     {
         for (var i = 0; i < Constant.BoardRows; i++)
         for (var j = 0; j < Constant.BoardCols; j++)
-            _hintIndicators[i * 9 + j].GetComponent<HintBehavior>().ToggleHint(false);
+            ToggleHintIndicator(new AbsoluteCell(i + 1, j + 1), false);
     }
 
     private void ToggleHintIndicator(AbsoluteCell absoluteCell, bool isEnabled)
     {
-        Debug.Log(absoluteCell);
-        _hintIndicators[(absoluteCell.row - 1) * Constant.BoardCols + absoluteCell.col - 1].GetComponent<MeshRenderer>()
-                .enabled =
-            isEnabled;
-        _hintIndicators[(absoluteCell.row - 1) * Constant.BoardCols + absoluteCell.col - 1].GetComponent<Collider>()
-                .enabled =
-            isEnabled;
+        _hintIndicators[(absoluteCell.row - 1) * Constant.BoardCols + absoluteCell.col - 1].GetComponent<HintBehavior>()
+            .ToggleHint(isEnabled);
+    }
+
+    public void MoveTo(AbsoluteCell absoluteCell)
+    {
+        if (chosenChessPiece == null) return;
+
+        chosenChessPiece.MoveTo(absoluteCell);
+        chosenChessPiece = null;
+        DisableAllHintIndicators();
     }
 }
