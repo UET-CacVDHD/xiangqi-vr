@@ -1,5 +1,5 @@
 using UnityEngine;
-using Xiangqi.Movement.Cell;
+using Xiangqi.Motion.Cell;
 
 public class HintBehavior : MonoBehaviour
 {

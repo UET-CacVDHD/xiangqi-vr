@@ -1,11 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Unity._3D.ChessPieceBehavior;
 using UnityEngine;
-using Xiangqi.ChessPiece;
+using Xiangqi.Enum;
 using Xiangqi.Game;
-using Xiangqi.Movement.Cell;
 using Xiangqi.Util;
+using Advisor = Xiangqi.ChessPieceLogic.Advisor;
+using Cannon = Xiangqi.ChessPieceLogic.Cannon;
+using Elephant = Xiangqi.ChessPieceLogic.Elephant;
+using General = Xiangqi.ChessPieceLogic.General;
+using Horse = Xiangqi.ChessPieceLogic.Horse;
+using Rook = Xiangqi.ChessPieceLogic.Rook;
+using Soldier = Xiangqi.ChessPieceLogic.Soldier;
 
 public class Unity3DGameManager : MonoBehaviour
 {
@@ -41,20 +48,29 @@ public class Unity3DGameManager : MonoBehaviour
     private void InstantiateChessPiece()
     {
         var chessPieceContainer = GameObject.Find("ChessPieces").transform;
-        foreach (var data in _gameSnapshot.chessPieceStoredDataList)
+        foreach (var piece in _gameSnapshot.chessPieces)
         {
-            var chessPiece = Instantiate(_sideTypePrefabMap[data.side + data.type], chessPieceContainer);
-            var chessPieceBehavior = chessPiece.GetComponent<ChessPiece>();
-            chessPieceBehavior.aCell = new AbsoluteCell(data.absoluteCell);
-            chessPieceBehavior.side = data.side;
-            chessPieceBehavior.type = data.type;
-            _gameSnapshot.chessboard[data.absoluteCell.row, data.absoluteCell.col] = chessPieceBehavior;
+            var chessPiece = Instantiate(_sideTypePrefabMap[piece.side + piece.type], chessPieceContainer);
+            var chessPieceBehavior = chessPiece.GetComponent<ChessPieceBehavior>();
+
+            chessPieceBehavior.Cp = piece.type switch
+            {
+                ChessType.Rook => new Rook(piece.aCell, piece.isDead, piece.side, piece.type),
+                ChessType.Horse => new Horse(piece.aCell, piece.isDead, piece.side, piece.type),
+                ChessType.Elephant => new Elephant(piece.aCell, piece.isDead, piece.side, piece.type),
+                ChessType.Advisor => new Advisor(piece.aCell, piece.isDead, piece.side, piece.type),
+                ChessType.General => new General(piece.aCell, piece.isDead, piece.side, piece.type),
+                ChessType.Cannon => new Cannon(piece.aCell, piece.isDead, piece.side, piece.type),
+                _ => new Soldier(piece.aCell, piece.isDead, piece.side, piece.type)
+            };
+
+            _gameSnapshot.chessboard[piece.aCell.row, piece.aCell.col] = piece;
         }
 
-        ChessPiece.chessboard = _gameSnapshot.chessboard;
+        Xiangqi.ChessPieceLogic.ChessPiece.chessboard = _gameSnapshot.chessboard;
     }
 
-    [Serializable]
+    [Serializable] // use serializable to make the class visible in Unity editor
     public class ChessPieceSideTypePrefab
     {
         public GameObject prefab;

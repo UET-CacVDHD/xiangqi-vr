@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using Xiangqi.Enum;
-using Xiangqi.Movement;
+using Xiangqi.Motion;
+using Xiangqi.Motion.Cell;
 
-namespace Xiangqi.ChessPiece
+namespace Xiangqi.ChessPieceLogic
 {
     public class Horse : ChessPiece
     {
-        protected override void Start()
+        public Horse(AbsoluteCell aCell, bool isDead, string side, string type) : base(aCell, isDead, side, type)
         {
-            base.Start();
             paths = new List<Path>
             {
                 new(new List<Direction> { Direction.Up, Direction.UpLeft }, 1),

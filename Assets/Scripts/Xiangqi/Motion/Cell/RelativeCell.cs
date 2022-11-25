@@ -1,7 +1,7 @@
 using Xiangqi.Enum;
 using Xiangqi.Util;
 
-namespace Xiangqi.Movement.Cell
+namespace Xiangqi.Motion.Cell
 {
     // Cell is calculated base on chess piece side
     public class RelativeCell : BaseCell

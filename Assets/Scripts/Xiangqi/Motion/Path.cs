@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Xiangqi.Enum;
 
-namespace Xiangqi.Movement
+namespace Xiangqi.Motion
 {
     public class Path
     {

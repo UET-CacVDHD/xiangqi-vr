@@ -1,7 +1,7 @@
-using Xiangqi.Movement.Cell;
+using Xiangqi.Motion.Cell;
 using Xiangqi.Util;
 
-namespace Xiangqi.Movement
+namespace Xiangqi.Motion
 {
     public class Boundary
     {

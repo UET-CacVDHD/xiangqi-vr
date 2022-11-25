@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 2315899592702655839, guid: 7f82d6e5433d947b49acf9e8c9d9c9e6,
         type: 3}
       propertyPath: m_Name
-      value: BlackCannon
+      value: BlackCannon Variant
       objectReference: {fileID: 0}
     - target: {fileID: 9032964261372975149, guid: 7f82d6e5433d947b49acf9e8c9d9c9e6,
         type: 3}
@@ -75,27 +75,3 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 1658084218574423132, guid: 7f82d6e5433d947b49acf9e8c9d9c9e6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7f82d6e5433d947b49acf9e8c9d9c9e6, type: 3}
---- !u!1 &3429790742429955274 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2315899592702655839, guid: 7f82d6e5433d947b49acf9e8c9d9c9e6,
-    type: 3}
-  m_PrefabInstance: {fileID: 1133406182111086997}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &505178003959850772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3429790742429955274}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f8ab48fd987481e96b8bbe7e86f6da2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  aCell:
-    col: 0
-    row: 0
-  isDead: 0
-  side: Black
-  type: P

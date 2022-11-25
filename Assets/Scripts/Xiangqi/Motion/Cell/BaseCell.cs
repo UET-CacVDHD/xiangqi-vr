@@ -1,7 +1,9 @@
-﻿using Xiangqi.Enum;
+﻿using System;
+using Xiangqi.Enum;
 
-namespace Xiangqi.Movement.Cell
+namespace Xiangqi.Motion.Cell
 {
+    [Serializable]
     public class BaseCell
     {
         public int col;

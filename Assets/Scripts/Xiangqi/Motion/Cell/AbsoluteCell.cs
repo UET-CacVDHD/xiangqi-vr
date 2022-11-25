@@ -2,7 +2,7 @@ using System;
 using Xiangqi.Enum;
 using Xiangqi.Util;
 
-namespace Xiangqi.Movement.Cell
+namespace Xiangqi.Motion.Cell
 {
     // Cell row index range: 1 (the lower left conner of the chessboard) -> 9.
     // Cell col index range: 1 (the lower left conner of the chessboard) -> 10.

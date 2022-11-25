@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Xiangqi.Enum;
-using Xiangqi.Movement;
-using Xiangqi.Movement.Cell;
+using Xiangqi.Motion;
+using Xiangqi.Motion.Cell;
 
-namespace Xiangqi.ChessPiece
+namespace Xiangqi.ChessPieceLogic
 {
     [Serializable]
-    public class ChessPiece : MonoBehaviour
+    public class ChessPiece
     {
         public static ChessPiece[,] chessboard;
         public AbsoluteCell aCell;
@@ -16,32 +16,17 @@ namespace Xiangqi.ChessPiece
         public string side;
         public string type;
 
-        private CoordinateManager _coordinateManager;
         protected Boundary boundary;
+        protected List<AbsoluteCell> movableCells;
         protected List<Path> paths;
 
-        public Boundary Boundary
+        public ChessPiece(AbsoluteCell aCell, bool isDead, string side, string type)
         {
-            get => boundary;
-            set => boundary = value;
-        }
-
-        protected virtual void Start()
-        {
-            _coordinateManager = GameObject.Find("CoordinateManager").GetComponent<CoordinateManager>();
-        }
-
-        // Update coordinate based on Cell per frame
-        private void Update()
-        {
-            transform.position = _coordinateManager.GetCoordinateFromChessboardCell(aCell);
-        }
-
-        public void OnMouseUpAsButton()
-        {
-            _coordinateManager.SetChosenChessPiece(this);
-            var movableCells = GetMovableCells();
-            _coordinateManager.ShowHintIndicatorsAtCells(movableCells);
+            this.aCell = aCell;
+            this.isDead = isDead;
+            this.side = side;
+            this.type = type;
+            movableCells = new List<AbsoluteCell>();
         }
 
         protected virtual List<Path> GetAvailablePaths()
@@ -49,12 +34,14 @@ namespace Xiangqi.ChessPiece
             return paths;
         }
 
-
-        // TODO: split into smaller functions
-        // TODO: handle cannon, general case
-        protected List<AbsoluteCell> GetMovableCells()
+        public List<AbsoluteCell> GetMovableCells()
         {
-            var res = new List<AbsoluteCell>();
+            return movableCells;
+        }
+
+        public void UpdateMovableCells()
+        {
+            movableCells.Clear();
             var originalCell = aCell.GetRelativeCell(side);
             foreach (var path in GetAvailablePaths())
             {
@@ -87,11 +74,10 @@ namespace Xiangqi.ChessPiece
                     if (obstacle == 0 ||
                         (obstacle == 1 && hasOpponentPieceAtEnd && type != ChessType.Cannon) ||
                         (obstacle == 2 && hasOpponentPieceAtEnd && type == ChessType.Cannon))
-                        res.Add(rCell.GetAbsoluteCell(side));
+                        movableCells.Add(rCell.GetAbsoluteCell(side));
+                    else if (obstacle >= 2) break;
                 }
             }
-
-            return res;
         }
 
         private bool IsDestinationOutOfBoundary(RelativeCell cell, Path path, int step)
@@ -113,11 +99,6 @@ namespace Xiangqi.ChessPiece
             chessboard[aCell.row, aCell.col] = null;
 
             aCell = destination;
-        }
-
-        public ChessPieceStoredData GetChessPieceStoredData()
-        {
-            return new ChessPieceStoredData(aCell, isDead, side, type);
         }
     }
 }

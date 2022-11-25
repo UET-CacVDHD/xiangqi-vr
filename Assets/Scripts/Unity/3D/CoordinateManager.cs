@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using Unity._3D.ChessPieceBehavior;
 using UnityEngine;
-using Xiangqi.ChessPiece;
-using Xiangqi.Movement.Cell;
+using Xiangqi.Motion.Cell;
 using Xiangqi.Util;
 
 public class CoordinateManager : MonoBehaviour
@@ -13,7 +13,7 @@ public class CoordinateManager : MonoBehaviour
 
     private readonly GameObject[] _hintIndicators = new GameObject[90];
 
-    private ChessPiece _chosenChessPiece;
+    private ChessPieceBehavior _chosenChessPiece;
 
     private Vector3 _offsetColPerUnit;
     private Vector3 _offsetRowPerUnit;
@@ -81,12 +81,12 @@ public class CoordinateManager : MonoBehaviour
     {
         if (_chosenChessPiece == null) return;
 
-        _chosenChessPiece.MoveTo(absoluteCell);
+        _chosenChessPiece.Cp.MoveTo(absoluteCell);
         _chosenChessPiece = null;
         DisableAllHintIndicators();
     }
 
-    public void SetChosenChessPiece(ChessPiece chessPiece)
+    public void SetChosenChessPiece(ChessPieceBehavior chessPiece)
     {
         _chosenChessPiece = chessPiece;
     }
