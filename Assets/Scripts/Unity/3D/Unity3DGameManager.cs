@@ -3,16 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using Unity._3D.ChessPieceBehavior;
 using UnityEngine;
+using Xiangqi.ChessPieceLogic;
 using Xiangqi.Enum;
 using Xiangqi.Game;
 using Xiangqi.Util;
-using Advisor = Xiangqi.ChessPieceLogic.Advisor;
-using Cannon = Xiangqi.ChessPieceLogic.Cannon;
-using Elephant = Xiangqi.ChessPieceLogic.Elephant;
-using General = Xiangqi.ChessPieceLogic.General;
-using Horse = Xiangqi.ChessPieceLogic.Horse;
-using Rook = Xiangqi.ChessPieceLogic.Rook;
-using Soldier = Xiangqi.ChessPieceLogic.Soldier;
 
 public class Unity3DGameManager : MonoBehaviour
 {
@@ -50,8 +44,8 @@ public class Unity3DGameManager : MonoBehaviour
         var chessPieceContainer = GameObject.Find("ChessPieces").transform;
         foreach (var piece in _gameSnapshot.chessPieces)
         {
-            var chessPiece = Instantiate(_sideTypePrefabMap[piece.side + piece.type], chessPieceContainer);
-            var chessPieceBehavior = chessPiece.GetComponent<ChessPieceBehavior>();
+            var chessPieceBehavior = Instantiate(_sideTypePrefabMap[piece.side + piece.type], chessPieceContainer)
+                .GetComponent<ChessPieceBehavior>();
 
             chessPieceBehavior.Cp = piece.type switch
             {
@@ -64,10 +58,10 @@ public class Unity3DGameManager : MonoBehaviour
                 _ => new Soldier(piece.aCell, piece.isDead, piece.side, piece.type)
             };
 
-            _gameSnapshot.chessboard[piece.aCell.row, piece.aCell.col] = piece;
+            _gameSnapshot.chessboard[piece.aCell.row, piece.aCell.col] = chessPieceBehavior.Cp;
         }
 
-        Xiangqi.ChessPieceLogic.ChessPiece.chessboard = _gameSnapshot.chessboard;
+        ChessPiece.chessboard = _gameSnapshot.chessboard;
     }
 
     [Serializable] // use serializable to make the class visible in Unity editor

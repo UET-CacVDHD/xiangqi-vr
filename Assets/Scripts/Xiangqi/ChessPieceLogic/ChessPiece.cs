@@ -62,13 +62,13 @@ namespace Xiangqi.ChessPieceLogic
                         rCell.MoveAlongDirection(currentDirection, 1);
 
                         var currentACell = rCell.GetAbsoluteCell(side);
+
                         var pieceAtCurrentCell = chessboard[currentACell.row, currentACell.col];
-                        if (pieceAtCurrentCell != null)
-                        {
-                            obstacle++;
-                            if (indexOfDirection == path.directions.Count - 1 && pieceAtCurrentCell.side != side)
-                                hasOpponentPieceAtEnd = true;
-                        }
+                        if (pieceAtCurrentCell == null) continue;
+
+                        obstacle++;
+                        if (indexOfDirection == path.directions.Count - 1 && pieceAtCurrentCell.side != side)
+                            hasOpponentPieceAtEnd = true;
                     }
 
                     if (obstacle == 0 ||
@@ -93,12 +93,18 @@ namespace Xiangqi.ChessPieceLogic
             Debug.Log("moveto" + destination);
 
             var destinationObj = chessboard[destination.row, destination.col];
-            if (destinationObj != null) destinationObj.isDead = true;
+            destinationObj?.GetKilled();
 
             chessboard[destination.row, destination.col] = this;
             chessboard[aCell.row, aCell.col] = null;
 
             aCell = destination;
+        }
+
+        public void GetKilled()
+        {
+            isDead = true;
+            aCell = new AbsoluteCell(0, 0);
         }
     }
 }

@@ -12,15 +12,6 @@
     },
     {
       "aCell": {
-        "col": 9,
-        "row": 1
-      },
-      "isDead": false,
-      "side": "Red",
-      "type": "X"
-    },
-    {
-      "aCell": {
         "col": 2,
         "row": 1
       },
@@ -30,25 +21,7 @@
     },
     {
       "aCell": {
-        "col": 8,
-        "row": 1
-      },
-      "isDead": false,
-      "side": "Red",
-      "type": "M"
-    },
-    {
-      "aCell": {
         "col": 3,
-        "row": 1
-      },
-      "isDead": false,
-      "side": "Red",
-      "type": "T"
-    },
-    {
-      "aCell": {
-        "col": 7,
         "row": 1
       },
       "isDead": false,
@@ -66,15 +39,6 @@
     },
     {
       "aCell": {
-        "col": 6,
-        "row": 1
-      },
-      "isDead": false,
-      "side": "Red",
-      "type": "S"
-    },
-    {
-      "aCell": {
         "col": 5,
         "row": 1
       },
@@ -84,21 +48,39 @@
     },
     {
       "aCell": {
-        "col": 2,
-        "row": 3
+        "col": 6,
+        "row": 1
       },
       "isDead": false,
       "side": "Red",
-      "type": "P"
+      "type": "S"
+    },
+    {
+      "aCell": {
+        "col": 7,
+        "row": 1
+      },
+      "isDead": false,
+      "side": "Red",
+      "type": "T"
     },
     {
       "aCell": {
         "col": 8,
-        "row": 3
+        "row": 1
       },
       "isDead": false,
       "side": "Red",
-      "type": "P"
+      "type": "M"
+    },
+    {
+      "aCell": {
+        "col": 9,
+        "row": 1
+      },
+      "isDead": false,
+      "side": "Red",
+      "type": "X"
     },
     {
       "aCell": {
@@ -124,8 +106,8 @@
         "row": 4
       },
       "isDead": false,
-      "side": "Red",
-      "type": "B"
+      "side": "Black",
+      "type": "P"
     },
     {
       "aCell": {
@@ -147,12 +129,57 @@
     },
     {
       "aCell": {
-        "col": 9,
-        "row": 10
+        "col": 1,
+        "row": 7
       },
       "isDead": false,
       "side": "Black",
-      "type": "X"
+      "type": "B"
+    },
+    {
+      "aCell": {
+        "col": 3,
+        "row": 7
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "B"
+    },
+    {
+      "aCell": {
+        "col": 5,
+        "row": 7
+      },
+      "isDead": false,
+      "side": "Red",
+      "type": "P"
+    },
+    {
+      "aCell": {
+        "col": 7,
+        "row": 7
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "B"
+    },
+    {
+      "aCell": {
+        "col": 9,
+        "row": 7
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "B"
+    },
+    {
+      "aCell": {
+        "col": 8,
+        "row": 8
+      },
+      "isDead": false,
+      "side": "Black",
+      "type": "P"
     },
     {
       "aCell": {
@@ -165,15 +192,6 @@
     },
     {
       "aCell": {
-        "col": 8,
-        "row": 10
-      },
-      "isDead": false,
-      "side": "Black",
-      "type": "M"
-    },
-    {
-      "aCell": {
         "col": 2,
         "row": 10
       },
@@ -183,30 +201,12 @@
     },
     {
       "aCell": {
-        "col": 7,
-        "row": 10
-      },
-      "isDead": false,
-      "side": "Black",
-      "type": "T"
-    },
-    {
-      "aCell": {
         "col": 3,
         "row": 10
       },
       "isDead": false,
       "side": "Black",
       "type": "T"
-    },
-    {
-      "aCell": {
-        "col": 6,
-        "row": 10
-      },
-      "isDead": false,
-      "side": "Black",
-      "type": "S"
     },
     {
       "aCell": {
@@ -228,66 +228,39 @@
     },
     {
       "aCell": {
-        "col": 8,
-        "row": 8
+        "col": 6,
+        "row": 10
       },
       "isDead": false,
       "side": "Black",
-      "type": "P"
+      "type": "S"
     },
     {
       "aCell": {
-        "col": 2,
-        "row": 8
+        "col": 7,
+        "row": 10
       },
       "isDead": false,
       "side": "Black",
+      "type": "T"
+    },
+    {
+      "aCell": {
+        "col": 8,
+        "row": 10
+      },
+      "isDead": false,
+      "side": "Red",
       "type": "P"
     },
     {
       "aCell": {
         "col": 9,
-        "row": 7
+        "row": 10
       },
       "isDead": false,
       "side": "Black",
-      "type": "B"
-    },
-    {
-      "aCell": {
-        "col": 7,
-        "row": 7
-      },
-      "isDead": false,
-      "side": "Black",
-      "type": "B"
-    },
-    {
-      "aCell": {
-        "col": 5,
-        "row": 7
-      },
-      "isDead": false,
-      "side": "Black",
-      "type": "B"
-    },
-    {
-      "aCell": {
-        "col": 3,
-        "row": 7
-      },
-      "isDead": false,
-      "side": "Black",
-      "type": "B"
-    },
-    {
-      "aCell": {
-        "col": 1,
-        "row": 7
-      },
-      "isDead": false,
-      "side": "Black",
-      "type": "B"
+      "type": "X"
     }
   ]
 }

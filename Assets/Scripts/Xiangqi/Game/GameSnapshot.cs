@@ -22,21 +22,18 @@ namespace Xiangqi.Game
         {
             chessPieces.Clear();
 
-            AddAliveChessPieceIn2DArrayToList();
+            AddChessPieceIn2DArrayToList();
             var json = JsonUtility.ToJson(this);
             File.WriteAllText(Constants.SaveFilePath, json);
         }
 
         // The 2D array is not serializable so we must use an List<T> instead.
-        private void AddAliveChessPieceIn2DArrayToList()
+        private void AddChessPieceIn2DArrayToList()
         {
-            for (var i = 1; i <= Constants.BoardRows; i++)
-            for (var j = 1; j <= Constants.BoardCols; j++)
+            for (var i = 0; i <= Constants.BoardRows; i++)
+            for (var j = 0; j <= Constants.BoardCols; j++)
                 if (chessboard[i, j] != null)
-                {
                     chessPieces.Add(chessboard[i, j]);
-                    Debug.Log(chessboard[i, j]);
-                }
         }
     }
 }
