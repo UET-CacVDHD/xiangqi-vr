@@ -54,7 +54,7 @@ namespace Xiangqi.Game
         {
             AddChessPieceIn2DArrayToList();
             var json = JsonUtility.ToJson(this);
-            File.WriteAllText(Constants.SavedFilePath, json);
+            File.WriteAllText(Constants.StoredGamePath, json);
         }
 
         // The 2D array is not serializable so we must use an List<T> instead.

@@ -21,7 +21,7 @@ public class Unity3DGameManager : MonoBehaviour
     public void LoadGame()
     {
         Debug.Log("Loading game");
-        _gameSnapshot = GameSnapshot.LoadFromFile(Constants.SavedFilePath);
+        _gameSnapshot = GameSnapshot.LoadFromFile(Constants.StoredGamePath);
 
         InitTypeSidePrefabMap();
         InstantiateChessPiece();
@@ -30,7 +30,7 @@ public class Unity3DGameManager : MonoBehaviour
     public void RestartGame()
     {
         Debug.Log("Restarting game");
-        _gameSnapshot = GameSnapshot.LoadFromFile(Constants.NewGameFilePath);
+        _gameSnapshot = GameSnapshot.LoadFromFile(Constants.NewGamePath);
 
         InitTypeSidePrefabMap();
         InstantiateChessPiece(); 
