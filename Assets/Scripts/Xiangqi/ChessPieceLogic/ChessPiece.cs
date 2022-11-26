@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Xiangqi.Enum;
 using Xiangqi.Game;
 using Xiangqi.Motion;
 using Xiangqi.Motion.Cell;
-using Xiangqi.Util;
 
 namespace Xiangqi.ChessPieceLogic
 {
@@ -19,17 +17,18 @@ namespace Xiangqi.ChessPieceLogic
         public string type;
 
         protected Boundary boundary;
-        public ChessPiece[,] chessboard;
+        [NonSerialized] public GameSnapshot gss;
+
         protected List<AbsoluteCell> movableCells;
         protected List<Path> paths;
 
-        public ChessPiece(AbsoluteCell aCell, bool isDead, string side, string type, ChessPiece[,] chessboard)
+        public ChessPiece(AbsoluteCell aCell, bool isDead, string side, string type, GameSnapshot gss)
         {
             this.aCell = aCell;
             this.isDead = isDead;
             this.side = side;
             this.type = type;
-            this.chessboard = chessboard;
+            this.gss = gss;
             movableCells = new List<AbsoluteCell>();
         }
 
@@ -52,11 +51,11 @@ namespace Xiangqi.ChessPieceLogic
 
         private bool LeadToGameOver(AbsoluteCell nextMove)
         {
-            var nextMoveGss = new GameSnapshot(chessboard);
+            var nextMoveGss = new GameSnapshot(gss.chessboard, side);
             var chessPiece = nextMoveGss.chessboard[aCell.row, aCell.col];
             chessPiece.MoveTo(nextMove);
 
-            var general = (General)Helper.FindChessPiece(nextMoveGss.chessboard, side, ChessType.General);
+            var general = (General)nextMoveGss.FindChessPiece(side, ChessType.General);
             return general.CanBeKilled() || general.FaceWithOpponentGeneral();
         }
 
@@ -84,7 +83,7 @@ namespace Xiangqi.ChessPieceLogic
 
                         var currentACell = rCell.GetAbsoluteCell(side);
 
-                        var pieceAtCurrentCell = chessboard[currentACell.row, currentACell.col];
+                        var pieceAtCurrentCell = gss.chessboard[currentACell.row, currentACell.col];
                         if (pieceAtCurrentCell == null) continue;
 
                         obstacle++;
@@ -111,13 +110,18 @@ namespace Xiangqi.ChessPieceLogic
 
         public void MoveTo(AbsoluteCell destination)
         {
-            Debug.Log("moveto" + destination);
+            UpdateChessboard(destination);
+            gss.SwitchTurn();
+            gss.VerifyCheckMate();
+        }
 
-            var destinationObj = chessboard[destination.row, destination.col];
+        private void UpdateChessboard(AbsoluteCell destination)
+        {
+            var destinationObj = gss.chessboard[destination.row, destination.col];
             destinationObj?.GetKilled();
 
-            chessboard[destination.row, destination.col] = this;
-            chessboard[aCell.row, aCell.col] = null;
+            gss.chessboard[destination.row, destination.col] = this;
+            gss.chessboard[aCell.row, aCell.col] = null;
 
             aCell = destination;
         }
@@ -127,9 +131,9 @@ namespace Xiangqi.ChessPieceLogic
             isDead = true;
         }
 
-        public virtual ChessPiece Clone(ChessPiece[,] newChessboard)
+        public virtual ChessPiece Clone(GameSnapshot newGss)
         {
-            return new ChessPiece(new AbsoluteCell(aCell), isDead, side, type, newChessboard);
+            return new ChessPiece(new AbsoluteCell(aCell), isDead, side, type, newGss);
         }
     }
 }

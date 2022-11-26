@@ -1,5 +1,6 @@
 ﻿{
-  "turn": "Red",
+  "sideTurn": "Red",
+  "state": "Playing",
   "chessPieces": [
     {
       "aCell": {

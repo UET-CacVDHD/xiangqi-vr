@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Xiangqi.Enum;
+using Xiangqi.Game;
 using Xiangqi.Motion;
 using Xiangqi.Motion.Cell;
 using Xiangqi.Util;
@@ -9,8 +10,8 @@ namespace Xiangqi.ChessPieceLogic
 {
     public class Soldier : ChessPiece
     {
-        public Soldier(AbsoluteCell aCell, bool isDead, string side, string type, ChessPiece[,] chessboard) : base(
-            aCell, isDead, side, type, chessboard)
+        public Soldier(AbsoluteCell aCell, bool isDead, string side, string type, GameSnapshot gss) : base(
+            aCell, isDead, side, type, gss)
         {
             paths = new List<Path>
             {
@@ -32,9 +33,9 @@ namespace Xiangqi.ChessPieceLogic
             return base.GetAvailablePaths().Where(path => path.directions[0] == Direction.Up || IsOverRiver()).ToList();
         }
 
-        public override ChessPiece Clone(ChessPiece[,] newChessboard)
+        public override ChessPiece Clone(GameSnapshot newGss)
         {
-            return new Soldier(new AbsoluteCell(aCell), isDead, side, type, newChessboard);
+            return new Soldier(new AbsoluteCell(aCell), isDead, side, type, newGss);
         }
     }
 }

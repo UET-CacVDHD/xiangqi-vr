@@ -51,20 +51,20 @@ public class Unity3DGameManager : MonoBehaviour
 
             chessPieceBehavior.Cp = piece.type switch
             {
-                ChessType.Rook => new Rook(piece.aCell, piece.isDead, piece.side, piece.type, _gameSnapshot.chessboard),
+                ChessType.Rook => new Rook(piece.aCell, piece.isDead, piece.side, piece.type, _gameSnapshot),
                 ChessType.Horse => new Horse(piece.aCell, piece.isDead, piece.side, piece.type,
-                    _gameSnapshot.chessboard),
+                    _gameSnapshot),
                 ChessType.Elephant => new Elephant(piece.aCell, piece.isDead, piece.side, piece.type,
-                    _gameSnapshot.chessboard),
+                    _gameSnapshot),
                 ChessType.Advisor => new Advisor(piece.aCell, piece.isDead, piece.side, piece.type,
-                    _gameSnapshot.chessboard),
+                    _gameSnapshot),
                 ChessType.General => new General(piece.aCell, piece.isDead, piece.side, piece.type,
-                    _gameSnapshot.chessboard),
+                    _gameSnapshot),
                 ChessType.Cannon => new Cannon(piece.aCell, piece.isDead, piece.side, piece.type,
-                    _gameSnapshot.chessboard),
-                _ => new Soldier(piece.aCell, piece.isDead, piece.side, piece.type, _gameSnapshot.chessboard)
+                    _gameSnapshot),
+                _ => new Soldier(piece.aCell, piece.isDead, piece.side, piece.type, _gameSnapshot)
             };
-            chessPieceBehavior.Cp.chessboard = _gameSnapshot.chessboard;
+            chessPieceBehavior.Cp.gss = _gameSnapshot;
             _gameSnapshot.chessboard[piece.aCell.row, piece.aCell.col] = chessPieceBehavior.Cp;
         }
     }

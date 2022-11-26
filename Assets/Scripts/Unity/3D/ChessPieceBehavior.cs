@@ -30,6 +30,8 @@ namespace Unity._3D.ChessPieceBehavior
 
         public void OnMouseUpAsButton()
         {
+            if (cp.side != cp.gss.SideTurn)
+                return;
             _coordinateManager.SetChosenChessPiece(this);
             _coordinateManager.ShowHintIndicatorsAtCells(cp.GetMovableAndNotLeadToGameOverCells());
         }
