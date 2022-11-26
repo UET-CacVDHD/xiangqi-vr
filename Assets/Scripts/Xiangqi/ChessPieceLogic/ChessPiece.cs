@@ -112,7 +112,7 @@ namespace Xiangqi.ChessPieceLogic
         {
             UpdateChessboard(destination);
             gss.SwitchTurn();
-            gss.VerifyCheckMate();
+            gss.UpdateGameState();
         }
 
         private void UpdateChessboard(AbsoluteCell destination)
