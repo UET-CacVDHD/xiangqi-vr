@@ -31,7 +31,7 @@ namespace Unity._3D.ChessPieceBehavior
         public void OnMouseUpAsButton()
         {
             _coordinateManager.SetChosenChessPiece(this);
-            _coordinateManager.ShowHintIndicatorsAtCells(cp.GetMovableCells());
+            _coordinateManager.ShowHintIndicatorsAtCells(cp.GetMovableAndNotLeadToGameOverCells());
         }
     }
 }

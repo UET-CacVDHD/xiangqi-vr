@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Xiangqi.Enum;
+using Xiangqi.Game;
 using Xiangqi.Motion;
 using Xiangqi.Motion.Cell;
 using Xiangqi.Util;
@@ -22,14 +23,14 @@ namespace Xiangqi.ChessPieceLogic
         protected List<AbsoluteCell> movableCells;
         protected List<Path> paths;
 
-        public ChessPiece(AbsoluteCell aCell, bool isDead, string side, string type)
+        public ChessPiece(AbsoluteCell aCell, bool isDead, string side, string type, ChessPiece[,] chessboard)
         {
             this.aCell = aCell;
             this.isDead = isDead;
             this.side = side;
             this.type = type;
+            this.chessboard = chessboard;
             movableCells = new List<AbsoluteCell>();
-            chessboard = new ChessPiece[Constants.BoardRows + 1, Constants.BoardCols + 1];
         }
 
         protected virtual List<Path> GetAvailablePaths()
@@ -41,6 +42,22 @@ namespace Xiangqi.ChessPieceLogic
         {
             UpdateMovableCells();
             return movableCells;
+        }
+
+        public List<AbsoluteCell> GetMovableAndNotLeadToGameOverCells()
+        {
+            UpdateMovableCells();
+            return movableCells.Where(cell => !LeadToGameOver(cell)).ToList();
+        }
+
+        private bool LeadToGameOver(AbsoluteCell nextMove)
+        {
+            var nextMoveGss = new GameSnapshot(chessboard);
+            var chessPiece = nextMoveGss.chessboard[aCell.row, aCell.col];
+            chessPiece.MoveTo(nextMove);
+
+            var general = (General)Helper.FindChessPiece(nextMoveGss.chessboard, side, ChessType.General);
+            return general.CanBeKilled() || general.FaceWithOpponentGeneral();
         }
 
         public virtual void UpdateMovableCells()
@@ -105,28 +122,14 @@ namespace Xiangqi.ChessPieceLogic
             aCell = destination;
         }
 
-        protected bool CanBeKilled()
-        {
-            for (var i = 1; i <= Constants.BoardRows; ++i)
-            for (var j = 1; j <= Constants.BoardCols; ++j)
-            {
-                if (chessboard[i, j] == null || chessboard[i, j].side == side ||
-                    chessboard[i, j].type == ChessType.General) continue;
-
-                if (chessboard[i, j].GetMovableCells().Any(cell => cell.Equals(aCell))) return true;
-            }
-
-            return false;
-        }
-
         public void GetKilled()
         {
             isDead = true;
         }
 
-        public virtual ChessPiece Clone()
+        public virtual ChessPiece Clone(ChessPiece[,] newChessboard)
         {
-            return new ChessPiece(new AbsoluteCell(aCell), isDead, side, type);
+            return new ChessPiece(new AbsoluteCell(aCell), isDead, side, type, newChessboard);
         }
     }
 }

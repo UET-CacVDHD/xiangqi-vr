@@ -8,7 +8,8 @@ namespace Xiangqi.ChessPieceLogic
 {
     public class Cannon : ChessPiece
     {
-        public Cannon(AbsoluteCell aCell, bool isDead, string side, string type) : base(aCell, isDead, side, type)
+        public Cannon(AbsoluteCell aCell, bool isDead, string side, string type, ChessPiece[,] chessboard) : base(aCell,
+            isDead, side, type, chessboard)
         {
             paths = new List<Path>
             {
@@ -20,9 +21,9 @@ namespace Xiangqi.ChessPieceLogic
             boundary = Boundary.Full;
         }
 
-        public override ChessPiece Clone()
+        public override ChessPiece Clone(ChessPiece[,] newChessboard)
         {
-            return new Cannon(new AbsoluteCell(aCell), isDead, side, type);
+            return new Cannon(new AbsoluteCell(aCell), isDead, side, type, newChessboard);
         }
     }
 }

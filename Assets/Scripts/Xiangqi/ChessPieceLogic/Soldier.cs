@@ -9,7 +9,8 @@ namespace Xiangqi.ChessPieceLogic
 {
     public class Soldier : ChessPiece
     {
-        public Soldier(AbsoluteCell aCell, bool isDead, string side, string type) : base(aCell, isDead, side, type)
+        public Soldier(AbsoluteCell aCell, bool isDead, string side, string type, ChessPiece[,] chessboard) : base(
+            aCell, isDead, side, type, chessboard)
         {
             paths = new List<Path>
             {
@@ -31,9 +32,9 @@ namespace Xiangqi.ChessPieceLogic
             return base.GetAvailablePaths().Where(path => path.directions[0] == Direction.Up || IsOverRiver()).ToList();
         }
 
-        public override ChessPiece Clone()
+        public override ChessPiece Clone(ChessPiece[,] newChessboard)
         {
-            return new Soldier(new AbsoluteCell(aCell), isDead, side, type);
+            return new Soldier(new AbsoluteCell(aCell), isDead, side, type, newChessboard);
         }
     }
 }

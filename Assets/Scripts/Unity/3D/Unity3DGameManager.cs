@@ -51,13 +51,18 @@ public class Unity3DGameManager : MonoBehaviour
 
             chessPieceBehavior.Cp = piece.type switch
             {
-                ChessType.Rook => new Rook(piece.aCell, piece.isDead, piece.side, piece.type),
-                ChessType.Horse => new Horse(piece.aCell, piece.isDead, piece.side, piece.type),
-                ChessType.Elephant => new Elephant(piece.aCell, piece.isDead, piece.side, piece.type),
-                ChessType.Advisor => new Advisor(piece.aCell, piece.isDead, piece.side, piece.type),
-                ChessType.General => new General(piece.aCell, piece.isDead, piece.side, piece.type),
-                ChessType.Cannon => new Cannon(piece.aCell, piece.isDead, piece.side, piece.type),
-                _ => new Soldier(piece.aCell, piece.isDead, piece.side, piece.type)
+                ChessType.Rook => new Rook(piece.aCell, piece.isDead, piece.side, piece.type, _gameSnapshot.chessboard),
+                ChessType.Horse => new Horse(piece.aCell, piece.isDead, piece.side, piece.type,
+                    _gameSnapshot.chessboard),
+                ChessType.Elephant => new Elephant(piece.aCell, piece.isDead, piece.side, piece.type,
+                    _gameSnapshot.chessboard),
+                ChessType.Advisor => new Advisor(piece.aCell, piece.isDead, piece.side, piece.type,
+                    _gameSnapshot.chessboard),
+                ChessType.General => new General(piece.aCell, piece.isDead, piece.side, piece.type,
+                    _gameSnapshot.chessboard),
+                ChessType.Cannon => new Cannon(piece.aCell, piece.isDead, piece.side, piece.type,
+                    _gameSnapshot.chessboard),
+                _ => new Soldier(piece.aCell, piece.isDead, piece.side, piece.type, _gameSnapshot.chessboard)
             };
             chessPieceBehavior.Cp.chessboard = _gameSnapshot.chessboard;
             _gameSnapshot.chessboard[piece.aCell.row, piece.aCell.col] = chessPieceBehavior.Cp;

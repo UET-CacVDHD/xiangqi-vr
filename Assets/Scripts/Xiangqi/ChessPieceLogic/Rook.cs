@@ -8,7 +8,8 @@ namespace Xiangqi.ChessPieceLogic
 {
     public class Rook : ChessPiece
     {
-        public Rook(AbsoluteCell aCell, bool isDead, string side, string type) : base(aCell, isDead, side, type)
+        public Rook(AbsoluteCell aCell, bool isDead, string side, string type, ChessPiece[,] chessboard) : base(aCell,
+            isDead, side, type, chessboard)
         {
             paths = new List<Path>
             {
@@ -20,9 +21,9 @@ namespace Xiangqi.ChessPieceLogic
             boundary = Boundary.Full;
         }
 
-        public override ChessPiece Clone()
+        public override ChessPiece Clone(ChessPiece[,] newChessboard)
         {
-            return new Rook(new AbsoluteCell(aCell), isDead, side, type);
+            return new Rook(new AbsoluteCell(aCell), isDead, side, type, newChessboard);
         }
     }
 }

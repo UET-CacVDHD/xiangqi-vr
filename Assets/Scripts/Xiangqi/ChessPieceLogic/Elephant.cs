@@ -7,7 +7,8 @@ namespace Xiangqi.ChessPieceLogic
 {
     public class Elephant : ChessPiece
     {
-        public Elephant(AbsoluteCell aCell, bool isDead, string side, string type) : base(aCell, isDead, side, type)
+        public Elephant(AbsoluteCell aCell, bool isDead, string side, string type, ChessPiece[,] chessboard) : base(
+            aCell, isDead, side, type, chessboard)
         {
             paths = new List<Path>
             {
@@ -19,9 +20,9 @@ namespace Xiangqi.ChessPieceLogic
             boundary = Boundary.River;
         }
 
-        public override ChessPiece Clone()
+        public override ChessPiece Clone(ChessPiece[,] newChessboard)
         {
-            return new Elephant(new AbsoluteCell(aCell), isDead, side, type);
+            return new Elephant(new AbsoluteCell(aCell), isDead, side, type, newChessboard);
         }
     }
 }

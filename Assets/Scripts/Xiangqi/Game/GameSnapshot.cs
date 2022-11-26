@@ -26,8 +26,7 @@ namespace Xiangqi.Game
             for (var j = 1; j <= Constants.BoardCols; j++)
             {
                 if (prevChessboard[i, j] == null) continue;
-                chessboard[i, j] = prevChessboard[i, j].Clone();
-                chessboard[i, j].chessboard = chessboard;
+                chessboard[i, j] = prevChessboard[i, j].Clone(chessboard);
             }
         }
 
@@ -48,15 +47,6 @@ namespace Xiangqi.Game
             for (var j = 1; j <= Constants.BoardCols; j++)
                 if (chessboard[i, j] != null)
                     chessPieces.Add(chessboard[i, j]);
-        }
-
-        public ChessPiece FindChessPiece(string side, string type)
-        {
-            for (var i = 1; i <= Constants.BoardRows; i++)
-            for (var j = 1; j <= Constants.BoardCols; j++)
-                if (chessboard[i, j] != null && chessboard[i, j].side == side && chessboard[i, j].type == type)
-                    return chessboard[i, j];
-            return null;
         }
     }
 }

@@ -1,16 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Xiangqi.Enum;
-using Xiangqi.Game;
 using Xiangqi.Motion;
 using Xiangqi.Motion.Cell;
+using Xiangqi.Util;
 
 namespace Xiangqi.ChessPieceLogic
 {
     public class General : ChessPiece
     {
-        public General(AbsoluteCell aCell, bool isDead, string side, string type) : base(aCell, isDead, side, type)
+        public General(AbsoluteCell aCell, bool isDead, string side, string type, ChessPiece[,] chessboard) : base(
+            aCell, isDead, side, type, chessboard)
         {
             paths = new List<Path>
             {
@@ -22,32 +23,37 @@ namespace Xiangqi.ChessPieceLogic
             boundary = Boundary.Palace;
         }
 
-        public override void UpdateMovableCells()
+        public bool CanBeKilled()
         {
-            base.UpdateMovableCells();
-            movableCells = movableCells.Where(NextMoveIsValid).ToList();
-        }
+            for (var i = 1; i <= Constants.BoardRows; ++i)
+            for (var j = 1; j <= Constants.BoardCols; ++j)
+            {
+                if (chessboard[i, j] == null || chessboard[i, j].side == side) continue;
+                if (chessboard[i, j].GetMovableCells().Any(cell => cell.Equals(aCell))) return true;
+            }
 
-        private bool NextMoveIsValid(AbsoluteCell nextMove)
-        {
-            var nextMoveGss = new GameSnapshot(chessboard);
-
-            var general = (General)nextMoveGss.FindChessPiece(side, ChessType.General);
-            general.MoveTo(nextMove);
-
-            Debug.Log(nextMove);
-            Debug.Log(general.CanBeKilled());
-            return !general.CanBeKilled();
-        }
-
-        private bool GeneralFaceToFace()
-        {
             return false;
         }
 
-        public override ChessPiece Clone()
+        public bool FaceWithOpponentGeneral()
         {
-            return new General(new AbsoluteCell(aCell), isDead, side, type);
+            var opponentGeneral = Helper.FindChessPiece(chessboard, Side.GetOppositeSide(side), ChessType.General);
+
+            if (opponentGeneral.aCell.col != aCell.col)
+                return false;
+
+            for (var i = Math.Min(aCell.row, opponentGeneral.aCell.row) + 1;
+                 i <= Math.Max(aCell.row, opponentGeneral.aCell.row) - 1;
+                 ++i)
+                if (chessboard[i, aCell.col] != null)
+                    return false;
+
+            return true;
+        }
+
+        public override ChessPiece Clone(ChessPiece[,] newChessboard)
+        {
+            return new General(new AbsoluteCell(aCell), isDead, side, type, newChessboard);
         }
     }
 }

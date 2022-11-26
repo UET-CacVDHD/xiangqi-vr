@@ -9,11 +9,12 @@ namespace Xiangqi.Enum
 
         public static string GetOppositeSide(string side)
         {
-            if (side == Red)
-                return Black;
-            if (side == Black)
-                return Red;
-            throw new Exception("Invalid side");
+            return side switch
+            {
+                Red => Black,
+                Black => Red,
+                _ => throw new Exception("Invalid side")
+            };
         }
     }
 }
