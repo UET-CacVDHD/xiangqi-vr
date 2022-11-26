@@ -22,5 +22,10 @@ namespace Xiangqi.ChessPieceLogic
             };
             boundary = Boundary.Full;
         }
+
+        public override ChessPiece Clone()
+        {
+            return new Horse(new AbsoluteCell(aCell), isDead, side, type);
+        }
     }
 }

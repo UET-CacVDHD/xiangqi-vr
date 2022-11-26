@@ -26,6 +26,11 @@ namespace Xiangqi.Motion.Cell
             return $"Cell: ({row}, {col})";
         }
 
+        public bool Equals(BaseCell anotherCell)
+        {
+            return row == anotherCell.row && col == anotherCell.col;
+        }
+
         public void MoveAlongDirection(Direction dir, int step)
         {
             row += dir.DeltaRow * step;

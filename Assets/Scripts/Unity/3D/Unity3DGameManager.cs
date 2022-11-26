@@ -27,6 +27,8 @@ public class Unity3DGameManager : MonoBehaviour
 
         var json = File.ReadAllText(Constants.SaveFilePath);
         _gameSnapshot = JsonUtility.FromJson<GameSnapshot>(json);
+        // TODO: search - provide default value of class field vs define in constructor
+        _gameSnapshot.chessboard = new ChessPiece[Constants.BoardRows + 1, Constants.BoardCols + 1];
 
         InitTypeSidePrefabMap();
         InstantiateChessPiece();
@@ -57,11 +59,9 @@ public class Unity3DGameManager : MonoBehaviour
                 ChessType.Cannon => new Cannon(piece.aCell, piece.isDead, piece.side, piece.type),
                 _ => new Soldier(piece.aCell, piece.isDead, piece.side, piece.type)
             };
-
+            chessPieceBehavior.Cp.chessboard = _gameSnapshot.chessboard;
             _gameSnapshot.chessboard[piece.aCell.row, piece.aCell.col] = chessPieceBehavior.Cp;
         }
-
-        ChessPiece.chessboard = _gameSnapshot.chessboard;
     }
 
     [Serializable] // use serializable to make the class visible in Unity editor

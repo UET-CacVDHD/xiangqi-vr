@@ -18,5 +18,10 @@ namespace Xiangqi.ChessPieceLogic
             };
             boundary = Boundary.River;
         }
+
+        public override ChessPiece Clone()
+        {
+            return new Elephant(new AbsoluteCell(aCell), isDead, side, type);
+        }
     }
 }

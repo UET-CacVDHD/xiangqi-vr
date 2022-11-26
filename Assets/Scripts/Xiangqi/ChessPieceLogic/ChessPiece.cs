@@ -1,22 +1,24 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Xiangqi.Enum;
 using Xiangqi.Motion;
 using Xiangqi.Motion.Cell;
+using Xiangqi.Util;
 
 namespace Xiangqi.ChessPieceLogic
 {
     [Serializable]
     public class ChessPiece
     {
-        public static ChessPiece[,] chessboard;
         public AbsoluteCell aCell;
         public bool isDead;
         public string side;
         public string type;
 
         protected Boundary boundary;
+        public ChessPiece[,] chessboard;
         protected List<AbsoluteCell> movableCells;
         protected List<Path> paths;
 
@@ -27,6 +29,7 @@ namespace Xiangqi.ChessPieceLogic
             this.side = side;
             this.type = type;
             movableCells = new List<AbsoluteCell>();
+            chessboard = new ChessPiece[Constants.BoardRows + 1, Constants.BoardCols + 1];
         }
 
         protected virtual List<Path> GetAvailablePaths()
@@ -36,10 +39,11 @@ namespace Xiangqi.ChessPieceLogic
 
         public List<AbsoluteCell> GetMovableCells()
         {
+            UpdateMovableCells();
             return movableCells;
         }
 
-        public void UpdateMovableCells()
+        public virtual void UpdateMovableCells()
         {
             movableCells.Clear();
             var originalCell = aCell.GetRelativeCell(side);
@@ -101,10 +105,28 @@ namespace Xiangqi.ChessPieceLogic
             aCell = destination;
         }
 
+        protected bool CanBeKilled()
+        {
+            for (var i = 1; i <= Constants.BoardRows; ++i)
+            for (var j = 1; j <= Constants.BoardCols; ++j)
+            {
+                if (chessboard[i, j] == null || chessboard[i, j].side == side ||
+                    chessboard[i, j].type == ChessType.General) continue;
+
+                if (chessboard[i, j].GetMovableCells().Any(cell => cell.Equals(aCell))) return true;
+            }
+
+            return false;
+        }
+
         public void GetKilled()
         {
             isDead = true;
-            aCell = new AbsoluteCell(0, 0);
+        }
+
+        public virtual ChessPiece Clone()
+        {
+            return new ChessPiece(new AbsoluteCell(aCell), isDead, side, type);
         }
     }
 }

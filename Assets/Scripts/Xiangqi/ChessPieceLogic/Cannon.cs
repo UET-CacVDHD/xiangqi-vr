@@ -19,5 +19,10 @@ namespace Xiangqi.ChessPieceLogic
             };
             boundary = Boundary.Full;
         }
+
+        public override ChessPiece Clone()
+        {
+            return new Cannon(new AbsoluteCell(aCell), isDead, side, type);
+        }
     }
 }

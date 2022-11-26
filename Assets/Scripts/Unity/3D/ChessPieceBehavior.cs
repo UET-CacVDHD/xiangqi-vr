@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Xiangqi.ChessPieceLogic;
 
 namespace Unity._3D.ChessPieceBehavior
 {
@@ -7,9 +8,9 @@ namespace Unity._3D.ChessPieceBehavior
     public class ChessPieceBehavior : MonoBehaviour
     {
         private CoordinateManager _coordinateManager;
-        protected Xiangqi.ChessPieceLogic.ChessPiece cp;
+        protected ChessPiece cp;
 
-        public Xiangqi.ChessPieceLogic.ChessPiece Cp
+        public ChessPiece Cp
         {
             get => cp;
             set => cp = value;
@@ -22,13 +23,14 @@ namespace Unity._3D.ChessPieceBehavior
 
         private void Update()
         {
-            transform.position = _coordinateManager.GetCoordinateFromChessboardCell(cp.aCell);
+            if (cp.isDead)
+                Destroy(gameObject);
+            else transform.position = _coordinateManager.GetCoordinateFromChessboardCell(cp.aCell);
         }
 
         public void OnMouseUpAsButton()
         {
             _coordinateManager.SetChosenChessPiece(this);
-            cp.UpdateMovableCells();
             _coordinateManager.ShowHintIndicatorsAtCells(cp.GetMovableCells());
         }
     }

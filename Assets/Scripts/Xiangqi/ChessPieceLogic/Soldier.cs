@@ -30,5 +30,10 @@ namespace Xiangqi.ChessPieceLogic
         {
             return base.GetAvailablePaths().Where(path => path.directions[0] == Direction.Up || IsOverRiver()).ToList();
         }
+
+        public override ChessPiece Clone()
+        {
+            return new Soldier(new AbsoluteCell(aCell), isDead, side, type);
+        }
     }
 }
