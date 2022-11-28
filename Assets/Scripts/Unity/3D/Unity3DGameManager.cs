@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity._3D.ChessPieceBehavior;
 using UnityEngine;
+using Xiangqi.Command;
 using Xiangqi.Game;
 using Xiangqi.Util;
 
@@ -33,7 +34,17 @@ public class Unity3DGameManager : MonoBehaviour
         _gameSnapshot = GameSnapshot.LoadFromFile(Constants.NewGamePath);
 
         InitTypeSidePrefabMap();
-        InstantiateChessPiece(); 
+        InstantiateChessPiece();
+
+        try
+        {
+            var cmd = CommandParser.CreateCommand("pháo 2 bình 5", _gameSnapshot);
+            cmd?.HandleCommand();
+        }
+        catch (Exception e)
+        {
+            Debug.Log(e);
+        }
     }
 
     private void InitTypeSidePrefabMap()
