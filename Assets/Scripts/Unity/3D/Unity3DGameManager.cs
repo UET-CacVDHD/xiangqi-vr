@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Unity._3D.ChessPieceBehavior;
+using Unity._3D;
 using UnityEngine;
 using Xiangqi.Command;
+using Xiangqi.Enum;
 using Xiangqi.Game;
 using Xiangqi.Util;
 
@@ -58,6 +59,7 @@ public class Unity3DGameManager : MonoBehaviour
     {
         var chessPieceContainer = GameObject.Find("ChessPieces").transform;
 
+
         for (var i = 1; i <= Constants.BoardRows; i++)
         for (var j = 1; j <= Constants.BoardCols; j++)
         {
@@ -67,6 +69,10 @@ public class Unity3DGameManager : MonoBehaviour
             var chessPieceBehavior =
                 Instantiate(_sideTypePrefabMap[chessPiece.side + chessPiece.type], chessPieceContainer)
                     .GetComponent<ChessPieceBehavior>();
+
+            if (chessPiece.side == Side.Black)
+                chessPieceBehavior.transform.Rotate(180, 0, 0);
+
             chessPieceBehavior.Cp = chessPiece;
         }
     }

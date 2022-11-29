@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Xiangqi.ChessPieceLogic;
 
-namespace Unity._3D.ChessPieceBehavior
+namespace Unity._3D
 {
     [Serializable]
     public class ChessPieceBehavior : MonoBehaviour

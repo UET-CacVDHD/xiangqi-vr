@@ -5,7 +5,7 @@ using Xiangqi.Game;
 
 namespace Xiangqi.Command
 {
-    public class CommandParser
+    public static class CommandParser
     {
         private static readonly List<string> MovementCmdPhrases = new()
         {

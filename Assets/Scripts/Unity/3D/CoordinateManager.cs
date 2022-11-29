@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Unity._3D.ChessPieceBehavior;
+using Unity._3D;
 using UnityEngine;
 using Xiangqi.Motion.Cell;
 using Xiangqi.Util;
