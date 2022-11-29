@@ -19,6 +19,11 @@ public class HintBehavior : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
+        Select();
+    }
+
+    public void Select()
+    {
         if (!_isEnabled) return;
 
         _coordinateManager.MoveTo(_position);

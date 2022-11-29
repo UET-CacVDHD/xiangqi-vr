@@ -63,20 +63,6 @@ public class CoordinateManager : MonoBehaviour
         foreach (var cell in cells) ToggleHintIndicator(cell, true);
     }
 
-    private void DisableAllHintIndicators()
-    {
-        for (var i = 0; i < Constants.BoardRows; i++)
-        for (var j = 0; j < Constants.BoardCols; j++)
-            ToggleHintIndicator(new AbsoluteCell(i + 1, j + 1), false);
-    }
-
-    private void ToggleHintIndicator(AbsoluteCell absoluteCell, bool isEnabled)
-    {
-        _hintIndicators[(absoluteCell.row - 1) * Constants.BoardCols + absoluteCell.col - 1]
-            .GetComponent<HintBehavior>()
-            .ToggleHint(isEnabled);
-    }
-
     public void MoveTo(AbsoluteCell absoluteCell)
     {
         if (_chosenChessPiece == null) return;
@@ -89,5 +75,21 @@ public class CoordinateManager : MonoBehaviour
     public void SetChosenChessPiece(ChessPieceBehavior chessPiece)
     {
         _chosenChessPiece = chessPiece;
+
+        if (_chosenChessPiece == null) DisableAllHintIndicators();
+    }
+
+    private void DisableAllHintIndicators()
+    {
+        for (var i = 0; i < Constants.BoardRows; i++)
+        for (var j = 0; j < Constants.BoardCols; j++)
+            ToggleHintIndicator(new AbsoluteCell(i + 1, j + 1), false);
+    }
+
+    private void ToggleHintIndicator(AbsoluteCell absoluteCell, bool isEnabled)
+    {
+        _hintIndicators[(absoluteCell.row - 1) * Constants.BoardCols + absoluteCell.col - 1]
+            .GetComponent<HintBehavior>()
+            .ToggleHint(isEnabled);
     }
 }

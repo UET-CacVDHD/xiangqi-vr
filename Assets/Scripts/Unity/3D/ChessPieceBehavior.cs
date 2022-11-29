@@ -24,16 +24,35 @@ namespace Unity._3D
         private void Update()
         {
             if (cp.isDead)
+            {
                 Destroy(gameObject);
-            else transform.position = _coordinateManager.GetCoordinateFromChessboardCell(cp.aCell);
+            }
+            else
+            {
+                var pieceDistanceToBase = Vector3.Distance(transform.position,
+                    _coordinateManager.GetCoordinateFromChessboardCell(cp.aCell));
+                if (pieceDistanceToBase > 0.05)
+                    transform.position = _coordinateManager.GetCoordinateFromChessboardCell(cp.aCell);
+            }
         }
 
         public void OnMouseUpAsButton()
         {
+            Select();
+        }
+
+        public void Select()
+        {
+            Debug.Log("Selected");
             if (cp.side != cp.gss.SideTurn)
                 return;
             _coordinateManager.SetChosenChessPiece(this);
             _coordinateManager.ShowHintIndicatorsAtCells(cp.GetMovableAndNotLeadToGameOverCells());
+        }
+
+        public void Deselect()
+        {
+            _coordinateManager.SetChosenChessPiece(null);
         }
     }
 }
