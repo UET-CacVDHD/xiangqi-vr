@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using Unity.XR;
 using UnityEngine;
 using Xiangqi.ChessPieceLogic;
 
@@ -53,6 +55,20 @@ namespace Unity._3D
         public void Deselect()
         {
             _coordinateManager.SetChosenChessPiece(null);
+        }
+
+        public void XROnDeselect()
+        {
+            var positionSelected = GameObject
+                .FindGameObjectsWithTag("VRHand")
+                .First(obj => obj.GetComponent<HandManager>().IsActive())
+                .GetComponent<HandManager>()
+                .GetRayCastHit();
+
+            if (positionSelected != null)
+                positionSelected.GetComponent<HintBehavior>().Select();
+
+            Deselect();
         }
     }
 }

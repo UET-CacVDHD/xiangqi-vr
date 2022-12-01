@@ -5,6 +5,7 @@ using UnityEngine;
 using Xiangqi.Command;
 using Xiangqi.Enum;
 using Xiangqi.Game;
+using Xiangqi.Parser;
 using Xiangqi.Util;
 
 public class Unity3DGameManager : MonoBehaviour
@@ -13,6 +14,11 @@ public class Unity3DGameManager : MonoBehaviour
 
     private GameSnapshot _gameSnapshot;
     private Dictionary<string, GameObject> _sideTypePrefabMap;
+
+    private void Start()
+    {
+        var res = TestParser.Expression.Parse("std:T3+2");
+    }
 
     public void SaveGame()
     {
