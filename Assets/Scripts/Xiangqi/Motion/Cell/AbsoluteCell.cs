@@ -21,7 +21,7 @@ namespace Xiangqi.Motion.Cell
         {
             return side == Side.Red
                 ? new RelativeCell(row, col)
-                : new RelativeCell(Constants.BoardRows - row + 1, Constants.BoardCols - col + 1);
+                : new RelativeCell(Constant.BoardRows - row + 1, Constant.BoardCols - col + 1);
         }
     }
 }

@@ -26,8 +26,8 @@ namespace Xiangqi.ChessPieceLogic
 
         public bool CanBeKilled()
         {
-            for (var i = 1; i <= Constants.BoardRows; ++i)
-            for (var j = 1; j <= Constants.BoardCols; ++j)
+            for (var i = 1; i <= Constant.BoardRows; ++i)
+            for (var j = 1; j <= Constant.BoardCols; ++j)
             {
                 if (gss.chessboard[i, j] == null || gss.chessboard[i, j].side == side) continue;
                 if (gss.chessboard[i, j].GetMovableCells().Any(cell => cell.Equals(aCell))) return true;

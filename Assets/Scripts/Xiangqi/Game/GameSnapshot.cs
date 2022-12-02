@@ -23,9 +23,9 @@ namespace Xiangqi.Game
             chessPieces = new List<ChessPiece>();
             this.sideTurn = sideTurn;
 
-            chessboard = new ChessPiece[Constants.BoardRows + 1, Constants.BoardCols + 1];
-            for (var i = 1; i <= Constants.BoardRows; i++)
-            for (var j = 1; j <= Constants.BoardCols; j++)
+            chessboard = new ChessPiece[Constant.BoardRows + 1, Constant.BoardCols + 1];
+            for (var i = 1; i <= Constant.BoardRows; i++)
+            for (var j = 1; j <= Constant.BoardCols; j++)
             {
                 if (prevChessboard[i, j] == null) continue;
                 chessboard[i, j] = prevChessboard[i, j].Clone(this);
@@ -54,7 +54,7 @@ namespace Xiangqi.Game
         {
             AddChessPieceIn2DArrayToList();
             var json = JsonUtility.ToJson(this);
-            File.WriteAllText(Constants.StoredGamePath, json);
+            File.WriteAllText(Constant.StoredGamePath, json);
         }
 
         // The 2D array is not serializable so we must use an List<T> instead.
@@ -62,8 +62,8 @@ namespace Xiangqi.Game
         {
             chessPieces.Clear();
 
-            for (var i = 1; i <= Constants.BoardRows; i++)
-            for (var j = 1; j <= Constants.BoardCols; j++)
+            for (var i = 1; i <= Constant.BoardRows; i++)
+            for (var j = 1; j <= Constant.BoardCols; j++)
                 if (chessboard[i, j] != null)
                     chessPieces.Add(chessboard[i, j]);
         }
@@ -73,7 +73,7 @@ namespace Xiangqi.Game
             var json = File.ReadAllText(filePath);
 
             var gameSnapshot = JsonUtility.FromJson<GameSnapshot>(json);
-            gameSnapshot.chessboard = new ChessPiece[Constants.BoardRows + 1, Constants.BoardCols + 1];
+            gameSnapshot.chessboard = new ChessPiece[Constant.BoardRows + 1, Constant.BoardCols + 1];
 
             foreach (var piece in gameSnapshot.chessPieces)
                 gameSnapshot.chessboard[piece.aCell.row, piece.aCell.col] = piece.type switch
@@ -97,8 +97,8 @@ namespace Xiangqi.Game
 
         public ChessPiece FindChessPiece(string cpSide, string cpType)
         {
-            for (var i = 1; i <= Constants.BoardRows; i++)
-            for (var j = 1; j <= Constants.BoardCols; j++)
+            for (var i = 1; i <= Constant.BoardRows; i++)
+            for (var j = 1; j <= Constant.BoardCols; j++)
                 if (chessboard[i, j] != null && chessboard[i, j].side == cpSide && chessboard[i, j].type == cpType)
                     return chessboard[i, j];
             return null;
@@ -122,8 +122,8 @@ namespace Xiangqi.Game
 
         private bool StateIsGameOver()
         {
-            for (var i = 1; i <= Constants.BoardRows; i++)
-            for (var j = 1; j <= Constants.BoardCols; j++)
+            for (var i = 1; i <= Constant.BoardRows; i++)
+            for (var j = 1; j <= Constant.BoardCols; j++)
                 if (chessboard[i, j] != null && chessboard[i, j].side == sideTurn)
                     if (chessboard[i, j].GetMovableAndNotLeadToGameOverCells().Count > 0)
                         return false;

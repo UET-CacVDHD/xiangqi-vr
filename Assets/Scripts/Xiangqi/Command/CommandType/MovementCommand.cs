@@ -11,6 +11,7 @@ namespace Xiangqi.Command.CommandType
     public class MovementCommand : BaseCommand
     {
         private MovementCode code;
+
         public MovementCommand(string text, GameSnapshot gss) : base(text, gss)
         {
         }
@@ -42,7 +43,7 @@ namespace Xiangqi.Command.CommandType
         {
             var possibleCps = new List<ChessPiece>();
 
-            for (var i = 1; i <= Constants.BoardRows; ++i)
+            for (var i = 1; i <= Constant.BoardRows; ++i)
                 if (gss.chessboard[i, code.to] != null)
                 {
                     var chessPiece = gss.chessboard[i, code.to];

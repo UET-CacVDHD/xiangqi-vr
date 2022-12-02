@@ -25,7 +25,7 @@ namespace Xiangqi.ChessPieceLogic
         private bool IsOverRiver()
         {
             var sideRelativeCell = aCell.GetRelativeCell(side);
-            return sideRelativeCell.row > Constants.BoardRiverRows;
+            return sideRelativeCell.row > Constant.BoardRiverRows;
         }
 
         protected override List<Path> GetAvailablePaths()
