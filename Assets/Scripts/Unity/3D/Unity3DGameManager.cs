@@ -2,22 +2,41 @@ using System;
 using System.Collections.Generic;
 using Unity._3D;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Xiangqi.Command;
 using Xiangqi.Enum;
 using Xiangqi.Game;
-using Xiangqi.Parser;
 using Xiangqi.Util;
 
 public class Unity3DGameManager : MonoBehaviour
 {
+    public static Unity3DGameManager Instance;
     public ChessPieceSideTypePrefab[] chessPieceSideTypePrefabs;
-
+    private bool _chessPieceIsInit;
     private GameSnapshot _gameSnapshot;
     private Dictionary<string, GameObject> _sideTypePrefabMap;
 
     private void Start()
     {
-        var res = TestParser.Expression.Parse("std:T3+2");
+        // var res = TestParser.Expression.Parse("std:T3+2");
+        _chessPieceIsInit = false;
+
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnRenderObject()
+    {
+        if (_chessPieceIsInit || GameObject.Find("ChessPieces") == null) return;
+        InitTypeSidePrefabMap();
+        InstantiateChessPiece();
+        _chessPieceIsInit = true;
     }
 
     public void SaveGame()
@@ -29,19 +48,15 @@ public class Unity3DGameManager : MonoBehaviour
     public void LoadGame()
     {
         Debug.Log("Loading game");
+        SceneManager.LoadScene(1);
         _gameSnapshot = GameSnapshot.LoadFromFile(Constants.StoredGamePath);
-
-        InitTypeSidePrefabMap();
-        InstantiateChessPiece();
     }
 
     public void RestartGame()
     {
         Debug.Log("Restarting game");
+        SceneManager.LoadScene(1);
         _gameSnapshot = GameSnapshot.LoadFromFile(Constants.NewGamePath);
-
-        InitTypeSidePrefabMap();
-        InstantiateChessPiece();
 
         try
         {
@@ -64,7 +79,6 @@ public class Unity3DGameManager : MonoBehaviour
     private void InstantiateChessPiece()
     {
         var chessPieceContainer = GameObject.Find("ChessPieces").transform;
-
 
         for (var i = 1; i <= Constants.BoardRows; i++)
         for (var j = 1; j <= Constants.BoardCols; j++)

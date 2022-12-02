@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028305, g: 0.22571313, b: 0.3069213, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1939,7 +1939,6 @@ GameObject:
   - component: {fileID: 1769322935}
   - component: {fileID: 1769322934}
   - component: {fileID: 1769322933}
-  - component: {fileID: 1769322936}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2031,19 +2030,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &1769322936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1769322931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9c66a844e09b52479cb5ea504bccc08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chessPieceSideTypePrefabs: []
 --- !u!1 &1807186669
 GameObject:
   m_ObjectHideFlags: 0
