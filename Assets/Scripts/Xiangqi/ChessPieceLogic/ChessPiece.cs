@@ -53,7 +53,7 @@ namespace Xiangqi.ChessPieceLogic
         {
             var nextMoveGss = new GameSnapshot(gss.chessboard, side);
             var chessPiece = nextMoveGss.chessboard[aCell.row, aCell.col];
-            chessPiece.MoveTo(nextMove);
+            chessPiece.TryMoveTo(nextMove);
 
             var general = (General)nextMoveGss.FindChessPiece(side, ChessType.General);
             return general.CanBeKilled() || general.FaceWithOpponentGeneral();
@@ -106,6 +106,12 @@ namespace Xiangqi.ChessPieceLogic
             clonedCell.MoveAlongPath(path, step);
 
             return !boundary.IsWithinBoundary(clonedCell);
+        }
+
+        public void TryMoveTo(AbsoluteCell destination)
+        {
+            UpdateChessboard(destination);
+            gss.SwitchTurn();
         }
 
         public void MoveTo(AbsoluteCell destination)

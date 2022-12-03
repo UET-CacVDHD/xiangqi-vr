@@ -43,10 +43,7 @@ public class Unity3DGameManager : MonoBehaviour
     {
         Debug.Log("Loading game");
         gameSnapshot = GameSnapshot.LoadFromFile(Constant.StoredGamePath);
-        // TEST
-        // StartCoroutine(LoadScene(SceneIdx.Main));
-        InitTypeSidePrefabMap();
-        InstantiateChessPiece();
+        StartCoroutine(LoadScene(SceneIdx.Main));
     }
 
     public void RestartGame()

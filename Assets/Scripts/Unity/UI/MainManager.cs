@@ -54,8 +54,6 @@ public class MainManager : MonoBehaviour
 
     public void HandleSaveBtnClick()
     {
-        // Unity3DGameManager.Instance.SaveGame();
-        // TEST
-        Unity3DGameManager.Instance.LoadGame();
+        Unity3DGameManager.Instance.SaveGame();
     }
 }
