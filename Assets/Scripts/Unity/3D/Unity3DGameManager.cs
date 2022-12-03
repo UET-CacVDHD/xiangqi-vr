@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity._3D;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using Xiangqi.Enum;
 using Xiangqi.Game;
 using Xiangqi.Util;
@@ -12,7 +13,10 @@ public class Unity3DGameManager : MonoBehaviour
 {
     public static Unity3DGameManager Instance;
     public ChessPieceSideTypePrefab[] chessPieceSideTypePrefabs;
-    private GameSnapshot _gameSnapshot;
+
+    [FormerlySerializedAs("_gameSnapshot")]
+    public GameSnapshot gameSnapshot;
+
     private Dictionary<string, GameObject> _sideTypePrefabMap;
 
     private void Start()
@@ -31,21 +35,21 @@ public class Unity3DGameManager : MonoBehaviour
     public void SaveGame()
     {
         Debug.Log("Saving game");
-        _gameSnapshot.SaveToFile();
+        gameSnapshot.SaveToFile();
         StartCoroutine(LoadScene(SceneIdx.Menu));
     }
 
     public void LoadGame()
     {
         Debug.Log("Loading game");
-        _gameSnapshot = GameSnapshot.LoadFromFile(Constant.StoredGamePath);
+        gameSnapshot = GameSnapshot.LoadFromFile(Constant.StoredGamePath);
         StartCoroutine(LoadScene(SceneIdx.Main));
     }
 
     public void RestartGame()
     {
         Debug.Log("Restarting game");
-        _gameSnapshot = GameSnapshot.LoadFromFile(Constant.NewGamePath);
+        gameSnapshot = GameSnapshot.LoadFromFile(Constant.NewGamePath);
         StartCoroutine(LoadScene(SceneIdx.Main));
     }
 
@@ -77,9 +81,9 @@ public class Unity3DGameManager : MonoBehaviour
         for (var i = 1; i <= Constant.BoardRows; i++)
         for (var j = 1; j <= Constant.BoardCols; j++)
         {
-            if (_gameSnapshot.chessboard[i, j] == null) continue;
+            if (gameSnapshot.chessboard[i, j] == null) continue;
 
-            var chessPiece = _gameSnapshot.chessboard[i, j];
+            var chessPiece = gameSnapshot.chessboard[i, j];
             var chessPieceBehavior =
                 Instantiate(_sideTypePrefabMap[chessPiece.side + chessPiece.type], chessPieceContainer)
                     .GetComponent<ChessPieceBehavior>();
