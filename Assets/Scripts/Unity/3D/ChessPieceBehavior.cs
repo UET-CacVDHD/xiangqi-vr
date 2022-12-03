@@ -9,6 +9,7 @@ namespace Unity._3D
     [Serializable]
     public class ChessPieceBehavior : MonoBehaviour
     {
+        public ParticleSystem explosionParticle;
         private CoordinateManager _coordinateManager;
         protected ChessPiece cp;
 
@@ -27,6 +28,7 @@ namespace Unity._3D
         {
             if (cp.isDead)
             {
+                Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
                 Destroy(gameObject);
             }
             else

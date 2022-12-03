@@ -7,6 +7,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 106823920388063618, guid: 7f82d6e5433d947b49acf9e8c9d9c9e6,
+        type: 3}
+      propertyPath: explosionParticle
+      value: 
+      objectReference: {fileID: 4758139293545943008, guid: c7ad2532a6eeb40b59033c75e71fa054,
+        type: 3}
     - target: {fileID: 2127691426302085970, guid: 7f82d6e5433d947b49acf9e8c9d9c9e6,
         type: 3}
       propertyPath: m_Materials.Array.size
