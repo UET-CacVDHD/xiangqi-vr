@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using Xiangqi.ChessPieceLogic;
+using Xiangqi.Command;
 using Xiangqi.Enum;
+using Xiangqi.Enum.Command;
+using Xiangqi.Motion.Cell;
 using Xiangqi.Util;
 
 namespace Xiangqi.Game
@@ -128,6 +132,119 @@ namespace Xiangqi.Game
                     if (chessboard[i, j].GetMovableAndNotLeadToGameOverCells().Count > 0)
                         return false;
             return true;
+        }
+
+        public List<ChessPieceMovableCells> ProcessStandardCommand(StandardCommand command)
+        {
+            return Selectors.SelectRowFromChessPieceRows(
+                    GetChessPiecesByRow(command.StartChessType, piece => piece.side == sideTurn),
+                    command.StartVerticalRelativePosition,
+                    sideTurn) // quân và vị trí tương đối trước/sau/giữa
+                .Where(cp => // số thứ tự cột bắt đầu
+                {
+                    if (Utilities.IsUndefined(command.StartColumn)) return true;
+
+                    return cp.aCell.GetRelativeCell(sideTurn).col == command.StartColumn;
+                })
+                .Select(GetChessPieceMovableCells)
+                .Select(cp => new ChessPieceMovableCells
+                {
+                    ChessPiece = cp.ChessPiece,
+                    MovableCells = cp.MovableCells.Where(movableCell =>
+                    {
+                        var cpRCell = cp.ChessPiece.aCell.GetRelativeCell(sideTurn);
+                        var movableRCell = movableCell.GetRelativeCell(sideTurn);
+                        switch (command.Direction)
+                        {
+                            // bình
+                            case DirectionCode.Sideways when command.EndColumn <= 0:
+                                return false;
+                            case DirectionCode.Sideways:
+                                return movableRCell.row == cpRCell.row &&
+                                       movableRCell.col == command.EndColumn;
+                            // tiến thoái: tượng, mã, sĩ
+                            case DirectionCode.Forward or DirectionCode.Backward when command.EndColumn > 0:
+                            {
+                                if (command.Direction == DirectionCode.Forward)
+                                    return movableRCell.col == command.EndColumn && movableRCell.row > cpRCell.row;
+                                if (command.Direction == DirectionCode.Backward)
+                                    return movableRCell.col == command.EndColumn && movableRCell.row < cpRCell.row;
+                                break;
+                            }
+                            //   tiến thoái: tướng, xe, tốt, pháo
+                            case DirectionCode.Forward or DirectionCode.Backward:
+                            {
+                                var numOfStep = command.NumberOfSteps > 0 ? command.NumberOfSteps : 1;
+                                if (command.Direction == DirectionCode.Forward)
+                                    return movableRCell.col == cpRCell.col &&
+                                           movableRCell.row == cpRCell.row + numOfStep;
+                                if (command.Direction == DirectionCode.Backward)
+                                    return movableRCell.col == cpRCell.col &&
+                                           movableRCell.row == cpRCell.row - numOfStep;
+                                break;
+                            }
+                        }
+
+                        return false;
+                    }).ToList()
+                }).Where(cp => cp.MovableCells.Count > 0).ToList();
+        }
+
+        public List<List<ChessPiece>> GetChessPiecesByRow(string chessType,
+            Func<ChessPiece, bool> filterCondition = null)
+        {
+            var rows = new List<List<ChessPiece>>();
+
+            for (var i = 1; i <= Constant.BoardRows; i++)
+            {
+                var row = new List<ChessPiece>();
+                for (var j = 1; j <= Constant.BoardCols; j++)
+                    if (chessboard[i, j] != null
+                        && chessboard[i, j].type == chessType
+                        && (filterCondition == null || filterCondition(chessboard[i, j])))
+                        row.Add(chessboard[i, j]);
+
+                if (row.Count > 0)
+                    rows.Add(row);
+            }
+
+            return rows;
+        }
+
+        public List<List<ChessPiece>> GetChessPiecesByColumn(string chessType,
+            Func<ChessPiece, bool> filterCondition = null)
+        {
+            var cols = new List<List<ChessPiece>>();
+
+            for (var j = 1; j <= Constant.BoardCols; j++)
+            {
+                var col = new List<ChessPiece>();
+                for (var i = 1; i <= Constant.BoardRows; i++)
+                    if (chessboard[i, j] != null
+                        && chessboard[i, j].type == chessType
+                        && (filterCondition == null || filterCondition(chessboard[i, j])))
+                        col.Add(chessboard[i, j]);
+
+                if (col.Count > 0)
+                    cols.Add(col);
+            }
+
+            return cols;
+        }
+
+        public ChessPieceMovableCells GetChessPieceMovableCells(ChessPiece chessPiece)
+        {
+            return new ChessPieceMovableCells
+            {
+                ChessPiece = chessPiece,
+                MovableCells = chessPiece.GetMovableAndNotLeadToGameOverCells()
+            };
+        }
+
+        public class ChessPieceMovableCells
+        {
+            public ChessPiece ChessPiece { get; set; }
+            public List<AbsoluteCell> MovableCells { get; set; } = new();
         }
     }
 }

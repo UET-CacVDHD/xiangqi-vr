@@ -1,5 +1,6 @@
 ﻿using Parlot.Fluent;
 using Xiangqi.Parser.Chess;
+using Xiangqi.Parser.Command;
 using static Parlot.Fluent.Parsers;
 
 
@@ -7,19 +8,13 @@ namespace Xiangqi.Parser
 {
     public class CommandParser
     {
-        public static readonly Parser<(string, string, string?, long, string, long)> Parser;
+        public static readonly Parser<PolymorphicCommand> Parser;
 
         static CommandParser()
         {
-            var expression = Deferred<(string, string, string, long, string, long)>();
+            var expression = Deferred<PolymorphicCommand>();
 
-            expression.Parser = CommandCategory.Parser
-                .AndSkip(Misc.Separator)
-                .And(ChessType.Parser)
-                .And(ZeroOrOne(VerticalRelativePosition.Parser))
-                .And(Terms.Integer())
-                .And(Direction.Parser)
-                .And(ZeroOrOne(Terms.Integer()));
+            expression.Parser = OneOf(StandardCommandParser.Parser);
 
             Parser = expression;
         }

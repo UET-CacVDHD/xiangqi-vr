@@ -24,7 +24,7 @@ namespace Xiangqi.Command.CommandType
 
             code = randNum switch
             {
-                1 => new MovementCode("M", RowPos.Front, 2, ".", 3),
+                1 => new MovementCode("M", RelativePosition.Front, 2, ".", 3),
                 2 => new MovementCode("P", null, 2, "=", 5),
                 3 => new MovementCode("G", null, 3, "+", 4),
                 4 => new MovementCode("X", null, 1, "+", 7),
@@ -59,7 +59,7 @@ namespace Xiangqi.Command.CommandType
             if (code.rowPos == null)
                 return possibleCps;
 
-            if (code.rowPos == RowPos.Front)
+            if (code.rowPos == RelativePosition.Front)
                 return gss.SideTurn == Side.Red
                     ? new List<ChessPiece> { possibleCps[1] }
                     : new List<ChessPiece> { possibleCps[0] };

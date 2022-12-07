@@ -88,9 +88,6 @@ public class Unity3DGameManager : MonoBehaviour
                 Instantiate(_sideTypePrefabMap[chessPiece.side + chessPiece.type], chessPieceContainer)
                     .GetComponent<ChessPieceBehavior>();
 
-            if (chessPiece.side == Side.Black)
-                chessPieceBehavior.transform.Rotate(180, 0, 0);
-
             chessPieceBehavior.Cp = chessPiece;
         }
     }

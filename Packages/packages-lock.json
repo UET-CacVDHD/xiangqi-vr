@@ -30,7 +30,7 @@
       "depth": 0,
       "source": "builtin",
       "dependencies": {
-        "com.unity.xr.oculus": "3.2.1",
+        "com.unity.xr.oculus": "3.2.2",
         "com.unity.xr.openxr": "1.5.3"
       }
     },
@@ -60,7 +60,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.inputsystem": {
-      "version": "1.4.3",
+      "version": "1.4.4",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -77,13 +77,13 @@
     },
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.0.2",
-      "depth": 2,
+      "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.render-pipelines.core": {
-      "version": "12.1.7",
+      "version": "12.1.8",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
@@ -93,14 +93,14 @@
       }
     },
     "com.unity.render-pipelines.universal": {
-      "version": "12.1.7",
+      "version": "12.1.8",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
         "com.unity.mathematics": "1.2.1",
         "com.unity.burst": "1.7.3",
-        "com.unity.render-pipelines.core": "12.1.7",
-        "com.unity.shadergraph": "12.1.7"
+        "com.unity.render-pipelines.core": "12.1.8",
+        "com.unity.shadergraph": "12.1.8"
       }
     },
     "com.unity.searcher": {
@@ -111,7 +111,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.services.core": {
-      "version": "1.5.2",
+      "version": "1.6.0",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -122,11 +122,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.shadergraph": {
-      "version": "12.1.7",
+      "version": "12.1.8",
       "depth": 1,
       "source": "builtin",
       "dependencies": {
-        "com.unity.render-pipelines.core": "12.1.7",
+        "com.unity.render-pipelines.core": "12.1.8",
         "com.unity.searcher": "4.9.1"
       }
     },
@@ -238,7 +238,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.oculus": {
-      "version": "3.2.1",
+      "version": "3.2.2",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -247,13 +247,13 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.openxr": {
-      "version": "1.5.3",
+      "version": "1.6.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.xr.management": "4.0.1",
         "com.unity.xr.legacyinputhelpers": "2.1.2",
-        "com.unity.inputsystem": "1.4.2"
+        "com.unity.inputsystem": "1.4.4"
       },
       "url": "https://packages.unity.com"
     },

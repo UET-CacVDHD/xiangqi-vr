@@ -23,7 +23,7 @@ namespace Xiangqi.Motion.Cell
 
         public override string ToString()
         {
-            return $"Cell: ({row}, {col})";
+            return $"Cell: ({col}, {row})";
         }
 
         public bool Equals(BaseCell anotherCell)
