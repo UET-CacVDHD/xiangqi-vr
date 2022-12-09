@@ -385,6 +385,8 @@ namespace Xiangqi.Game
         public void ParseAndExecuteCommand(string command)
         {
             Debug.Log($"Parsing: '{command}'");
+            // TODO
+            Unity3DGameManager.instance.UpdateSubTitleAlert(command);
             var chessPiecesPossibleMoves = new List<ChessPieceMovableCells>();
 
             var parser = CommandParser.Parser;

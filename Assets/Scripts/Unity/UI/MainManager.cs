@@ -9,6 +9,9 @@ namespace Unity.UI
     {
         public TextMeshProUGUI sideTurnText;
         public TextMeshProUGUI gameStateText;
+        public TextMeshProUGUI titleAlertText;
+        public TextMeshProUGUI subtitleAlertText;
+
         private AudioManager _audioManager;
 
         private string _prevGameState;
@@ -71,6 +74,16 @@ namespace Unity.UI
             {
                 gameStateText.gameObject.SetActive(false);
             }
+        }
+
+        public void UpdateAlertTitleText(string content)
+        {
+            titleAlertText.text = content;
+        }
+
+        public void UpdateAlertSubTitleText(string content)
+        {
+            subtitleAlertText.text = content;
         }
 
         public void HandleSaveBtnClick()

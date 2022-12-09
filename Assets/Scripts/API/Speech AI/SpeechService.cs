@@ -29,6 +29,8 @@ namespace API.Speech_AI
                 else
                 {
                     var speechResult = JsonUtility.FromJson<SpeechResult>(postRequest.downloadHandler.text);
+                    // TODO:
+                    Unity3DGameManager.instance.UpdateTitleAlert(speechResult.beamSearchResult);
                     GameObject.Find("GameManager").GetComponent<Unity3DGameManager>().gameSnapshot
                         .ParseAndExecuteCommand(speechResult.command);
                 }

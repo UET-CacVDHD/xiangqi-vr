@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity._3D;
 using Unity.Enum;
+using Unity.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -59,6 +60,18 @@ public class Unity3DGameManager : MonoBehaviour
         Debug.Log("Restarting game");
         gameSnapshot = GameSnapshot.LoadFromFile(Constant.NewGamePath);
         StartCoroutine(LoadScene(SceneIdx.Main));
+    }
+
+    public void UpdateTitleAlert(string content)
+    {
+        var comp = GameObject.Find("MainManager").GetComponent<MainManager>();
+        comp.UpdateAlertTitleText(content);
+    }
+
+    public void UpdateSubTitleAlert(string content)
+    {
+        var comp = GameObject.Find("MainManager").GetComponent<MainManager>();
+        comp.UpdateAlertSubTitleText(content);
     }
 
     private IEnumerator LoadScene(int sceneIdx)
