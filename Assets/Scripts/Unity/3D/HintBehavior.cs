@@ -1,3 +1,4 @@
+using Unity._3D;
 using UnityEngine;
 using Xiangqi.Motion.Cell;
 
@@ -10,11 +11,6 @@ public class HintBehavior : MonoBehaviour
     private void Start()
     {
         _coordinateManager = GameObject.Find("CoordinateManager").GetComponent<CoordinateManager>();
-    }
-
-    private void OnMouseOver()
-    {
-        if (!_isEnabled) return;
     }
 
     private void OnMouseUpAsButton()

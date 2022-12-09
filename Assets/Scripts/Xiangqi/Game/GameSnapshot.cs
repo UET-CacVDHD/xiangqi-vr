@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Unity._3D;
 using UnityEngine;
 using Xiangqi.ChessPieceLogic;
 using Xiangqi.Command;
 using Xiangqi.Enum;
 using Xiangqi.Enum.Command;
 using Xiangqi.Motion.Cell;
+using Xiangqi.Parser;
 using Xiangqi.Util;
 
 namespace Xiangqi.Game
@@ -19,6 +21,8 @@ namespace Xiangqi.Game
 
         [SerializeField] private string sideTurn;
         [SerializeField] private string state;
+
+        private AudioManager _audioManager;
 
         public ChessPiece[,] chessboard;
 
@@ -137,15 +141,13 @@ namespace Xiangqi.Game
         public List<ChessPieceMovableCells> ProcessStandardCommand(StandardCommand command)
         {
             return Selectors.SelectRowFromChessPieceRows(
-                    GetChessPiecesByRow(command.StartChessType, piece => piece.side == sideTurn),
+                    GetChessPiecesByRow(command.StartChessType,
+                        piece => piece.side == sideTurn &&
+                                 // xét nếu có số thứ tự cột bắt đầu
+                                 (Utilities.IsUndefined(command.StartColumn)
+                                  || piece.aCell.GetRelativeCell(sideTurn).col == command.StartColumn)),
                     command.StartVerticalRelativePosition,
                     sideTurn) // quân và vị trí tương đối trước/sau/giữa
-                .Where(cp => // số thứ tự cột bắt đầu
-                {
-                    if (Utilities.IsUndefined(command.StartColumn)) return true;
-
-                    return cp.aCell.GetRelativeCell(sideTurn).col == command.StartColumn;
-                })
                 .Select(GetChessPieceMovableCells)
                 .Select(cp => new ChessPieceMovableCells
                 {
@@ -157,30 +159,169 @@ namespace Xiangqi.Game
                         switch (command.Direction)
                         {
                             // bình
-                            case DirectionCode.Sideways when command.EndColumn <= 0:
+                            case DirectionCode.Sideways when Utilities.IsUndefined(command.EndColumn):
                                 return false;
                             case DirectionCode.Sideways:
                                 return movableRCell.row == cpRCell.row &&
                                        movableRCell.col == command.EndColumn;
                             // tiến thoái: tượng, mã, sĩ
-                            case DirectionCode.Forward or DirectionCode.Backward when command.EndColumn > 0:
+                            case DirectionCode.Forward or DirectionCode.Backward
+                                when !Utilities.IsUndefined(command.EndColumn):
                             {
-                                if (command.Direction == DirectionCode.Forward)
-                                    return movableRCell.col == command.EndColumn && movableRCell.row > cpRCell.row;
-                                if (command.Direction == DirectionCode.Backward)
-                                    return movableRCell.col == command.EndColumn && movableRCell.row < cpRCell.row;
+                                switch (command.Direction)
+                                {
+                                    case DirectionCode.Forward:
+                                        return movableRCell.col == command.EndColumn && movableRCell.row > cpRCell.row;
+                                    case DirectionCode.Backward:
+                                        return movableRCell.col == command.EndColumn && movableRCell.row < cpRCell.row;
+                                }
+
                                 break;
                             }
                             //   tiến thoái: tướng, xe, tốt, pháo
                             case DirectionCode.Forward or DirectionCode.Backward:
                             {
                                 var numOfStep = command.NumberOfSteps > 0 ? command.NumberOfSteps : 1;
-                                if (command.Direction == DirectionCode.Forward)
-                                    return movableRCell.col == cpRCell.col &&
-                                           movableRCell.row == cpRCell.row + numOfStep;
-                                if (command.Direction == DirectionCode.Backward)
-                                    return movableRCell.col == cpRCell.col &&
-                                           movableRCell.row == cpRCell.row - numOfStep;
+                                switch (command.Direction)
+                                {
+                                    case DirectionCode.Forward:
+                                        return movableRCell.col == cpRCell.col &&
+                                               movableRCell.row == cpRCell.row + numOfStep;
+                                    case DirectionCode.Backward:
+                                        return movableRCell.col == cpRCell.col &&
+                                               movableRCell.row == cpRCell.row - numOfStep;
+                                }
+
+                                break;
+                            }
+                        }
+
+                        return false;
+                    }).ToList()
+                }).Where(cp => cp.MovableCells.Count > 0).ToList();
+        }
+
+        public List<ChessPieceMovableCells> ProcessExtendedMovementCommand(ExtendedMovementCommand command)
+        {
+            var selectionExtendedRelativePos = new List<ChessPiece>();
+
+            if (command.StartExtendedRelativePosition is RelativePosition.Front or RelativePosition.FrontMid
+                or RelativePosition.Mid or RelativePosition.BackMid or RelativePosition.Back)
+            {
+                // quân và vị trí tương đối trước/sau/giữa
+                var rows = GetChessPiecesByRow(command.StartChessType,
+                    piece => piece.side == sideTurn &&
+                             // xét nếu có số thứ tự cột bắt đầu
+                             (Utilities.IsUndefined(command.StartColumn)
+                              || piece.aCell.GetRelativeCell(sideTurn).col == command.StartColumn));
+                var selectedRow = Selectors.SelectRowFromChessPieceRows(rows, command.StartExtendedRelativePosition,
+                    sideTurn);
+
+                selectionExtendedRelativePos.AddRange(selectedRow);
+            }
+
+            if (command.StartExtendedRelativePosition is RelativePosition.Left or RelativePosition.LeftMid
+                or RelativePosition.Mid or RelativePosition.RightMid or RelativePosition.Right or null)
+            {
+                // quân và vị trí tương đối trái/phải/giữa
+                var cols = GetChessPiecesByColumn(command.StartChessType,
+                    piece => piece.side == sideTurn &&
+                             // xét nếu có số thứ tự cột bắt đầu
+                             (Utilities.IsUndefined(command.StartColumn)
+                              || piece.aCell.GetRelativeCell(sideTurn).col == command.StartColumn));
+                var selectedCol = Selectors.SelectColumnFromChessPieceColumns(cols,
+                    command.StartExtendedRelativePosition,
+                    sideTurn);
+
+                selectionExtendedRelativePos.AddRange(selectedCol);
+            }
+
+
+            return selectionExtendedRelativePos
+                .Select(GetChessPieceMovableCells)
+                .Select(cp => new ChessPieceMovableCells
+                {
+                    ChessPiece = cp.ChessPiece,
+                    MovableCells = cp.MovableCells.Where(movableCell =>
+                    {
+                        var cpRCell = cp.ChessPiece.aCell.GetRelativeCell(sideTurn);
+                        var movableRCell = movableCell.GetRelativeCell(sideTurn);
+                        switch (command.ExtendedDirection)
+                        {
+                            // bình
+                            case DirectionCode.Sideways when Utilities.IsUndefined(command.EndColumn):
+                                return false;
+                            case DirectionCode.Sideways:
+                                return movableRCell.row == cpRCell.row &&
+                                       movableRCell.col == command.EndColumn;
+                            // tiến thoái: tượng, mã, sĩ
+                            case DirectionCode.Forward or DirectionCode.Backward
+                                when !Utilities.IsUndefined(command.EndColumn):
+                            {
+                                switch (command.ExtendedDirection)
+                                {
+                                    case DirectionCode.Forward:
+                                        return movableRCell.col == command.EndColumn && movableRCell.row > cpRCell.row;
+                                    case DirectionCode.Backward:
+                                        return movableRCell.col == command.EndColumn && movableRCell.row < cpRCell.row;
+                                }
+
+                                break;
+                            }
+                            //   tiến thoái: tướng, xe, tốt, pháo
+                            case DirectionCode.Forward or DirectionCode.Backward:
+                            {
+                                var numOfStep = command.NumberOfSteps > 0 ? command.NumberOfSteps : 1;
+                                switch (command.ExtendedDirection)
+                                {
+                                    case DirectionCode.Forward:
+                                        return movableRCell.col == cpRCell.col &&
+                                               movableRCell.row == cpRCell.row + numOfStep;
+                                    case DirectionCode.Backward:
+                                        return movableRCell.col == cpRCell.col &&
+                                               movableRCell.row == cpRCell.row - numOfStep;
+                                }
+
+                                break;
+                            }
+                            // tiến thoái chéo: tượng, mã, sĩ
+                            case DirectionCode.ForwardLeft or DirectionCode.ForwardRight or DirectionCode.BackwardLeft
+                                or DirectionCode.BackwardRight:
+                            {
+                                long defaultStep = 0;
+                                switch (command.StartChessType)
+                                {
+                                    case ChessType.Elephant:
+                                        defaultStep = 2;
+                                        break;
+                                    case ChessType.Horse:
+                                    case ChessType.Advisor:
+                                        defaultStep = 1;
+                                        break;
+                                }
+
+
+                                var numOfStep = !Utilities.IsUndefined(command.NumberOfSteps)
+                                    ? command.NumberOfSteps
+                                    : defaultStep;
+
+
+                                switch (command.ExtendedDirection)
+                                {
+                                    case DirectionCode.ForwardLeft:
+                                        return movableRCell.col == cpRCell.col - numOfStep &&
+                                               movableRCell.row > cpRCell.row;
+                                    case DirectionCode.ForwardRight:
+                                        return movableRCell.col == cpRCell.col + numOfStep &&
+                                               movableRCell.row > cpRCell.row;
+                                    case DirectionCode.BackwardLeft:
+                                        return movableRCell.col == cpRCell.col - numOfStep &&
+                                               movableRCell.row < cpRCell.row;
+                                    case DirectionCode.BackwardRight:
+                                        return movableRCell.col == cpRCell.col + numOfStep &&
+                                               movableRCell.row < cpRCell.row;
+                                }
+
                                 break;
                             }
                         }
@@ -239,6 +380,50 @@ namespace Xiangqi.Game
                 ChessPiece = chessPiece,
                 MovableCells = chessPiece.GetMovableAndNotLeadToGameOverCells()
             };
+        }
+
+        public void ParseAndExecuteCommand(string command)
+        {
+            Debug.Log($"Parsing: '{command}'");
+            var chessPiecesPossibleMoves = new List<ChessPieceMovableCells>();
+
+            var parser = CommandParser.Parser;
+            var parseSuccess = parser.TryParse(command, out var polyCommand);
+            if (!parseSuccess)
+            {
+                Debug.Log("parse fail");
+                return;
+            }
+
+            var extMoveCommand = polyCommand.GetExtendedMovementCommand();
+            if (extMoveCommand != null)
+            {
+                Debug.Log(extMoveCommand);
+                chessPiecesPossibleMoves = ProcessExtendedMovementCommand(extMoveCommand);
+                goto handlePossibleMoves;
+            }
+
+            var stdCommand = polyCommand.GetStandardCommand();
+            if (stdCommand != null) chessPiecesPossibleMoves = ProcessStandardCommand(stdCommand);
+
+
+            handlePossibleMoves:
+            if (
+                chessPiecesPossibleMoves.Count is <= 0 or > 1 ||
+                chessPiecesPossibleMoves[0].MovableCells.Count is <= 0 or > 1)
+            {
+                Debug.Log($"No/too many valid moves: Count: {chessPiecesPossibleMoves.Count}");
+                return;
+            }
+
+
+            var chessPieceToMove = chessPiecesPossibleMoves[0].ChessPiece;
+            var cellToMoveTo = chessPiecesPossibleMoves[0].MovableCells[0];
+
+            Debug.Log($"{chessPieceToMove.aCell} -> {cellToMoveTo}");
+
+            chessboard[chessPieceToMove.aCell.row,
+                chessPieceToMove.aCell.col].MoveTo(cellToMoveTo);
         }
 
         public class ChessPieceMovableCells

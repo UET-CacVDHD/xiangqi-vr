@@ -11,7 +11,7 @@ public class Test : MonoBehaviour
 
     private void Start()
     {
-        gameManager = Unity3DGameManager.Instance;
+        gameManager = Unity3DGameManager.instance;
         PrintParse("std:M4.3");
         PrintParse("std:Mt4/2");
         PrintParse("std:M4.");

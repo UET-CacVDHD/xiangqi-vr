@@ -23,9 +23,15 @@ namespace API.Speech_AI
             {
                 var text = postRequest.downloadHandler.text;
                 if (text == "undefined")
+                {
                     Debug.Log("Unknown speech recognizer error");
+                }
                 else
-                    Debug.Log(JsonUtility.FromJson<SpeechResult>(postRequest.downloadHandler.text));
+                {
+                    var speechResult = JsonUtility.FromJson<SpeechResult>(postRequest.downloadHandler.text);
+                    GameObject.Find("GameManager").GetComponent<Unity3DGameManager>().gameSnapshot
+                        .ParseAndExecuteCommand(speechResult.command);
+                }
             }
         }
     }

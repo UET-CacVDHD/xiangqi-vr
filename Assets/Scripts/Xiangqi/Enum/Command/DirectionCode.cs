@@ -1,6 +1,6 @@
 ﻿namespace Xiangqi.Enum.Command
 {
-    public class DirectionCode
+    public static class DirectionCode
     {
         public const string Forward = ".";
         public const string Backward = "/";

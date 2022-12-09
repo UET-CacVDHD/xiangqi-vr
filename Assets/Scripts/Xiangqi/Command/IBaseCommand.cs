@@ -5,7 +5,7 @@ namespace Xiangqi.Command
 {
     public abstract class IBaseCommand
     {
-        public virtual bool IsValid { get; set; }
+        public bool IsValid { get; set; }
 
         public override string ToString()
         {

@@ -1,6 +1,6 @@
 ﻿namespace Xiangqi.Enum.Command
 {
-    public class RelativePosition
+    public static class RelativePosition
     {
         public const string Front = "t";
         public const string Back = "s";

@@ -2,7 +2,7 @@ using System;
 
 namespace Xiangqi.Enum
 {
-    public class Side
+    public static class Side
     {
         public const string Red = "Red";
         public const string Black = "Black";

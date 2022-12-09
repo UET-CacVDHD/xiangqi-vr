@@ -21,6 +21,9 @@ namespace Xiangqi.Util
             if (chessPieceRows == null || chessPieceRows.Count == 0)
                 return res;
 
+            if (chessSide != null && chessSide == Side.Black)
+                chessPieceRows.Reverse();
+
             switch (chessPieceRows.Count)
             {
                 case 2:
@@ -93,9 +96,6 @@ namespace Xiangqi.Util
                     break;
             }
 
-            if (chessSide != null && chessSide == Side.Black)
-                res.Reverse();
-
             return res;
         }
 
@@ -111,6 +111,9 @@ namespace Xiangqi.Util
 
             if (chessPieceColumns == null || chessPieceColumns.Count == 0)
                 return res;
+
+            if (chessSide != null && chessSide == Side.Black)
+                chessPieceColumns.Reverse();
 
             switch (chessPieceColumns.Count)
             {
@@ -183,9 +186,6 @@ namespace Xiangqi.Util
 
                     break;
             }
-
-            if (chessSide != null && chessSide == Side.Black)
-                res.Reverse();
 
             return res;
         }

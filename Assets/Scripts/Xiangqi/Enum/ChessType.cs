@@ -1,6 +1,6 @@
 namespace Xiangqi.Enum
 {
-    public class ChessType
+    public static class ChessType
     {
         public const string Rook = "X";
         public const string Horse = "M";

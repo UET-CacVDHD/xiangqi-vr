@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Text;
 using Xiangqi.Command;
+using Xiangqi.Util;
 
 namespace Xiangqi.Parser.Command
 {
@@ -29,7 +30,7 @@ namespace Xiangqi.Parser.Command
 
         public StandardCommand GetStandardCommand()
         {
-            if (!IsValid || Direction == null || StartColumn <= 0 || StartChessType == null)
+            if (!IsValid || StartChessType == null || Direction == null || Utilities.IsUndefined(StartColumn))
                 return null;
 
             return new StandardCommand
@@ -39,6 +40,23 @@ namespace Xiangqi.Parser.Command
                 StartVerticalRelativePosition = StartVerticalRelativePosition,
                 StartColumn = StartColumn,
                 Direction = Direction,
+                NumberOfSteps = NumberOfSteps,
+                EndColumn = EndColumn
+            };
+        }
+
+        public ExtendedMovementCommand GetExtendedMovementCommand()
+        {
+            if (!IsValid || StartChessType == null || ExtendedDirection == null)
+                return null;
+
+            return new ExtendedMovementCommand
+            {
+                IsValid = true,
+                StartChessType = StartChessType,
+                StartExtendedRelativePosition = StartExtendedRelativePosition,
+                StartColumn = StartColumn,
+                ExtendedDirection = ExtendedDirection,
                 NumberOfSteps = NumberOfSteps,
                 EndColumn = EndColumn
             };

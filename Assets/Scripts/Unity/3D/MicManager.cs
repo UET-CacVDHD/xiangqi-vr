@@ -60,12 +60,12 @@ namespace Unity._3D
                 else
                 {
                     print("Stopped speaking. Sending audio to server...");
-                    getSpeakingClip();
+                    GetSpeakingClip();
                 }
             }
         }
 
-        private void getSpeakingClip()
+        private void GetSpeakingClip()
         {
             var micClip = micSource.clip;
 

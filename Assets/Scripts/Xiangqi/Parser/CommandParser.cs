@@ -1,5 +1,4 @@
 ﻿using Parlot.Fluent;
-using Xiangqi.Parser.Chess;
 using Xiangqi.Parser.Command;
 using static Parlot.Fluent.Parsers;
 
@@ -14,7 +13,7 @@ namespace Xiangqi.Parser
         {
             var expression = Deferred<PolymorphicCommand>();
 
-            expression.Parser = OneOf(StandardCommandParser.Parser);
+            expression.Parser = OneOf(ExtendedMovementCommandParser.Parser, StandardCommandParser.Parser);
 
             Parser = expression;
         }

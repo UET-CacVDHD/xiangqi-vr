@@ -1,5 +1,6 @@
 ﻿using Parlot.Fluent;
 using Xiangqi.Parser.Chess;
+using Xiangqi.Util;
 using static Parlot.Fluent.Parsers;
 
 namespace Xiangqi.Parser.Command
@@ -28,7 +29,7 @@ namespace Xiangqi.Parser.Command
                 }).Then((_, combined) =>
                 {
                     var (command, startColumn) = combined;
-                    if (startColumn <= 0) return command;
+                    if (Utilities.IsUndefined(startColumn)) return command;
 
                     command.StartColumn = startColumn;
                     return command;
@@ -41,7 +42,7 @@ namespace Xiangqi.Parser.Command
                 }).And(ZeroOrOne(Literals.Integer())).Then((_, combined) =>
                 {
                     var (command, numOfStepOrEndColumn) = combined;
-                    if (numOfStepOrEndColumn <= 0) return command;
+                    if (Utilities.IsUndefined(numOfStepOrEndColumn)) return command;
 
                     if (OneOf(ChessTypeParser.Soldier, ChessTypeParser.Rook, ChessTypeParser.Cannon,
                                 ChessTypeParser.General)

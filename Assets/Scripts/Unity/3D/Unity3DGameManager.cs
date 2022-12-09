@@ -2,34 +2,42 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity._3D;
+using Unity.Enum;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
-using Xiangqi.Enum;
 using Xiangqi.Game;
 using Xiangqi.Util;
 
 public class Unity3DGameManager : MonoBehaviour
 {
-    public static Unity3DGameManager Instance;
+    public static Unity3DGameManager instance;
     public ChessPieceSideTypePrefab[] chessPieceSideTypePrefabs;
 
     [FormerlySerializedAs("_gameSnapshot")]
     public GameSnapshot gameSnapshot;
 
+    public string currentSideTurn;
+
     private Dictionary<string, GameObject> _sideTypePrefabMap;
 
     private void Start()
     {
-        // var res = TestParser.Expression.Parse("std:T3+2");
-        if (Instance != null)
+        if (instance != null)
         {
             Destroy(gameObject);
             return;
         }
 
-        Instance = this;
+        instance = this;
         DontDestroyOnLoad(gameObject);
+
+        currentSideTurn = gameSnapshot.SideTurn;
+    }
+
+    private void Update()
+    {
+        if (currentSideTurn != gameSnapshot.SideTurn) currentSideTurn = gameSnapshot.SideTurn;
     }
 
     public void SaveGame()

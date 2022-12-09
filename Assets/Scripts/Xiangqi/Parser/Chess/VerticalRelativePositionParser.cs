@@ -1,17 +1,18 @@
 ﻿using Parlot.Fluent;
+using Xiangqi.Enum.Command;
 using static Parlot.Fluent.Parsers;
 
 namespace Xiangqi.Parser.Chess
 {
     public static class VerticalRelativePositionParser
     {
-        public static readonly Parser<string> Front = Literals.Text("t");
-        public static readonly Parser<string> Behind = Literals.Text("s");
-        public static readonly Parser<string> Mid = Literals.Text("g");
-        public static readonly Parser<string> FrontMid = Literals.Text("tg");
-        public static readonly Parser<string> BehindMid = Literals.Text("sg");
+        public static readonly Parser<string> Front = Literals.Text(RelativePosition.Front);
+        public static readonly Parser<string> Back = Literals.Text(RelativePosition.Back);
+        public static readonly Parser<string> Mid = Literals.Text(RelativePosition.Mid);
+        public static readonly Parser<string> FrontMid = Literals.Text(RelativePosition.FrontMid);
+        public static readonly Parser<string> BackMid = Literals.Text(RelativePosition.BackMid);
 
         public static readonly Parser<string> Parser =
-            OneOf(Front, Behind, Mid, FrontMid, BehindMid);
+            OneOf(Front, Back, Mid, FrontMid, BackMid);
     }
 }
