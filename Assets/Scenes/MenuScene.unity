@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 335760273}
   - component: {fileID: 335760272}
   - component: {fileID: 335760271}
+  - component: {fileID: 335760276}
   m_Layer: 0
   m_Name: XR Canvas
   m_TagString: Untagged
@@ -338,6 +339,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &335760276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335760268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a686b31adcfa45579f683d59bfb3983, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &628127561
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,9 +435,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1192850067}
-        m_TargetAssemblyTypeName: Unity3DGameManager, Assembly-CSharp
-        m_MethodName: RestartGame
+      - m_Target: {fileID: 335760276}
+        m_TargetAssemblyTypeName: Unity.UI.MenuManager, Assembly-CSharp
+        m_MethodName: HandleNewGameBtnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -883,6 +896,7 @@ MonoBehaviour:
     chessPieces: []
     sideTurn: 
     state: 
+  currentSideTurn: 
 --- !u!4 &1192850068
 Transform:
   m_ObjectHideFlags: 0
@@ -1417,9 +1431,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1192850067}
-        m_TargetAssemblyTypeName: Unity3DGameManager, Assembly-CSharp
-        m_MethodName: LoadGame
+      - m_Target: {fileID: 335760276}
+        m_TargetAssemblyTypeName: Unity.UI.MenuManager, Assembly-CSharp
+        m_MethodName: HandleLoadBtnClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
